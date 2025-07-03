@@ -1,0 +1,38 @@
+import 'package:ecommerce_store/utils/theme/custom_thems/appbar_theme.dart';
+import 'package:ecommerce_store/utils/theme/custom_thems/bottom_sheet_theme.dart';
+import 'package:ecommerce_store/utils/theme/custom_thems/chip_theme.dart';
+import 'package:ecommerce_store/utils/theme/custom_thems/elevated_button_theme.dart';
+import 'package:ecommerce_store/utils/theme/custom_thems/text_field_teme.dart';
+import 'package:ecommerce_store/utils/theme/custom_thems/text_theme.dart';
+import 'package:flutter/material.dart';
+
+class MyAppTheme {
+  MyAppTheme._();
+
+  static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
+    fontFamily: 'Poppins',
+    brightness: Brightness.light,
+    primaryColor: Colors.blue,
+    scaffoldBackgroundColor: Colors.white,
+    textTheme: MyAppTextTheme.lightTextTheme,
+    elevatedButtonTheme: MyElevatedButtonTheme.lightElevatedButtonTheme,
+    appBarTheme: MyAppbarTheme.lightAppbarTheme,
+    bottomSheetTheme: MyBottomSheetTheme.lightBottomSheetTheme,
+    chipTheme: MyChipTheme.lightChipTheme,
+    inputDecorationTheme: MyTextFieldTheme.lightInputDecorationTheme
+  );
+  static ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
+    fontFamily: 'Poppins',
+    brightness: Brightness.dark,
+    primaryColor: Colors.blue,
+    scaffoldBackgroundColor: Colors.black,
+    textTheme: MyAppTextTheme.darkTextTheme,
+    elevatedButtonTheme: MyElevatedButtonTheme.darkElevatedButtonTheme,
+    appBarTheme: MyAppbarTheme.darkAppbarTheme,
+    bottomSheetTheme: MyBottomSheetTheme.darkBottomSheetTheme,
+    chipTheme: MyChipTheme.darkChipTheme,
+    inputDecorationTheme: MyTextFieldTheme.darkInputDecorationTheme
+  );
+}
