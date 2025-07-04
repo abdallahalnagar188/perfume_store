@@ -1,7 +1,9 @@
 import 'package:ecommerce_store/utils/theme/custom_thems/appbar_theme.dart';
 import 'package:ecommerce_store/utils/theme/custom_thems/bottom_sheet_theme.dart';
+import 'package:ecommerce_store/utils/theme/custom_thems/checkbox_theme.dart';
 import 'package:ecommerce_store/utils/theme/custom_thems/chip_theme.dart';
 import 'package:ecommerce_store/utils/theme/custom_thems/elevated_button_theme.dart';
+import 'package:ecommerce_store/utils/theme/custom_thems/outlined_button_theme.dart';
 import 'package:ecommerce_store/utils/theme/custom_thems/text_field_teme.dart';
 import 'package:ecommerce_store/utils/theme/custom_thems/text_theme.dart';
 import 'package:flutter/material.dart';
@@ -17,10 +19,12 @@ class MyAppTheme {
     scaffoldBackgroundColor: Colors.white,
     textTheme: MyAppTextTheme.lightTextTheme,
     elevatedButtonTheme: MyElevatedButtonTheme.lightElevatedButtonTheme,
+    outlinedButtonTheme: MyOutlinedButtonTheme.lightOutlinedButtonTheme,
     appBarTheme: MyAppbarTheme.lightAppbarTheme,
     bottomSheetTheme: MyBottomSheetTheme.lightBottomSheetTheme,
     chipTheme: MyChipTheme.lightChipTheme,
-    inputDecorationTheme: MyTextFieldTheme.lightInputDecorationTheme
+    inputDecorationTheme: MyTextFieldTheme.lightInputDecorationTheme,
+    checkboxTheme: TCheckboxTheme.lightCheckboxTheme,
   );
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
@@ -30,9 +34,11 @@ class MyAppTheme {
     scaffoldBackgroundColor: Colors.black,
     textTheme: MyAppTextTheme.darkTextTheme,
     elevatedButtonTheme: MyElevatedButtonTheme.darkElevatedButtonTheme,
+    outlinedButtonTheme: MyOutlinedButtonTheme.darkOutlinedButtonTheme,
     appBarTheme: MyAppbarTheme.darkAppbarTheme,
     bottomSheetTheme: MyBottomSheetTheme.darkBottomSheetTheme,
     chipTheme: MyChipTheme.darkChipTheme,
-    inputDecorationTheme: MyTextFieldTheme.darkInputDecorationTheme
+    inputDecorationTheme: MyTextFieldTheme.darkInputDecorationTheme,
+    checkboxTheme: TCheckboxTheme.darkCheckboxTheme,
   );
 }
