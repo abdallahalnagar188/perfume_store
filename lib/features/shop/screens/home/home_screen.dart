@@ -12,7 +12,8 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
 import '../../../../common/widgets/image_text_category_widgets/category_item.dart';
-import '../../../../common/widgets/rounded_image/home_rounded_image.dart';
+import '../../../../common/widgets/layouts/grid_layout.dart';
+import '../../../../common/widgets/products/products_cards/product_card_vertical.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../../../utils/constants/image_strings.dart';
 
@@ -26,21 +27,20 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             ///Header
-            TPrimaryHeaderContainer(
+             const TPrimaryHeaderContainer(
               child: Column(
                 children: [
                   /// Appbar
                   THomeAppbar(),
-
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  SizedBox(height: TSizes.spaceBtwSections),
 
                   ///Searchbar
                   TSearchContainer(text: 'Search in Store'),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Heading
                   Padding(
-                    padding: const EdgeInsets.only(left: TSizes.defaultSpace),
+                    padding: EdgeInsets.only(left: TSizes.defaultSpace),
                     child: Column(
                       children: [
                         TSectionHeading(
@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                           showActionButton: false,
                           textColor: TColors.white,
                         ),
-                        const SizedBox(height: TSizes.spaceBtwItems),
+                        SizedBox(height: TSizes.spaceBtwItems),
 
                         /// Category
                         THomeCategory(),
@@ -62,11 +62,27 @@ class HomeScreen extends StatelessWidget {
             /// Body
             Padding(
               padding: const EdgeInsets.all(TSizes.defaultSpace),
-              child: TPromoSlider(
-                banners: [
-                  TImages.promoBanner1,
-                  TImages.promoBanner2,
-                  TImages.promoBanner3,
+              child: Column(
+                children: [
+                  /// Slider
+                  TPromoSlider(
+                    banners: [
+                      TImages.promoBanner1,
+                      TImages.promoBanner2,
+                      TImages.promoBanner3,
+                    ],
+                  ),
+                  const SizedBox(height: TSizes.spaceBtwSections),
+                  TSectionHeading(
+                    title: 'Popular Categories',
+                    showActionButton: true,
+                    textColor: TColors.white,
+                    onPressed: (){},
+                  ),
+                  SizedBox(height: TSizes.spaceBtwItems),
+
+                  /// Popular Products
+                  TGridLayout(itemCount: 2, itemBuilder: (_ , index ) => const TProductCardVertical(),),
                 ],
               ),
             ),
@@ -76,3 +92,4 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../../common/widgets/custom_shapes/containers/circular_container.dart';
-import '../../../../../common/widgets/rounded_image/home_rounded_image.dart';
+import '../../../../../common/widgets/image/t_rounded_image.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
 
@@ -26,7 +26,7 @@ class TPromoSlider extends StatelessWidget {
             viewportFraction: 1,
             onPageChanged: (index, _) => controller.updatePageIndicator(index),
           ),
-          items: banners.map((url) =>TRoundedImage(imageUrl: url,)).toList(),
+          items: banners.map((url) =>TRoundedImage(imageUrl: url)).toList(),
         ),
         const SizedBox(height: TSizes.spaceBtwItems),
         Obx(
