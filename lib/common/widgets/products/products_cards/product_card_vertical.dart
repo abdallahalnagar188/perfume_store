@@ -9,7 +9,9 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../icons/t_circular_icon.dart';
 import '../../image/t_rounded_image.dart';
+import '../../texts/t_product_price_text.dart';
 import '../../texts/product_title_text.dart';
+import '../../texts/t_brand_title_with_verified_icon.dart';
 
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({super.key});
@@ -85,22 +87,7 @@ class TProductCardVertical extends StatelessWidget {
                     smallSize: true,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems / 2),
-                  Row(
-                    children: [
-                      Text(
-                        "Nike",
-                        style: Theme.of(context).textTheme.labelMedium,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      const SizedBox(width: TSizes.xs),
-                      const Icon(
-                        Iconsax.verify5,
-                        color: TColors.primary,
-                        size: TSizes.iconXs,
-                      ),
-                    ],
-                  ),
+                  TBrandTitleWithVerifiedIcon(title: 'Nike',),
                 ],
               ),
             ),
@@ -124,7 +111,6 @@ class TProductCardVertical extends StatelessWidget {
                   child: SizedBox(
                     height: TSizes.iconLg * 1.2,
                     width: TSizes.iconLg * 1.2,
-
                     child: Icon(Iconsax.add, color: TColors.white),
                   ),
                 ),
@@ -137,35 +123,3 @@ class TProductCardVertical extends StatelessWidget {
   }
 }
 
-class TProductPriceText extends StatelessWidget {
-  const TProductPriceText({
-    super.key,
-    this.currentSign = '\$',
-    required this.price,
-    this.maxLines = 1,
-    this.isLarge = false,
-    this.lineThrough = false,
-  });
-
-  final String currentSign, price;
-  final int maxLines;
-  final bool isLarge;
-
-  final bool lineThrough;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      currentSign + price,
-      maxLines: maxLines,
-      overflow: TextOverflow.ellipsis,
-      style: isLarge
-          ? Theme.of(context).textTheme.headlineMedium!.apply(
-              decoration: lineThrough ? TextDecoration.lineThrough : null,
-            )
-          : Theme.of(context).textTheme.titleLarge!.apply(
-              decoration: lineThrough ? TextDecoration.lineThrough : null,
-            ),
-    );
-  }
-}

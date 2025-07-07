@@ -1,9 +1,12 @@
 import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/rounded_container.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/search_container.dart';
+import 'package:ecommerce_store/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_store/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/common/widgets/texts/t_brand_title_with_verified_icon.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
+import 'package:ecommerce_store/utils/constants/enums.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
@@ -59,26 +62,51 @@ class StoreScreen extends StatelessWidget {
                     SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
                     /// Icon
-                    TRoundedContainer(
-                      padding: EdgeInsets.all(TSizes.sm),
-                      showBorder: true,
-                      backgroundColor: Colors.transparent,
-                      child: Row(
-                        children: [
-                          TCircularImage(
-                            image: TImages.clothIcon,
-                            isNetworkImage: false,
+                    TGridLayout(
+                      mainAxisExtent: 80,
+                      itemCount: 4,
+                      itemBuilder: (_ , index ) {
+                        return GestureDetector(
+                          onTap: (){},
+                          child: TRoundedContainer(
+                            padding: EdgeInsets.all(TSizes.sm),
+                            showBorder: true,
                             backgroundColor: Colors.transparent,
-                            overlayColor: THelperFunctions.isDarkMode(context)
-                                ? TColors.white
-                                : TColors.black,
+                            child: Row(
+                              children: [
+                                Flexible(
+                                  child: TCircularImage(
+                                    image: TImages.clothIcon,
+                                    isNetworkImage: false,
+                                    backgroundColor: Colors.transparent,
+                                    overlayColor: THelperFunctions.isDarkMode(context)
+                                        ? TColors.white
+                                        : TColors.black,
+                                  ),
+                                ),
+                                SizedBox(height: TSizes.spaceBtwItems / 2),
+
+                                Expanded(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      const TBrandTitleWithVerifiedIcon(title: "Nike", brandTextSize: TextSizes.large,),
+
+                                      Text(
+                                        "255 products",
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context).textTheme.labelMedium,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
-                          SizedBox(height: TSizes.spaceBtwItems / 2),
-
-                        ],
-                      ),
+                        );
+                      },
                     ),
-
                   ],
                 ),
               ),

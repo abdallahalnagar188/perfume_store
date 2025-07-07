@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                   TSectionHeading(
                     title: 'Popular Categories',
                     showActionButton: true,
-                    textColor: TColors.white,
+                    textColor: THelperFunctions.isDarkMode(context)?TColors.white:TColors.black,
                     onPressed: (){},
                   ),
                   SizedBox(height: TSizes.spaceBtwItems),
