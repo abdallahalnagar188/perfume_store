@@ -5,13 +5,13 @@ import '../../../utils/constants/colors.dart';
 import '../../../utils/constants/sizes.dart';
 import '../../../utils/helpers/helper_functions.dart';
 
-class TCategoryItem extends StatelessWidget {
-  const TCategoryItem({
+class TVerticalImageText extends StatelessWidget {
+  const TVerticalImageText({
     super.key,
     required this.image,
     required this.title,
     this.textColor = TColors.white,
-    this.backgroundColor = TColors.white,
+    this.backgroundColor ,
     required this.onTap,
   });
 

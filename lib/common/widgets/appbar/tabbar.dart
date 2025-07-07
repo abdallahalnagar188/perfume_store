@@ -17,6 +17,7 @@ class TTabBar extends StatelessWidget implements PreferredSizeWidget {
     return Material(
       color: dark ? TColors.black: TColors.white,
       child: TabBar(
+        padding: EdgeInsets.zero, // Remove outer padding
         isScrollable: true,
         indicatorColor: TColors.primary,
         unselectedLabelColor: TColors.darkGrey,
