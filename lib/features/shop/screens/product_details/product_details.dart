@@ -8,11 +8,14 @@ import 'package:ecommerce_store/features/shop/screens/product_details/widgets/pr
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/product_details_image_slider.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/rating_share_widget.dart';
+import 'package:ecommerce_store/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
@@ -83,7 +86,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       TSectionHeading(title: 'Reviews (199)', showActionButton: false,),
-                      IconButton(onPressed: (){}, icon: Icon(Iconsax.arrow_right_3))
+                      IconButton(onPressed: () => Get.to(() => const ProductReviewsScreen()), icon: Icon(Iconsax.arrow_right_3))
                     ],
                   ),
                   const SizedBox(height: TSizes.spaceBtwSections),
