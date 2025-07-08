@@ -8,6 +8,8 @@ import 'package:ecommerce_store/utils/theme/custom_thems/text_field_teme.dart';
 import 'package:ecommerce_store/utils/theme/custom_thems/text_theme.dart';
 import 'package:flutter/material.dart';
 
+import '../constants/colors.dart';
+
 class MyAppTheme {
   MyAppTheme._();
 
@@ -15,7 +17,7 @@ class MyAppTheme {
     useMaterial3: true,
     fontFamily: 'Poppins',
     brightness: Brightness.light,
-    primaryColor: Colors.blue,
+    primaryColor: TColors.primary,
     scaffoldBackgroundColor: Colors.white,
     textTheme: MyAppTextTheme.lightTextTheme,
     elevatedButtonTheme: MyElevatedButtonTheme.lightElevatedButtonTheme,
@@ -30,7 +32,7 @@ class MyAppTheme {
     useMaterial3: true,
     fontFamily: 'Poppins',
     brightness: Brightness.dark,
-    primaryColor: Colors.blue,
+    primaryColor: TColors.primary,
     scaffoldBackgroundColor: Colors.black,
     textTheme: MyAppTextTheme.darkTextTheme,
     elevatedButtonTheme: MyElevatedButtonTheme.darkElevatedButtonTheme,
