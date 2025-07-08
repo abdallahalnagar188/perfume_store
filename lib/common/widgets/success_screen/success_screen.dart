@@ -9,9 +9,15 @@ import '../../../../utils/helpers/helper_functions.dart';
 import '../../styles/spacing_styles.dart';
 
 class SuccessScreen extends StatelessWidget {
-  const SuccessScreen({super.key, required this.title, required this.subTitle, required this.image, required this.onPressed});
+  const SuccessScreen({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    required this.image,
+    required this.onPressed,
+  });
 
-  final String title , subTitle, image;
+  final String title, subTitle, image;
   final VoidCallback onPressed;
 
   @override
@@ -19,7 +25,7 @@ class SuccessScreen extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Padding(
-          padding: TSpacingStyles.paddingWithAppbarHeight *2,
+          padding: TSpacingStyles.paddingWithAppbarHeight * 2,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -48,7 +54,7 @@ class SuccessScreen extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () => onPressed ,
+                  onPressed: onPressed,
                   child: const Text(TTexts.tContinue),
                 ),
               ),

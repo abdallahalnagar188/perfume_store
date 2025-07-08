@@ -40,7 +40,13 @@ class TBottomAddToCartWidget extends StatelessWidget {
             padding: EdgeInsets.all(TSizes.md),
             backgroundColor: TColors.black,
             side: const BorderSide(color: TColors.black)
-          ), child: Text('Add to Cart'),)
+          ), child: Row(
+            children: [
+              Icon(Iconsax.shopping_bag,size: 24,),
+              SizedBox(width: TSizes.sm,),
+              Text('Add to Cart',style: Theme.of(context).textTheme.bodyLarge!.apply(color: TColors.white),),
+            ],
+          ),)
         ],
       ),
     );
