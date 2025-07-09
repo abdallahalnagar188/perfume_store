@@ -5,6 +5,7 @@ import 'package:ecommerce_store/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_store/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_store/common/widgets/texts/t_brand_title_with_verified_icon.dart';
+import 'package:ecommerce_store/features/shop/screens/brand/all_brands.dart';
 import 'package:ecommerce_store/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/enums.dart';
@@ -12,11 +13,14 @@ import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 import '../../../../common/widgets/appbar/tabbar.dart';
 import '../../../../common/widgets/brands/brand_card.dart';
 import '../../../../common/widgets/brands/brand_show_case.dart';
 import '../../../../common/widgets/image/t_circular_image.dart';
+import '../all_products/all_products_screen.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
@@ -66,7 +70,7 @@ class StoreScreen extends StatelessWidget {
                       TSectionHeading(
                         title: 'Featured Brands',
                         showActionButton: true,
-                        onPressed: () {},
+                        onPressed: ()  => Get.to(() => const AllBrandsScreen()),
                       ),
                       SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
