@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "499026946457",
+    "firebase_url": "https://noah-door-2-default-rtdb.firebaseio.com",
+    "project_id": "noah-door-2",
+    "storage_bucket": "noah-door-2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:499026946457:android:334ca391d3222e95c0cb08",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce_store"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2GbHc22DLdCouvqA5S95rwsEUjvY_qXk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
