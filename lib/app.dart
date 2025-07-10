@@ -1,3 +1,5 @@
+import 'package:ecommerce_store/bindings/general_bindings.dart';
+import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,7 +15,8 @@ class PerfumeStore extends StatelessWidget {
       themeMode: ThemeMode.system,
       theme: MyAppTheme.lightTheme,
       darkTheme: MyAppTheme.darkTheme,
-      home: const OnboardingScreen(),
+      initialBinding: GeneralBindings(),
+      home: const Scaffold(backgroundColor: TColors.primary,body: Center(child: CircularProgressIndicator(color: TColors.white,),),),
     );
   }
 }
