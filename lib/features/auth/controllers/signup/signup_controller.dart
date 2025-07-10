@@ -92,7 +92,7 @@ class SignupController extends GetxController {
 
       // Navigate if signup was successful
       if (isSignupSuccess) {
-        Get.to(() => const VerifyEmailScreen());
+        Get.to(() =>  VerifyEmailScreen(email: email.text.trim(),));
       }
     }
   }

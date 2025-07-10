@@ -1,5 +1,7 @@
 import 'package:ecommerce_store/features/auth/screens/login/login.dart';
 import 'package:ecommerce_store/features/auth/screens/onboarding/onboarding.dart';
+import 'package:ecommerce_store/features/auth/screens/signup/verfiy_email.dart';
+import 'package:ecommerce_store/navigation_menu.dart';
 import 'package:ecommerce_store/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:ecommerce_store/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce_store/utils/exceptions/format_exceptions.dart';
@@ -24,15 +26,21 @@ class AuthenticationRepo extends GetxController {
   }
 
   screenRedirect() async {
-    if (kDebugMode) {
-      print('============== GET STORAGE ===================');
-      print(deviceStorage.read('IsFirstTime'));
+final user = _auth.currentUser;
+    if(user != null){
+      if(user.emailVerified){
+        Get.offAll(() => NavigationMenu());
+      }else{
+        Get.offAll(() => VerifyEmailScreen(email : _auth.currentUser?.email));
+      }
+    }else{
+      deviceStorage.writeIfNull('IsFirstTime', true);
+      deviceStorage.read('IsFirstTime') != true
+          ? Get.offAll(() => const LoginScreen())
+          : Get.offAll(() => const OnboardingScreen());
     }
 
-    deviceStorage.writeIfNull('IsFirstTime', true);
-    deviceStorage.read('IsFirstTime') != true
-        ? Get.offAll(() => const LoginScreen())
-        : Get.offAll(() => const OnboardingScreen());
+
   }
 
   /* ---------------------------- Email and Password sign in -----------------*/
@@ -40,21 +48,64 @@ class AuthenticationRepo extends GetxController {
   /// [Email Auth] sing in
 
   ///[Email Auth] sing Up
-  Future<UserCredential> registerWithEmailAndPassword(String email, String password) async{
-    try{
-      return await _auth.createUserWithEmailAndPassword(email: email, password: password);
-    }on FirebaseAuthException catch (e){
+  Future<UserCredential> registerWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      return await _auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;
-    }on FirebaseException catch (e){
+    } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
-    }on FormatException catch (_){
+    } on FormatException catch (_) {
       throw TFormatException();
-    }on PlatformException catch (e){
+    } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
-    }catch(e){
+    } catch (e) {
       throw 'Something went wrong , Please try again';
     }
   }
 
-  ///[Email Verification]
+  /// [Email Verification] - Mail Verify
+
+  Future<void> sendEmailVerification() async {
+
+    try{
+      await _auth.currentUser?.sendEmailVerification();
+    } on TFirebaseAuthException catch(e){
+      throw TFirebaseAuthException(e.code).message;
+    }on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong , Please try again';
+    }
+  }
+
+
+  /// Logout
+  Future<void> logout() async {
+
+    try{
+      await FirebaseAuth.instance.signOut();
+      Get.offAll(() => LoginScreen());
+    } on TFirebaseAuthException catch(e){
+      throw TFirebaseAuthException(e.code).message;
+    }on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong , Please try again';
+    }
+  }
 }
