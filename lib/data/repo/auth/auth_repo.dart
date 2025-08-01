@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthenticationRepo extends GetxController {
   static AuthenticationRepo get instance => Get.find();
@@ -110,11 +111,49 @@ final user = _auth.currentUser;
     }
   }
 
+  /* -------------------------- Federated identity and social Sign in ---------------------*/
+
+  /// Google Sign in
+
+  Future<UserCredential?> signInWithGoogle() async {
+    try {
+      // Trigger the Google Sign-In flow
+      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleAuth = await userAccount?.authentication;
+
+      // Create the credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      return await _auth.signInWithCredential(credential);
+    } on TFirebaseAuthException catch(e) {
+      throw TFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw TFormatException();
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Google Sign-In error: $e');
+        print('Error type: ${e.runtimeType}');
+      }
+      return null;
+    }
+  }
+
+
+  /// Facebook Sign in
 
   /// Logout
   Future<void> logout() async {
 
     try{
+      await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
       Get.offAll(() => LoginScreen());
     } on TFirebaseAuthException catch(e){
