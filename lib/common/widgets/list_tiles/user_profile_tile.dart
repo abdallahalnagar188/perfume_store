@@ -1,5 +1,8 @@
 
+import 'package:ecommerce_store/features/personalization/controllers/user_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
 import '../../../utils/constants/colors.dart';
@@ -14,10 +17,11 @@ class TUserProfileTitle extends StatelessWidget {
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(UserController());
     return ListTile(
       leading: const TCircularImage(image: TImages.user,width: 50,height: 50,padding: 0,),
-      title: Text('Abdallah Alnagar',style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.white),),
-      subtitle: Text('abdallahalngar04@gmail.com',style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),),
+      title: Text(controller.user.value.fullName,style: Theme.of(context).textTheme.headlineSmall!.apply(color: TColors.white),),
+      subtitle: Text(controller.user.value.email,style: Theme.of(context).textTheme.bodyMedium!.apply(color: TColors.white),),
       trailing: IconButton(onPressed: onPressed, icon: Icon(Iconsax.edit,color: TColors.white,)),
 
     );
