@@ -2,7 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:ecommerce_store/common/widgets/shimmer/vertical_product_shimmer.dart';
 import 'package:ecommerce_store/features/shop/controllers/home_controllers.dart';
-import 'package:ecommerce_store/features/shop/controllers/product_controller.dart';
+import 'package:ecommerce_store/features/shop/controllers/product/product_controller.dart';
 import 'package:ecommerce_store/features/shop/screens/all_products/all_products_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:ecommerce_store/features/shop/screens/home/widgets/home_category.dart';
@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                     textColor: THelperFunctions.isDarkMode(context)
                         ? TColors.white
                         : TColors.black,
-                    onPressed: () => Get.to(() => const AllProductsScreen()),
+                    onPressed: () => Get.to(() =>  AllProductsScreen()),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems),
 

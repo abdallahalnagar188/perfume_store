@@ -22,8 +22,8 @@ import 'package:readmore/readmore.dart';
 import '../../models/product_model.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key, required this.productModel});
-  final ProductModel productModel;
+  const ProductDetailsScreen({super.key, required this.product});
+  final ProductModel product;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class ProductDetailsScreen extends StatelessWidget {
         child: Column(
           children: [
             /// 1- Product Image Slider
-            TProductImageSlider(),
+            TProductImageSlider(product: product,),
 
             /// 2-  Product Details
             Padding(
@@ -49,11 +49,11 @@ class ProductDetailsScreen extends StatelessWidget {
                   TRatingAndShareButton(),
 
                   /// Price ,Title,Stoke , Brand
-                  TProductMetaData(),
+                  TProductMetaData(product: product,),
                   const SizedBox(height: TSizes.spaceBtwItems / 2),
 
                   /// Attributes
-                  TProductAttributes(),
+                  TProductAttributes(product: product,),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Checkout Button
@@ -73,7 +73,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
                   ReadMoreText(
-                    'This is the Description for blue Nike Sleeve less vest, There are more things that can be added but i am aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa ',
+                  product.description !,
                     trimLines: 2,
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Show more',

@@ -1,6 +1,6 @@
 import 'package:ecommerce_store/common/styles/shadow_styles.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/rounded_container.dart';
-import 'package:ecommerce_store/features/shop/controllers/product_controller.dart';
+import 'package:ecommerce_store/features/shop/controllers/product/product_controller.dart';
 import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/product_details.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
@@ -29,7 +29,7 @@ class TProductCardVertical extends StatelessWidget {
 
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () => Get.to(() =>  ProductDetailsScreen(productModel: productModel,)),
+      onTap: () => Get.to(() =>  ProductDetailsScreen(product: productModel,)),
       child: Container(
         width: 180,
         padding: EdgeInsets.all(1),

@@ -1,5 +1,6 @@
 import 'package:ecommerce_store/common/widgets/brands/brand_card.dart';
 import 'package:ecommerce_store/common/widgets/products/sortable_products/sortable_products.dart';
+import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,7 @@ import '../../../../common/widgets/appbar/appbar.dart';
 
 class BrandProducts extends StatelessWidget {
   const BrandProducts({super.key});
+
 
   @override
   Widget build(BuildContext context) {

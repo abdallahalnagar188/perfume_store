@@ -3,8 +3,8 @@ import 'package:ecommerce_store/features/shop/models/banner_model.dart';
 import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:get/get.dart';
 
-import '../../../data/repo/products/products_repo.dart';
-import '../../../utils/popups/loaders.dart';
+import '../../../../data/repo/products/products_repo.dart';
+import '../../../../utils/popups/loaders.dart';
 
 class ProductController extends GetxController{
   static ProductController get instance => Get.find();
