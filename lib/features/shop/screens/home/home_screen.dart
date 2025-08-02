@@ -1,5 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/circular_container.dart';
+import 'package:ecommerce_store/common/widgets/shimmer/vertical_product_shimmer.dart';
+import 'package:ecommerce_store/features/shop/controllers/home_controllers.dart';
+import 'package:ecommerce_store/features/shop/controllers/product_controller.dart';
 import 'package:ecommerce_store/features/shop/screens/all_products/all_products_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/home/widgets/home_appbar.dart';
 import 'package:ecommerce_store/features/shop/screens/home/widgets/home_category.dart';
@@ -25,12 +28,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.put(ProductController());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             ///Header
-             const TPrimaryHeaderContainer(
+            const TPrimaryHeaderContainer(
               child: Column(
                 children: [
                   /// Appbar
@@ -56,7 +60,6 @@ class HomeScreen extends StatelessWidget {
                         /// Category
                         THomeCategory(),
                         SizedBox(height: TSizes.spaceBtwSections),
-
                       ],
                     ),
                   ),
@@ -70,24 +73,34 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Slider
-                  TPromoSlider(
-                    banners: [
-                      TImages.promoBanner1,
-                      TImages.promoBanner2,
-                      TImages.promoBanner3,
-                    ],
-                  ),
+                  TPromoSlider(),
                   const SizedBox(height: TSizes.spaceBtwSections),
                   TSectionHeading(
                     title: 'Popular Products',
                     showActionButton: true,
-                    textColor: THelperFunctions.isDarkMode(context)?TColors.white:TColors.black,
+                    textColor: THelperFunctions.isDarkMode(context)
+                        ? TColors.white
+                        : TColors.black,
                     onPressed: () => Get.to(() => const AllProductsScreen()),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems),
 
                   /// Popular Products
-                  TGridLayout(itemCount: 4, itemBuilder: (_ , index ) => const TProductCardVertical(),),
+                  Obx(() {
+                    if (homeController.isLoading.value) {
+                      return const TVerticalProductShimmer();
+                    }
+                    if (homeController.featuredProducts.isEmpty) {
+                      return const Center(child: Text('No data found'));
+                    } else {
+                      return TGridLayout(
+                        itemCount: homeController.featuredProducts.length,
+                        itemBuilder: (_, index) => TProductCardVertical(
+                          productModel: homeController.featuredProducts[index],
+                        ),
+                      );
+                    }
+                  }),
                 ],
               ),
             ),
@@ -97,4 +110,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-

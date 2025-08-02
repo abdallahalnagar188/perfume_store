@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../../../../common/widgets/brands/brand_show_case.dart';
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
+import '../../../models/product_model.dart';
 
 class TCategoryTab extends StatelessWidget {
   const TCategoryTab({super.key, required this.categoryModel});
@@ -30,7 +31,7 @@ class TCategoryTab extends StatelessWidget {
             /// Products You may like
             TSectionHeading(title: 'You might like',showActionButton: true,onPressed: (){},),
             SizedBox(height: TSizes.spaceBtwItems,),
-            TGridLayout(itemCount: 4, itemBuilder: (_,index) => TProductCardVertical())
+            TGridLayout(itemCount: 4, itemBuilder: (_,index) => TProductCardVertical(productModel: ProductModel.empty(),))
           ],
         ),
       ),]

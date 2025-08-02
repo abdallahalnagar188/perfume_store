@@ -13,10 +13,6 @@ import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:iconsax/iconsax.dart';
-
-import '../../../../common/widgets/products/cart/add_remove_button.dart';
-import '../../../../common/widgets/products/cart/cart_item.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});

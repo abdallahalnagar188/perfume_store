@@ -19,8 +19,11 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
 
+import '../../models/product_model.dart';
+
 class ProductDetailsScreen extends StatelessWidget {
-  const ProductDetailsScreen({super.key});
+  const ProductDetailsScreen({super.key, required this.productModel});
+  final ProductModel productModel;
 
   @override
   Widget build(BuildContext context) {

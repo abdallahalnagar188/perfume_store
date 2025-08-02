@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../../../features/shop/models/product_model.dart';
 import '../../../../features/shop/screens/product_details/product_details.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
@@ -23,7 +24,7 @@ class TProductCardHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () => Get.to(() => const ProductDetailsScreen()),
+      onTap: () => Get.to(() =>  ProductDetailsScreen(productModel:  ProductModel.empty(),)),
 
       child: Container(
         width: 310,

@@ -4,6 +4,8 @@ import 'package:ecommerce_store/common/widgets/image/t_circular_image.dart';
 import 'package:ecommerce_store/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_store/data/dummy_data/t_dummy_data.dart';
+import 'package:ecommerce_store/data/repo/banner/banner_repo.dart';
+import 'package:ecommerce_store/data/repo/products/products_repo.dart';
 import 'package:ecommerce_store/features/personalization/screens/address/address_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/orders/order_screen.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
@@ -33,7 +35,6 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Appbar
-
                   TAppbar(
                     title: Text(
                       "Account",
@@ -45,14 +46,20 @@ class SettingsScreen extends StatelessWidget {
                   // ElevatedButton(
                   //   onPressed: () async {
                   //     try {
-                  //       await CategoryRepo.instance.uploadDummyData(TDummyData.categories);
-                  //       Get.snackbar('Success', 'Dummy data uploaded successfully');
+                  //       await BannerRepo.instance.uploadDummyData(
+                  //         TDummyData.banners,
+                  //       );
+                  //       Get.snackbar(
+                  //         'Success',
+                  //         'Dummy data uploaded successfully',
+                  //       );
                   //     } catch (e) {
                   //       Get.snackbar('Error', e.toString());
                   //     }
                   //   },
                   //   child: Text('Upload Dummy Categories'),
                   // ),
+
                   /// User Profile Card
                   TUserProfileTitle(
                     onPressed: () => Get.to(() => ProfileScreen()),
@@ -90,7 +97,7 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.bag_tick,
                     title: 'My Orders',
                     subTitle: 'In-progress and Completed Orders',
-                    onTap:  () => Get.to(() => const OrderScreen()),
+                    onTap: () => Get.to(() => const OrderScreen()),
                   ),
                   TSettingsMenuTile(
                     icon: Iconsax.bank,
@@ -128,7 +135,19 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.document_upload,
                     title: 'Load Data',
                     subTitle: 'Upload Data to your Firebase',
-                    onTap: () {},
+                    onTap: () async {
+                      try {
+                        await ProductRepo.instance.uploadDummyData(
+                          TDummyData.products,
+                        );
+                        Get.snackbar(
+                          'Success',
+                          'Dummy data uploaded successfully',
+                        );
+                      } catch (e) {
+                        Get.snackbar('Error', e.toString());
+                      }
+                    },
                   ),
                   TSettingsMenuTile(
                     icon: Iconsax.location,
@@ -154,7 +173,7 @@ class SettingsScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: OutlinedButton(
-                      onPressed: ()  => AuthenticationRepo.instance.logout(),
+                      onPressed: () => AuthenticationRepo.instance.logout(),
                       child: const Text('Logout'),
                     ),
                   ),

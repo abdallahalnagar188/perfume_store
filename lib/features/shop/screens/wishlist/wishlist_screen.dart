@@ -9,6 +9,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 
+import '../../models/product_model.dart';
+
 
 class FavoriteScreen extends StatelessWidget {
   const FavoriteScreen({super.key});
@@ -25,7 +27,7 @@ class FavoriteScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(padding: EdgeInsets.all(TSizes.defaultSpace),child: Column(
           children: [
-            TGridLayout(itemCount: 6, itemBuilder: (_,index) => TProductCardVertical())
+            TGridLayout(itemCount: 6, itemBuilder: (_,index) => TProductCardVertical(productModel:  ProductModel.empty(),))
           ],
         ),),
       ),
