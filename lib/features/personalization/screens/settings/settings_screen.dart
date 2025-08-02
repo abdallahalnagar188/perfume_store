@@ -3,6 +3,7 @@ import 'package:ecommerce_store/common/widgets/custom_shapes/containers/primary_
 import 'package:ecommerce_store/common/widgets/image/t_circular_image.dart';
 import 'package:ecommerce_store/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/data/dummy_data/t_dummy_data.dart';
 import 'package:ecommerce_store/features/personalization/screens/address/address_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/orders/order_screen.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
@@ -15,6 +16,7 @@ import 'package:iconsax/iconsax.dart';
 
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../data/repo/auth/auth_repo.dart';
+import '../../../../data/repo/category/category_repo.dart';
 import '../profile/profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -31,6 +33,7 @@ class SettingsScreen extends StatelessWidget {
               child: Column(
                 children: [
                   /// Appbar
+
                   TAppbar(
                     title: Text(
                       "Account",
@@ -39,7 +42,17 @@ class SettingsScreen extends StatelessWidget {
                       ).textTheme.headlineMedium!.apply(color: TColors.white),
                     ),
                   ),
-
+                  // ElevatedButton(
+                  //   onPressed: () async {
+                  //     try {
+                  //       await CategoryRepo.instance.uploadDummyData(TDummyData.categories);
+                  //       Get.snackbar('Success', 'Dummy data uploaded successfully');
+                  //     } catch (e) {
+                  //       Get.snackbar('Error', e.toString());
+                  //     }
+                  //   },
+                  //   child: Text('Upload Dummy Categories'),
+                  // ),
                   /// User Profile Card
                   TUserProfileTitle(
                     onPressed: () => Get.to(() => ProfileScreen()),

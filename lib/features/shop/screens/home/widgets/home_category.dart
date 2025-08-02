@@ -1,3 +1,5 @@
+import 'package:ecommerce_store/common/widgets/shimmer/caterory_shimmer.dart';
+import 'package:ecommerce_store/features/shop/controllers/category_controller.dart';
 import 'package:ecommerce_store/features/shop/screens/sub_category/sub_categories_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,20 +13,31 @@ class THomeCategory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80,
-      child: ListView.builder(
-        shrinkWrap: true,
-        itemCount: 6,
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (_, index) {
-          return TVerticalImageText(
-            image: TImages.shoeIcon,
-            title: 'Shoes',
-            onTap: () => Get.to(() => const SubCategoriesScreen()),
-          );
-        },
-      ),
-    );
+    final controller = Get.put(CategoryController());
+    return Obx(() {
+      if(controller.isLoading.value){
+        return const TCategoryShimmer();
+      }
+      if(controller.featuredCategories.isEmpty){
+        return const Center(child: Text('No Data Found',));
+      }
+      return SizedBox(
+        height: 80,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: controller.featuredCategories.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (_, index) {
+
+            final category = controller.featuredCategories[index];
+            return TVerticalImageText(
+              image: category.image,
+              title: category.name,
+              onTap: () => Get.to(() => const SubCategoriesScreen()),
+            );
+          },
+        ),
+      );
+    });
   }
 }
