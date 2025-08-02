@@ -10,6 +10,7 @@ import 'package:ecommerce_store/utils/popups/loaders.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../../utils/helpers/network_manager.dart';
 
@@ -21,6 +22,7 @@ class UserController extends GetxController {
   final userRepo = Get.put(UserRepo());
 
   final hidePassword = false.obs;
+  final imageUploading = false.obs;
   final verifyEmail = TextEditingController();
   final verifyPassword = TextEditingController();
   GlobalKey<FormState> reAuthFormKey = GlobalKey<FormState>();
@@ -47,26 +49,32 @@ class UserController extends GetxController {
   /// save user record from any Registraion provider
   Future<void> saveUserRecord(UserCredential? userCredential) async {
     try {
-      if (userCredential != null) {
-        final nameParts = UserModel.namePars(
-          userCredential.user?.displayName ?? "",
-        );
-        final userName = UserModel.generateUsername(
-          userCredential.user?.displayName ?? "",
-        );
+      // refresh the user record
+      await fetchUserRecord();
+      if (user.value.id.isEmpty) {
+        if (userCredential != null) {
+          final nameParts = UserModel.namePars(
+            userCredential.user?.displayName ?? "",
+          );
+          final userName = UserModel.generateUsername(
+            userCredential.user?.displayName ?? "",
+          );
 
-        final user = UserModel(
-          id: userCredential.user!.uid,
-          firstName: nameParts[0],
-          lastName: nameParts.length > 1 ? nameParts.sublist(1).join(" ") : "",
-          username: userName,
-          email: userCredential.user!.email ?? "",
-          phoneNumber: userCredential.user!.phoneNumber ?? "",
-          profilePicture: userCredential.user!.photoURL ?? "",
-        );
+          final user = UserModel(
+            id: userCredential.user!.uid,
+            firstName: nameParts[0],
+            lastName: nameParts.length > 1
+                ? nameParts.sublist(1).join(" ")
+                : "",
+            username: userName,
+            email: userCredential.user!.email ?? "",
+            phoneNumber: userCredential.user!.phoneNumber ?? "",
+            profilePicture: userCredential.user!.photoURL ?? "",
+          );
 
-        // save user data
-        await userRepo.saveUserRecord(user);
+          // save user data
+          await userRepo.saveUserRecord(user);
+        }
       }
     } catch (e) {
       TLoaders.warningSnackBar(
@@ -78,19 +86,19 @@ class UserController extends GetxController {
   }
 
   /// delete account warning
-  void deleteAccountWarningPopup() async{
+  void deleteAccountWarningPopup() async {
     Get.defaultDialog(
       contentPadding: EdgeInsets.all(TSizes.md),
       title: 'Delete Account',
       middleText: 'Are your sure your want to delete your account permanently?',
       confirm: ElevatedButton(
-        onPressed: ()  => deleteUserAccount,
+        onPressed: () => deleteUserAccount,
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.red,
           side: const BorderSide(color: Colors.red),
         ),
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal:TSizes.lg),
+          padding: const EdgeInsets.symmetric(horizontal: TSizes.lg),
           child: Text('Delete'),
         ),
       ),
@@ -151,14 +159,52 @@ class UserController extends GetxController {
         return;
       }
 
-      await AuthenticationRepo.instance.reAuthWithEmailAndPassword(verifyEmail.text.trim(), verifyPassword.text.trim());
+      await AuthenticationRepo.instance.reAuthWithEmailAndPassword(
+        verifyEmail.text.trim(),
+        verifyPassword.text.trim(),
+      );
       await AuthenticationRepo.instance.deleteAccount();
       TFullScreenLoader.stopLoading();
       Get.offAll(() => LoginScreen());
-
     } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+    }
+  }
+
+  /// Upload profile image
+  uploadUserProfileImage() async {
+    try {
+      final image = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        imageQuality: 70,
+        maxHeight: 512,
+        maxWidth: 512,
+      );
+      if (image != null) {
+        imageUploading.value = true;
+        // Upload Image
+        final imageUrl = await userRepo.uploadImage(
+          'User/Images/Profile/',
+          image,
+        );
+
+        //Upload User Image record
+        Map<String, dynamic> json = {'ProfilePicture': imageUrl};
+        await userRepo.updateSingField(json);
+
+        user.value.profilePicture = imageUrl;
+
+        user.refresh();
+        TLoaders.successSnackBar(
+          title: 'Congratulations',
+          message: 'Your profile image has been updated',
+        );
+      }
+    } catch (e) {
+      TLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
+    } finally {
+      imageUploading.value = false;
     }
   }
 }

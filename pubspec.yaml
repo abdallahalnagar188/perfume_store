@@ -52,12 +52,14 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   # firebase - Updated to compatible versions
   firebase_core: ^3.15.1
-  firebase_storage: ^12.4.9
+  firebase_storage: ^12.4.10
   cloud_firestore: ^5.6.11
   google_sign_in: ^6.2.1
   firebase_auth: ^5.6.2  # Updated from ^4.15.3
   firebase_app_check: ^0.3.1+5
   shimmer: ^3.0.0
+  image_picker: ^1.1.2
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:ecommerce_store/common/shimmer/shimmer.dart';
 import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce_store/common/widgets/image/t_circular_image.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
@@ -31,13 +32,28 @@ class ProfileScreen extends StatelessWidget {
                 width: double.infinity,
                 child: Column(
                   children: [
-                    const TCircularImage(
-                      image: TImages.user,
-                      width: 80,
-                      height: 80,
-                    ),
+                    Obx(() {
+                      final networkImage = controller.user.value.profilePicture;
+                      final image = networkImage.isNotEmpty
+                          ? networkImage
+                          : TImages.user;
+
+                      return controller.imageUploading.value
+                          ? const TShimmerEffect(
+                              width: 80,
+                              height: 80,
+                              radius: 80,
+                            )
+                          : TCircularImage(
+                              image: image,
+                              width: 80,
+                              height: 80,
+                              isNetworkImage: networkImage.isNotEmpty,
+                            );
+                    }),
+
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => controller.uploadUserProfileImage(),
                       child: Text('Change Profile Image'),
                     ),
                   ],
