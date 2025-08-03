@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_store/features/shop/models/category_model.dart';
+import 'package:ecommerce_store/features/shop/models/product_category_model.dart';
 import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:ecommerce_store/utils/exceptions/TFirebaseStorageService.dart';
 import 'package:ecommerce_store/utils/exceptions/firebase_exceptions.dart';
@@ -62,8 +63,7 @@ class ProductRepo extends GetxController {
     }
   }
 
-  Future<List<ProductModel>> getProductsForBrand(
-      {required String brandId, int limit = -1}) async {
+  Future<List<ProductModel>> getProductsForBrand({required String brandId, int limit = -1}) async {
     try {
 
       final querySnapshot = limit == -1 ? await _db.collection('Products').where('Brand.Id',isEqualTo: brandId).get():
@@ -81,6 +81,48 @@ class ProductRepo extends GetxController {
     }
   }
 
+  Future<List<ProductModel>> getProductsForCategory({required String categoryId, int limit = -1}) async {
+    try {
+
+      QuerySnapshot  querySnapshot = limit == -1
+          ? await _db.collection('ProductCategory').where('categoryId',isEqualTo: categoryId).get()
+          : await _db.collection('ProductCategory').where('categoryId',isEqualTo: categoryId).limit(limit).get();
+
+
+      List<String> categoryIds = querySnapshot.docs.map((doc) => doc['productId'] as String).toList();
+
+      final productsQuery = await _db.collection('Products').where(FieldPath.documentId,whereIn: categoryIds).limit(2).get();
+
+      List<ProductModel> products = productsQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
+      return products;
+
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong , Please try again';
+    }
+  }
+
+  Future<void> uploadProductCategory(List<ProductCategoryModel> productCategories) async {
+    try {
+      WriteBatch batch = _db.batch();
+
+      for(var productCategory in productCategories){
+        DocumentReference docRef = _db.collection('ProductCategory').doc();
+        batch.set(docRef, productCategory.toJson());
+      }
+
+      await batch.commit();
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong, Please try again';
+    }
+  }
   //upload category to cloud firestore
   Future<void> uploadDummyData(List<ProductModel> products) async {
     try {

@@ -1,10 +1,13 @@
 import 'dart:ffi';
 
 import 'package:ecommerce_store/features/shop/models/banner_model.dart';
+import 'package:ecommerce_store/features/shop/models/brand_category_model.dart';
 import 'package:ecommerce_store/features/shop/models/category_model.dart';
 import 'package:ecommerce_store/features/shop/models/product_attribut_model.dart';
+import 'package:ecommerce_store/features/shop/models/product_category_model.dart';
 import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:ecommerce_store/features/shop/models/product_varation_model.dart';
+import 'package:ecommerce_store/features/shop/screens/brand/brand_products.dart';
 import 'package:ecommerce_store/routes/routes.dart';
 
 import '../../features/shop/models/brand_model.dart';
@@ -131,7 +134,7 @@ class TDummyData {
     ),
     BrandModel(
       id: '2',
-      image:TImages.adidasLogo,
+      image: TImages.adidasLogo,
       name: 'Adidas',
       productsCount: 95,
       isFeatured: true,
@@ -173,7 +176,7 @@ class TDummyData {
     ),
     BrandModel(
       id: '4',
-      image:TImages.pumaLogo,
+      image: TImages.pumaLogo,
       name: 'Puma',
       productsCount: 65,
       isFeatured: true,
@@ -187,7 +190,7 @@ class TDummyData {
     ),
     BrandModel(
       id: '7',
-      image:TImages.hermanMillerLogo,
+      image: TImages.hermanMillerLogo,
       name: 'Samsung',
       productsCount: 36,
       isFeatured: false,
@@ -260,7 +263,10 @@ class TDummyData {
       categoryId: '1',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Green', 'Black', 'Red']),
-        ProductAttributeModel(name: 'Size', values: ['EU 30', 'EU 32', 'EU 34']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 30', 'EU 32', 'EU 34'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -307,10 +313,7 @@ class TDummyData {
         productsCount: 180,
         isFeatured: false,
       ),
-      images: [
-        TImages.productImage2,
-        TImages.productImage3,
-      ],
+      images: [TImages.productImage2, TImages.productImage3],
       salePrice: 25,
       sku: 'ADS320',
       categoryId: '2',
@@ -356,10 +359,7 @@ class TDummyData {
         productsCount: 140,
         isFeatured: true,
       ),
-      images: [
-        TImages.productImage4,
-        TImages.productImage5,
-      ],
+      images: [TImages.productImage4, TImages.productImage5],
       salePrice: 20,
       sku: 'PMR501',
       categoryId: '3',
@@ -413,9 +413,7 @@ class TDummyData {
         productsCount: 95,
         isFeatured: false,
       ),
-      images: [
-        TImages.productImage6,
-      ],
+      images: [TImages.productImage6],
       salePrice: 10,
       sku: 'RBK221',
       categoryId: '4',
@@ -452,10 +450,7 @@ class TDummyData {
         productsCount: 110,
         isFeatured: true,
       ),
-      images: [
-        TImages.productImage7,
-        TImages.productImage8,
-      ],
+      images: [TImages.productImage7, TImages.productImage8],
       salePrice: 20,
       sku: 'NB450',
       categoryId: '5',
@@ -536,10 +531,7 @@ class TDummyData {
         productsCount: 88,
         isFeatured: true,
       ),
-      images: [
-        TImages.productImage11,
-        TImages.productImage12,
-      ],
+      images: [TImages.productImage11, TImages.productImage12],
       salePrice: 18,
       sku: 'UA231',
       categoryId: '7',
@@ -603,6 +595,7 @@ class TDummyData {
         ),
       ],
     ),
+
     /// Jordan Air Max Sneakers
     ProductModel(
       id: "009",
@@ -628,7 +621,10 @@ class TDummyData {
       categoryId: '9',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Black', 'White', 'Red']),
-        ProductAttributeModel(name: 'Size', values: ['EU 38', 'EU 40', 'EU 42', 'EU 44']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 38', 'EU 40', 'EU 42', 'EU 44'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -674,16 +670,16 @@ class TDummyData {
         productsCount: 125,
         isFeatured: true,
       ),
-      images: [
-        TImages.productImage17,
-        TImages.productImage18,
-      ],
+      images: [TImages.productImage17, TImages.productImage18],
       salePrice: 15,
       sku: 'VNS550',
       categoryId: '10',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Black', 'Checkered']),
-        ProductAttributeModel(name: 'Size', values: ['EU 38', 'EU 40', 'EU 42']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 38', 'EU 40', 'EU 42'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -731,7 +727,10 @@ class TDummyData {
       categoryId: '1',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['White', 'Blue', 'Gold']),
-        ProductAttributeModel(name: 'Size', values: ['EU 39', 'EU 41', 'EU 43']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 39', 'EU 41', 'EU 43'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -777,16 +776,16 @@ class TDummyData {
         productsCount: 180,
         isFeatured: false,
       ),
-      images: [
-        TImages.productImage22,
-        TImages.productImage23,
-      ],
+      images: [TImages.productImage22, TImages.productImage23],
       salePrice: 30,
       sku: 'ADS890',
       categoryId: '2',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Black', 'White']),
-        ProductAttributeModel(name: 'Size', values: ['EU 38', 'EU 40', 'EU 42', 'EU 44']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 38', 'EU 40', 'EU 42', 'EU 44'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -824,16 +823,16 @@ class TDummyData {
         productsCount: 140,
         isFeatured: true,
       ),
-      images: [
-        TImages.productImage24,
-        TImages.productImage25,
-      ],
+      images: [TImages.productImage24, TImages.productImage25],
       salePrice: 20,
       sku: 'PMR655',
       categoryId: '3',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Multi', 'Grey']),
-        ProductAttributeModel(name: 'Size', values: ['EU 37', 'EU 39', 'EU 41']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 37', 'EU 39', 'EU 41'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -871,16 +870,16 @@ class TDummyData {
         productsCount: 65,
         isFeatured: true,
       ),
-      images: [
-        TImages.productImage26,
-        TImages.productImage27,
-      ],
+      images: [TImages.productImage26, TImages.productImage27],
       salePrice: 25,
       sku: 'FLA440',
       categoryId: '11',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['White', 'Pink']),
-        ProductAttributeModel(name: 'Size', values: ['EU 36', 'EU 38', 'EU 40']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 36', 'EU 38', 'EU 40'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -918,16 +917,16 @@ class TDummyData {
         productsCount: 45,
         isFeatured: true,
       ),
-      images: [
-        TImages.productImage28,
-        TImages.productImage29,
-      ],
+      images: [TImages.productImage28, TImages.productImage29],
       salePrice: 50,
       sku: 'BSS990',
       categoryId: '12',
       productAttributes: [
         ProductAttributeModel(name: 'Color', values: ['Black', 'Brown']),
-        ProductAttributeModel(name: 'Size', values: ['EU 40', 'EU 42', 'EU 44']),
+        ProductAttributeModel(
+          name: 'Size',
+          values: ['EU 40', 'EU 42', 'EU 44'],
+        ),
       ],
       productType: 'ProductType.variable',
       productVariations: [
@@ -951,4 +950,31 @@ class TDummyData {
     ),
   ];
 
+
+  static final List<ProductCategoryModel> productsForCategory = [
+    ProductCategoryModel(productId: '001', categoryId: '1'),
+    ProductCategoryModel(productId: '002', categoryId: '2'),
+    ProductCategoryModel(productId: '003', categoryId: '3'),
+    ProductCategoryModel(productId: '004', categoryId: '4'),
+    ProductCategoryModel(productId: '005', categoryId: '5'),
+    ProductCategoryModel(productId: '006', categoryId: '6'),
+    ProductCategoryModel(productId: '007', categoryId: '7'),
+    ProductCategoryModel(productId: '008', categoryId: '8'),
+    ProductCategoryModel(productId: '009', categoryId: '9'),
+    ProductCategoryModel(productId: '010', categoryId: '10'),
+  ];
+
+  static final List<BrandCategoryModel> productsForBrand = [
+    BrandCategoryModel(brandId: '1', categoryId: '1'),
+    BrandCategoryModel(brandId: '2', categoryId: '2'),
+    BrandCategoryModel(brandId: '3', categoryId: '3'),
+    BrandCategoryModel(brandId: '4', categoryId: '4'),
+    BrandCategoryModel(brandId: '5', categoryId: '5'),
+    BrandCategoryModel(brandId: '6', categoryId: '6'),
+    BrandCategoryModel(brandId: '7', categoryId: '7'),
+    BrandCategoryModel(brandId: '8', categoryId: '8'),
+    BrandCategoryModel(brandId: '9', categoryId: '9'),
+    BrandCategoryModel(brandId: '10', categoryId: '10'),
+    BrandCategoryModel(brandId: '11', categoryId: '11'),
+  ];
 }

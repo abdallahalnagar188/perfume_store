@@ -1,7 +1,10 @@
 import 'package:ecommerce_store/data/repo/category/category_repo.dart';
 import 'package:ecommerce_store/features/shop/models/category_model.dart';
+import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:ecommerce_store/utils/popups/loaders.dart';
 import 'package:get/get.dart';
+
+import '../../../data/repo/products/products_repo.dart';
 
 class CategoryController extends GetxController {
   static CategoryController get instance => Get.find();
@@ -50,4 +53,16 @@ class CategoryController extends GetxController {
   /// ---- Load Selected Category Data
 
   /// ---- Get Category or sub-category Products
+  Future<List<ProductModel>> getCategoryProducts({ required String categoryId, int limit = -1}) async {
+    try {
+
+      final  products = await ProductRepo.instance.getProductsForCategory(categoryId: categoryId,limit: limit);
+      return products;
+
+    } catch (e) {
+      TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return[];
+    }
+  }
+
 }

@@ -125,8 +125,8 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Upload Data to your Firebase',
                     onTap: () async {
                       try {
-                        await BrandRepo.instance.uploadDummyData(
-                          TDummyData.brands,
+                        await ProductRepo.instance.uploadProductCategory(
+                          TDummyData.productsForCategory,
                         );
                         Get.snackbar(
                           'Success',
@@ -156,7 +156,6 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Set Image quality to be seen',
                     trailing: Switch(value: false, onChanged: (value) {}),
                   ),
-
                   /// Logout Button
                   const SizedBox(height: TSizes.spaceBtwSections),
                   SizedBox(
