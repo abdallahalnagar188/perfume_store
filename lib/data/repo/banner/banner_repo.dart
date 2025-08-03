@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_store/features/shop/models/brand_model.dart';
 import 'package:ecommerce_store/features/shop/models/category_model.dart';
 import 'package:ecommerce_store/utils/exceptions/TFirebaseStorageService.dart';
 import 'package:ecommerce_store/utils/exceptions/firebase_exceptions.dart';
@@ -32,7 +33,6 @@ class BannerRepo extends GetxController {
   }
 
   // get sub categories
-
   //upload category to cloud firestore
   Future<void> uploadDummyData(List<BannerModel> banners) async {
     try {

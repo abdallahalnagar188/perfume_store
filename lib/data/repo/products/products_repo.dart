@@ -19,8 +19,38 @@ class ProductRepo extends GetxController {
   // get all categories
   Future<List<ProductModel>> getFeaturedProducts() async {
     try {
-      final snapshot = await _db.collection('Products').where('IsFeatured', isEqualTo: true).limit(4).get();
+      final snapshot = await _db.collection('Products').where('IsFeatured', isEqualTo: true).limit(8).get();
       return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong , Please try again';
+    }
+  }
+
+  Future<List<ProductModel>> getAllFeaturedProducts() async {
+    try {
+      final snapshot = await _db.collection('Products').where('IsFeatured', isEqualTo: true).get();
+      return snapshot.docs.map((e) => ProductModel.fromSnapshot(e)).toList();
+
+    } on FirebaseException catch (e) {
+      throw TFirebaseException(e.code).message;
+    } on PlatformException catch (e) {
+      throw TPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something went wrong , Please try again';
+    }
+  }
+  Future<List<ProductModel>> fetchProductsByQuery(Query query) async {
+    try {
+
+      final querySnapshot = await query.get();
+      final List<ProductModel> list =  querySnapshot.docs.map((doc) => ProductModel.fromQuerySnapshot(doc)).toList();
+      return list;
+
 
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;

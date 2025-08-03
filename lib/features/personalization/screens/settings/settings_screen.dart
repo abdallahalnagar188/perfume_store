@@ -5,6 +5,7 @@ import 'package:ecommerce_store/common/widgets/list_tiles/settings_menu_tile.dar
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
 import 'package:ecommerce_store/data/dummy_data/t_dummy_data.dart';
 import 'package:ecommerce_store/data/repo/banner/banner_repo.dart';
+import 'package:ecommerce_store/data/repo/brands/brand_repo.dart';
 import 'package:ecommerce_store/data/repo/products/products_repo.dart';
 import 'package:ecommerce_store/features/personalization/screens/address/address_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/orders/order_screen.dart';
@@ -19,6 +20,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../data/repo/auth/auth_repo.dart';
 import '../../../../data/repo/category/category_repo.dart';
+import '../../../../utils/exceptions/TFirebaseStorageService.dart';
 import '../profile/profile_screen.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -26,6 +28,8 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(BrandRepo());
+    Get.put(TFirebaseStorageService());
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -43,22 +47,6 @@ class SettingsScreen extends StatelessWidget {
                       ).textTheme.headlineMedium!.apply(color: TColors.white),
                     ),
                   ),
-                  // ElevatedButton(
-                  //   onPressed: () async {
-                  //     try {
-                  //       await BannerRepo.instance.uploadDummyData(
-                  //         TDummyData.banners,
-                  //       );
-                  //       Get.snackbar(
-                  //         'Success',
-                  //         'Dummy data uploaded successfully',
-                  //       );
-                  //     } catch (e) {
-                  //       Get.snackbar('Error', e.toString());
-                  //     }
-                  //   },
-                  //   child: Text('Upload Dummy Categories'),
-                  // ),
 
                   /// User Profile Card
                   TUserProfileTitle(
@@ -137,15 +125,16 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'Upload Data to your Firebase',
                     onTap: () async {
                       try {
-                        await ProductRepo.instance.uploadDummyData(
-                          TDummyData.products,
+                        await BrandRepo.instance.uploadDummyData(
+                          TDummyData.brands,
                         );
                         Get.snackbar(
                           'Success',
                           'Dummy data uploaded successfully',
                         );
                       } catch (e) {
-                        Get.snackbar('Error', e.toString());
+                        print( e.toString());
+                        Get.snackbar('Error', e.toString(),animationDuration:Duration(milliseconds: 5000) );
                       }
                     },
                   ),

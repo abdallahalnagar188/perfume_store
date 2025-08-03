@@ -35,7 +35,7 @@ class AppRoutes {
     // GetPage(name: TRoutes.search, page: () => const SearchScreen()),
     // GetPage(name: TRoutes.productReview, page: () => const ProductReviewScreen()),
     GetPage(name: TRoutes.productDetails, page: () =>  ProductDetailsScreen(product:  ProductModel.empty(),)),
-    GetPage(name: TRoutes.allProducts, page: () => const AllProductsScreen()),
+    GetPage(name: TRoutes.allProducts, page: () => const AllProductsScreen(title: '',)),
    // GetPage(name: TRoutes.brand, page: () => const BrandScreen()),
 
     // Cart & order

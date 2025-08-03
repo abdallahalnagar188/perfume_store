@@ -16,8 +16,7 @@ class CategoryModel {
   });
 
   /// Empty Helper Function
-  static CategoryModel empty() =>
-      CategoryModel(id: '', name: '', image: '', isFeatured: false);
+  static CategoryModel empty() => CategoryModel(id: '', name: '', image: '', isFeatured: false);
 
   /// Convert model to json
   Map<String, dynamic> toJson() {

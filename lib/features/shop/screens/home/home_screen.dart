@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:ecommerce_store/common/widgets/shimmer/vertical_product_shimmer.dart';
 import 'package:ecommerce_store/features/shop/controllers/home_controllers.dart';
@@ -81,7 +82,16 @@ class HomeScreen extends StatelessWidget {
                     textColor: THelperFunctions.isDarkMode(context)
                         ? TColors.white
                         : TColors.black,
-                    onPressed: () => Get.to(() =>  AllProductsScreen()),
+                    onPressed: () => Get.to(
+                      () => AllProductsScreen(
+                        title: 'Popular Products',
+                        query: FirebaseFirestore.instance
+                            .collection('Products')
+                            .where('IsFeatured', isEqualTo: true)
+                           ,
+                        futureMethod: homeController.fetchAllFeatureProducts(),
+                      ),
+                    ),
                   ),
                   SizedBox(height: TSizes.spaceBtwItems),
 

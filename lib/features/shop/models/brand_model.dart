@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class BrandModel {
   final String id;
   final String image;
@@ -17,7 +15,7 @@ class BrandModel {
 
   static BrandModel empty() => BrandModel(id: '', image: '', name: '');
 
-  toJson() {
+  Map<String, dynamic> toJson() {
     return {
       'Id': id,
       'Name': name,
@@ -27,8 +25,7 @@ class BrandModel {
     };
   }
 
-  factory BrandModel.fromJson(Map<String, dynamic> document) {
-    final data = document;
+  factory BrandModel.fromJson(Map<String, dynamic> data) {
     if (data.isEmpty) return BrandModel.empty();
 
     return BrandModel(
@@ -39,4 +36,45 @@ class BrandModel {
       isFeatured: data['IsFeatured'],
     );
   }
+
+  BrandModel copyWith({
+    String? id,
+    String? image,
+    String? name,
+    int? productsCount,
+    bool? isFeatured,
+  }) {
+    return BrandModel(
+      id: id ?? this.id,
+      image: image ?? this.image,
+      name: name ?? this.name,
+      productsCount: productsCount ?? this.productsCount,
+      isFeatured: isFeatured ?? this.isFeatured,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'BrandModel(id: $id, name: $name, image: $image, '
+        'productsCount: $productsCount, isFeatured: $isFeatured)';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+          other is BrandModel &&
+              runtimeType == other.runtimeType &&
+              id == other.id &&
+              image == other.image &&
+              name == other.name &&
+              productsCount == other.productsCount &&
+              isFeatured == other.isFeatured;
+
+  @override
+  int get hashCode =>
+      id.hashCode ^
+      image.hashCode ^
+      name.hashCode ^
+      productsCount.hashCode ^
+      isFeatured.hashCode;
 }
