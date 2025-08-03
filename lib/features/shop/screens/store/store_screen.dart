@@ -3,7 +3,9 @@ import 'package:ecommerce_store/common/widgets/custom_shapes/containers/rounded_
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/search_container.dart';
 import 'package:ecommerce_store/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce_store/common/widgets/products/cart/cart_menu_icon.dart';
+import 'package:ecommerce_store/common/widgets/shimmer/brands_shimmer.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/features/shop/controllers/brand_controller.dart';
 import 'package:ecommerce_store/features/shop/controllers/category_controller.dart';
 import 'package:ecommerce_store/features/shop/screens/brand/all_brands.dart';
 import 'package:ecommerce_store/features/shop/screens/store/widgets/category_tab.dart';
@@ -14,13 +16,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../../common/widgets/appbar/tabbar.dart';
 import '../../../../common/widgets/brands/brand_card.dart';
-
+import '../brand/brand_products.dart';
 
 class StoreScreen extends StatelessWidget {
   const StoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final brandController = Get.put(BrandController());
     final controller = Get.put(CategoryController());
     return DefaultTabController(
       length: controller.featuredCategories.length,
@@ -65,34 +68,57 @@ class StoreScreen extends StatelessWidget {
                       TSectionHeading(
                         title: 'Featured Brands',
                         showActionButton: true,
-                        onPressed: ()  => Get.to(() => const AllBrandsScreen()),
+                        onPressed: () => Get.to(() => AllBrandsScreen()),
                       ),
                       SizedBox(height: TSizes.spaceBtwItems / 1.5),
 
                       /// Brands
-                      TGridLayout(
-                        mainAxisExtent: 80,
-                        itemCount: 4,
-                        itemBuilder: (_, index) {
-                          return const TBrandCard(showBorder: true);
-                        },
-                      ),
+                      Obx(() {
+                        if (brandController.isLoading.value) {
+                          return const TBrandsShimmer();
+                        }
+                        if (brandController.featuredBrands.isEmpty) {
+                          return Center(
+                            child: Text(
+                              'No Found Data',
+                              style: Theme.of(context).textTheme.bodyMedium!
+                                  .apply(color: Colors.white),
+                            ),
+                          );
+                        }
+
+                        return TGridLayout(
+                          mainAxisExtent: 80,
+                          itemCount: brandController.featuredBrands.length,
+                          itemBuilder: (_, index) {
+                            final brand = brandController.featuredBrands[index];
+                            return TBrandCard(
+                              showBorder: true,
+                              brand: brand,
+                              onTap: () =>
+                                  Get.to(() => BrandProducts(brand: brand)),
+                            );
+                          },
+                        );
+                      }),
                     ],
                   ),
                 ),
                 bottom: TTabBar(
-                  tabs: controller.featuredCategories.map((category) => Tab(child: Text(category.name),)).toList(),
+                  tabs: controller.featuredCategories
+                      .map((category) => Tab(child: Text(category.name)))
+                      .toList(),
                 ),
               ),
             ];
           },
           body: TabBarView(
-              children: controller.featuredCategories.map((category) => TCategoryTab(categoryModel: category)).toList()
+            children: controller.featuredCategories
+                .map((category) => TCategoryTab(categoryModel: category))
+                .toList(),
           ),
         ),
       ),
     );
   }
 }
-
-

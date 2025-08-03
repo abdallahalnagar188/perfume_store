@@ -1,9 +1,12 @@
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class BrandModel {
-  final String id;
-  final String image;
-  final String name;
-  final int? productsCount;
-  final bool? isFeatured;
+  String id;
+  String image;
+  String name;
+  int? productsCount;
+  bool? isFeatured;
 
   BrandModel({
     required this.id,
@@ -15,7 +18,7 @@ class BrandModel {
 
   static BrandModel empty() => BrandModel(id: '', image: '', name: '');
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic>toJson() {
     return {
       'Id': id,
       'Name': name,
@@ -25,7 +28,8 @@ class BrandModel {
     };
   }
 
-  factory BrandModel.fromJson(Map<String, dynamic> data) {
+  factory BrandModel.fromJson(Map<String, dynamic> document) {
+    final data = document;
     if (data.isEmpty) return BrandModel.empty();
 
     return BrandModel(
@@ -35,6 +39,26 @@ class BrandModel {
       productsCount: data['ProductsCount'],
       isFeatured: data['IsFeatured'],
     );
+  }
+
+  /// map json from firebase to UserModel
+
+  factory BrandModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> document,
+      ) {
+    if (document.data() != null) {
+      final data = document.data()!;
+
+      return BrandModel(
+        id: document.id,
+        name: data['Name'] ?? '',
+        image: data['Image'] ?? '',
+        isFeatured: data['IsFeatured'] ?? false,
+        productsCount: data['ProductsCount'] ?? ''
+      );
+    }else{
+      return BrandModel.empty();
+    }
   }
 
   BrandModel copyWith({
@@ -77,4 +101,5 @@ class BrandModel {
       name.hashCode ^
       productsCount.hashCode ^
       isFeatured.hashCode;
+
 }
