@@ -23,6 +23,7 @@ class UpdateNameController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    initializeNames();
   }
 
   Future<void> initializeNames() async {
