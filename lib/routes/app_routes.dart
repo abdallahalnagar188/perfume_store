@@ -12,6 +12,7 @@ import '../features/auth/screens/signup/signup.dart';
 import '../features/auth/screens/signup/verfiy_email.dart';
 import '../features/personalization/screens/address/address_screen.dart';
 import '../features/personalization/screens/settings/settings_screen.dart';
+import '../features/shop/models/category_model.dart';
 import '../features/shop/models/product_model.dart';
 import '../features/shop/screens/all_products/all_products_screen.dart';
 import '../features/shop/screens/cart/cart_screen.dart';
@@ -31,7 +32,7 @@ class AppRoutes {
     GetPage(name: TRoutes.settings, page: () => const SettingsScreen()),
 
     // Products
-    GetPage(name: TRoutes.subCategories, page: () => const SubCategoriesScreen()),
+    GetPage(name: TRoutes.subCategories, page: () =>  SubCategoriesScreen(category: CategoryModel.empty(),)),
     // GetPage(name: TRoutes.search, page: () => const SearchScreen()),
     // GetPage(name: TRoutes.productReview, page: () => const ProductReviewScreen()),
     GetPage(name: TRoutes.productDetails, page: () =>  ProductDetailsScreen(product:  ProductModel.empty(),)),

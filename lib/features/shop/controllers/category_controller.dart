@@ -51,6 +51,18 @@ class CategoryController extends GetxController {
   }
 
   /// ---- Load Selected Category Data
+  Future<List<CategoryModel>> getSubCategories(String categoryId) async {
+    try {
+
+      final subCategory = await _categoryRepo.getSubCategories(categoryId);
+      return subCategory;
+
+    } catch (e) {
+      TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      return[];
+    }
+  }
+
 
   /// ---- Get Category or sub-category Products
   Future<List<ProductModel>> getCategoryProducts({ required String categoryId, int limit = -1}) async {

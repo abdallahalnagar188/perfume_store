@@ -12,11 +12,17 @@ class THomeCategory extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(CategoryController());
     return Obx(() {
-      if(controller.isLoading.value){
-        return const TCategoryShimmer();
-      }
-      if(controller.featuredCategories.isEmpty){
-        return const Center(child: Text('No Data Found',));
+      if (controller.isLoading.value) return TCategoryShimmer();
+
+      if (controller.featuredCategories.isEmpty) {
+        return Center(
+          child: Text(
+            'No Data Found',
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium!.apply(color: Colors.white),
+          ),
+        );
       }
       return SizedBox(
         height: 80,
@@ -25,12 +31,11 @@ class THomeCategory extends StatelessWidget {
           itemCount: controller.featuredCategories.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (_, index) {
-
             final category = controller.featuredCategories[index];
             return TVerticalImageText(
               image: category.image,
               title: category.name,
-              onTap: () => Get.to(() => const SubCategoriesScreen()),
+              onTap: () => Get.to(() =>  SubCategoriesScreen(category: category,)),
             );
           },
         ),

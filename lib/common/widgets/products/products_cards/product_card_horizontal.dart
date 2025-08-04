@@ -8,24 +8,27 @@ import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
-
+import '../../../../features/shop/controllers/product/product_controller.dart';
 import '../../../../features/shop/models/product_model.dart';
 import '../../../../features/shop/screens/product_details/product_details.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
-import '../../../styles/shadow_styles.dart';
-import '../../icons/t_circular_icon.dart';
 
 class TProductCardHorizontal extends StatelessWidget {
-  const TProductCardHorizontal({super.key});
+  const TProductCardHorizontal({super.key, required this.product});
 
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
+    final productController = ProductController.instance;
+    final salePercentage = productController.calculateSalePrecentage(
+      product.price,
+      product.salePrice,
+    );
     return GestureDetector(
-      onTap: () => Get.to(() =>  ProductDetailsScreen(product:  ProductModel.empty(),)),
+      onTap: () => Get.to(() =>  ProductDetailsScreen(product:  product)),
 
       child: Container(
         width: 310,
@@ -47,7 +50,8 @@ class TProductCardHorizontal extends StatelessWidget {
                     height: 120,
                     width: 120,
                     child: TRoundedImage(
-                      imageUrl: TImages.productImage1,
+                      imageUrl: product.thumbnail,
+                      isNetworkImage: true,
                       applyImageRadius: true,
                     ),
                   ),
@@ -63,7 +67,7 @@ class TProductCardHorizontal extends StatelessWidget {
                         vertical: TSizes.xs,
                       ),
                       child: Text(
-                        '25%',
+                        '$salePercentage%',
                         style: Theme.of(
                           context,
                         ).textTheme.labelLarge!.apply(color: TColors.black),
@@ -75,7 +79,7 @@ class TProductCardHorizontal extends StatelessWidget {
                   Positioned(
                     top: 0,
                     right: 0,
-                    child: TFavouriteIcon(productId:'' ,),
+                    child: TFavouriteIcon(productId:product.id ,),
                   ),
                 ],
               ),
@@ -92,11 +96,11 @@ class TProductCardHorizontal extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TProductTitleText(
-                          text: 'Green Nike Sleevs Shirt',
+                          text: product.title,
                           smallSize: true,
                         ),
                         SizedBox(height: TSizes.spaceBtwItems / 2),
-                        TBrandTitleWithVerifiedIcon(title: 'Nike'),
+                        TBrandTitleWithVerifiedIcon(title: product.brand!.name),
                       ],
                     ),
                     const Spacer(),
@@ -104,7 +108,7 @@ class TProductCardHorizontal extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         /// Pricing
-                        Flexible(child: TProductPriceText(price: '256.0')),
+                        Flexible(child: TProductPriceText(price:  productController.getProductPrice(product))),
 
                         /// Add to cart
                         Container(
