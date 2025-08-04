@@ -123,20 +123,21 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.document_upload,
                     title: 'Load Data',
                     subTitle: 'Upload Data to your Firebase',
-                    onTap: () async {
-                      try {
-                        await ProductRepo.instance.uploadProductCategory(
-                          TDummyData.productsForCategory,
-                        );
-                        Get.snackbar(
-                          'Success',
-                          'Dummy data uploaded successfully',
-                        );
-                      } catch (e) {
-                        print( e.toString());
-                        Get.snackbar('Error', e.toString(),animationDuration:Duration(milliseconds: 5000) );
-                      }
-                    },
+                    onTap: () {}
+                    // async {
+                    //   try {
+                    //     await ProductRepo.instance.uploadProductCategory(
+                    //       TDummyData.productsForCategory,
+                    //     );
+                    //     Get.snackbar(
+                    //       'Success',
+                    //       'Dummy data uploaded successfully',
+                    //     );
+                    //   } catch (e) {
+                    //     print( e.toString());
+                    //     Get.snackbar('Error', e.toString(),animationDuration:Duration(milliseconds: 5000) );
+                    //   }
+                    // },
                   ),
                   TSettingsMenuTile(
                     icon: Iconsax.location,

@@ -4,32 +4,34 @@ import 'package:ecommerce_store/features/shop/controllers/product/product_contro
 import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/product_details.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
-import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../icons/t_circular_icon.dart';
 import '../../image/t_rounded_image.dart';
 import '../../texts/t_product_price_text.dart';
 import '../../texts/product_title_text.dart';
 import '../../texts/t_brand_title_with_verified_icon.dart';
+import '../favorite_icon/TFavouriteIcon.dart';
 
 class TProductCardVertical extends StatelessWidget {
   const TProductCardVertical({super.key, required this.productModel});
 
   final ProductModel productModel;
+
   @override
   Widget build(BuildContext context) {
     final productController = ProductController.instance;
-    final salePercentage = productController.calculateSalePrecentage(productModel.price, productModel.salePrice);
+    final salePercentage = productController.calculateSalePrecentage(
+      productModel.price,
+      productModel.salePrice,
+    );
 
     final dark = THelperFunctions.isDarkMode(context);
     return GestureDetector(
-      onTap: () => Get.to(() =>  ProductDetailsScreen(product: productModel,)),
+      onTap: () => Get.to(() => ProductDetailsScreen(product: productModel)),
       child: Container(
         width: 180,
         padding: EdgeInsets.all(1),
@@ -38,7 +40,7 @@ class TProductCardVertical extends StatelessWidget {
           borderRadius: BorderRadius.circular(TSizes.productImageRadius),
           color: dark ? TColors.darkerGrey : TColors.white,
         ),
-        child:Column(
+        child: Column(
           children: [
             /// Thumbnail , Wishlist , Discount
             TRoundedContainer(
@@ -76,21 +78,15 @@ class TProductCardVertical extends StatelessWidget {
                   ),
 
                   /// Favorite Icon
-                  Positioned(
-                    top: 0,
-                    right: 0,
-                    child: TCircularIcon(
-                      icon: Iconsax.heart5,
-                      color: Colors.red,
-                    ),
-                  ),
+                  Positioned(top: 0, right: 0, child: TFavouriteIcon(productId: productModel.id,)),
                 ],
               ),
             ),
             const SizedBox(height: TSizes.spaceBtwItems / 2),
 
             /// Details
-            Expanded(  // Wrap this section with Expanded
+            Expanded(
+              // Wrap this section with Expanded
               child: Padding(
                 padding: EdgeInsets.only(left: TSizes.sm),
                 child: Column(
@@ -121,7 +117,7 @@ class TProductCardVertical extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(left: TSizes.sm),
                     child: TProductPriceText(
-                        price: productController.getProductPrice(productModel)
+                      price: productController.getProductPrice(productModel),
                     ),
                   ),
                 ),
@@ -147,4 +143,5 @@ class TProductCardVertical extends StatelessWidget {
     );
   }
 }
+
 

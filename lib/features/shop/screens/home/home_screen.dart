@@ -1,8 +1,5 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce_store/common/widgets/custom_shapes/containers/circular_container.dart';
 import 'package:ecommerce_store/common/widgets/shimmer/vertical_product_shimmer.dart';
-import 'package:ecommerce_store/features/shop/controllers/home_controllers.dart';
 import 'package:ecommerce_store/features/shop/controllers/product/product_controller.dart';
 import 'package:ecommerce_store/features/shop/screens/all_products/all_products_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/home/widgets/home_appbar.dart';
@@ -10,19 +7,14 @@ import 'package:ecommerce_store/features/shop/screens/home/widgets/home_category
 import 'package:ecommerce_store/features/shop/screens/home/widgets/promo_slider.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
-import 'package:ecommerce_store/utils/device/device_utility.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:iconsax/iconsax.dart';
 import '../../../../common/widgets/custom_shapes/containers/primary_header_container.dart';
 import '../../../../common/widgets/custom_shapes/containers/search_container.dart';
-import '../../../../common/widgets/image_text_category_widgets/category_item.dart';
 import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../common/widgets/products/products_cards/product_card_vertical.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
-import '../../../../utils/constants/image_strings.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -87,8 +79,7 @@ class HomeScreen extends StatelessWidget {
                         title: 'Popular Products',
                         query: FirebaseFirestore.instance
                             .collection('Products')
-                            .where('IsFeatured', isEqualTo: true)
-                           ,
+                            .where('IsFeatured', isEqualTo: true),
                         futureMethod: homeController.fetchAllFeatureProducts(),
                       ),
                     ),
