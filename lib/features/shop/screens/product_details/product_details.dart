@@ -29,7 +29,7 @@ class ProductDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
-      bottomNavigationBar: TBottomAddToCartWidget(),
+      bottomNavigationBar: TBottomAddToCartWidget(product: product,),
       body: SingleChildScrollView(
         child: Column(
           children: [

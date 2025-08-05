@@ -65,7 +65,7 @@ class AddressModel {
       state: data['State'] as String,
       postalCode: data['PostalCode'] as String,
       country: data['Country'] as String,
-      dateTime: (data['DateTime'] as Timestamp).toDate(),
+      dateTime: (data['DateTime'] as Timestamp?)?.toDate(),
       selectedAddress: data['SelectedAddress'] as bool,
     );
   }

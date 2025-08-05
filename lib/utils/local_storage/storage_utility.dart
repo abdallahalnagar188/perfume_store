@@ -24,6 +24,11 @@ static Future<void> init(String bucketName) async{
     await _storage.write(key, value);
   }
 
+  // Generic method to write data
+  Future<void> writeData<T> (String key,T value)async{
+    await _storage.write(key, value);
+  }
+
   // Generic method to read data
   T? readData<T>(String key) {
     return _storage.read<T>(key);
