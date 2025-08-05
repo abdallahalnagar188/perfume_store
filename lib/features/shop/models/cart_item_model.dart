@@ -40,7 +40,7 @@ class CartItemModel {
   factory CartItemModel.fromJson(Map<String, dynamic> json){
     return CartItemModel(
       productId: json['productId'],
-      title: json['productId'],
+      title: json['title'],
       price: json['price']?.toDouble(),
       image: json['image'],
       quantity: json['quantity'],

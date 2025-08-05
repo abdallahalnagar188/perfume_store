@@ -1,12 +1,19 @@
 import 'package:ecommerce_store/data/repo/address/address_repo.dart';
 import 'package:ecommerce_store/features/personalization/models/address_model.dart';
+import 'package:ecommerce_store/features/personalization/screens/address/add_new_address.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/popups/full_screen_loader.dart';
 import 'package:ecommerce_store/utils/popups/loaders.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
+import '../../../common/widgets/texts/section_heading.dart';
+import '../../../utils/constants/sizes.dart';
+import '../../../utils/helpers/cloud_helper_functions.dart';
 import '../../../utils/helpers/network_manager.dart';
+import '../screens/address/widgets/single_address.dart';
 
 class AddressController extends GetxController {
   static AddressController get instance => Get.find();
@@ -107,6 +114,56 @@ class AddressController extends GetxController {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Error in selected', message: e.toString());
     }
+  }
+
+  /// Show Addresses ModalBottomSheet at Checkout
+  Future<dynamic> selectNewAddressPopup(BuildContext context) {
+    return showModalBottomSheet(
+      context: context,
+      builder: (_) => Container(
+        padding: const EdgeInsets.all(TSizes.lg),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TSectionHeading(
+              title: 'Select Address',
+              showActionButton: false,
+            ),
+            FutureBuilder(
+              future: getAllUserAddress(),
+              builder: (_, snapshot) {
+                /// Helper Function: Handle Loader, No Record, OR ERROR Message
+                final response = TCloudHelperFunctions.checkMultiRecordState(
+                  snapshot: snapshot,
+                );
+                if (response != null) return response;
+
+                return ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: snapshot.data!.length,
+                  itemBuilder: (_, index) => TSingleAddress(
+                    address: snapshot.data![index],
+                    onTap: () async {
+                      await selectAddress(snapshot.data![index]);
+                      Get.back();
+                    },
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: TSizes.defaultSpace * 2),
+
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () => Get.to(() => AddNewAddressScreen()),
+                child: Text('Add new address', style: Theme.of(context).textTheme.bodyMedium,),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   void resetFormFields() {
