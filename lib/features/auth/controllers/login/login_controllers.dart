@@ -12,7 +12,6 @@ import '../../../../utils/constants/image_strings.dart';
 
 class LoginControllers extends GetxController {
   /// variables
-  ///
   final rememberMe = false.obs;
   final hidePassword = true.obs;
   final localStorage = GetStorage();
