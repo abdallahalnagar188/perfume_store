@@ -37,14 +37,14 @@ class SubCategoriesScreen extends StatelessWidget {
           padding: EdgeInsets.all(TSizes.defaultSpace),
           child: Column(
             children: [
-              /// Banner
-              TRoundedImage(
-                imageUrl: TImages.banner3,
-                width: double.infinity,
-                height: null,
-                applyImageRadius: true,
-              ),
-              const SizedBox(height: TSizes.spaceBtwSections),
+              // /// Banner
+              // TRoundedImage(
+              //   imageUrl: TImages.banner3,
+              //   width: double.infinity,
+              //   height: null,
+              //   applyImageRadius: true,
+              // ),
+              // const SizedBox(height: TSizes.spaceBtwSections),
 
               /// sub category
               FutureBuilder(

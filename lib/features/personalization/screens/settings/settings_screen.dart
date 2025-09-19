@@ -8,9 +8,9 @@ import 'package:ecommerce_store/data/repo/banner/banner_repo.dart';
 import 'package:ecommerce_store/data/repo/brands/brand_repo.dart';
 import 'package:ecommerce_store/data/repo/products/products_repo.dart';
 import 'package:ecommerce_store/features/personalization/screens/address/address_screen.dart';
+import 'package:ecommerce_store/features/shop/screens/cart/cart_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/orders/order_screen.dart';
 import 'package:ecommerce_store/utils/constants/colors.dart';
-import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -79,7 +79,7 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.shopping_cart,
                     title: 'My Cart',
                     subTitle: 'Add, remove products and move to checkout',
-                    onTap: () {},
+                    onTap: () => Get.to(() => const CartScreen()),
                   ),
                   TSettingsMenuTile(
                     icon: Iconsax.bag_tick,
@@ -87,30 +87,30 @@ class SettingsScreen extends StatelessWidget {
                     subTitle: 'In-progress and Completed Orders',
                     onTap: () => Get.to(() => const OrderScreen()),
                   ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.bank,
-                    title: 'Back Account',
-                    subTitle: 'Withdraw balance to register back account',
-                    onTap: () {},
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.discount_shape,
-                    title: 'My Coupons',
-                    subTitle: 'List of all the discount coupons',
-                    onTap: () {},
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.notification,
-                    title: 'Notifications',
-                    subTitle: 'Set any kind of Notifications message',
-                    onTap: () {},
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.security_card,
-                    title: 'Account Privacy ',
-                    subTitle: 'Mange data usage and connected accounts',
-                    onTap: () {},
-                  ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.bank,
+                  //   title: 'Back Account',
+                  //   subTitle: 'Withdraw balance to register back account',
+                  //   onTap: () {},
+                  // ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.discount_shape,
+                  //   title: 'My Coupons',
+                  //   subTitle: 'List of all the discount coupons',
+                  //   onTap: () {},
+                  // ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.notification,
+                  //   title: 'Notifications',
+                  //   subTitle: 'Set any kind of Notifications message',
+                  //   onTap: () {},
+                  // ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.security_card,
+                  //   title: 'Account Privacy ',
+                  //   subTitle: 'Mange data usage and connected accounts',
+                  //   onTap: () {},
+                  // ),
 
                   /// App Settings
                   SizedBox(height: TSizes.spaceBtwSections),
@@ -119,44 +119,44 @@ class SettingsScreen extends StatelessWidget {
                     showActionButton: false,
                   ),
                   SizedBox(height: TSizes.spaceBtwItems),
-                  TSettingsMenuTile(
-                    icon: Iconsax.document_upload,
-                    title: 'Load Data',
-                    subTitle: 'Upload Data to your Firebase',
-                    onTap: () {}
-                    // async {
-                    //   try {
-                    //     await ProductRepo.instance.uploadProductCategory(
-                    //       TDummyData.productsForCategory,
-                    //     );
-                    //     Get.snackbar(
-                    //       'Success',
-                    //       'Dummy data uploaded successfully',
-                    //     );
-                    //   } catch (e) {
-                    //     print( e.toString());
-                    //     Get.snackbar('Error', e.toString(),animationDuration:Duration(milliseconds: 5000) );
-                    //   }
-                    // },
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.location,
-                    title: 'Location',
-                    subTitle: 'Set recommended based in location',
-                    trailing: Switch(value: true, onChanged: (value) {}),
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.security_user,
-                    title: 'Safe Mode',
-                    subTitle: 'Search result is safe for all ages',
-                    trailing: Switch(value: false, onChanged: (value) {}),
-                  ),
-                  TSettingsMenuTile(
-                    icon: Iconsax.image,
-                    title: 'HD Image Quality',
-                    subTitle: 'Set Image quality to be seen',
-                    trailing: Switch(value: false, onChanged: (value) {}),
-                  ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.document_upload,
+                  //   title: 'Load Data',
+                  //   subTitle: 'Upload Data to your Firebase',
+                  //   onTap: () {}
+                  //   // async {
+                  //   //   try {
+                  //   //     await ProductRepo.instance.uploadProductCategory(
+                  //   //       TDummyData.productsForCategory,
+                  //   //     );
+                  //   //     Get.snackbar(
+                  //   //       'Success',
+                  //   //       'Dummy data uploaded successfully',
+                  //   //     );
+                  //   //   } catch (e) {
+                  //   //     print( e.toString());
+                  //   //     Get.snackbar('Error', e.toString(),animationDuration:Duration(milliseconds: 5000) );
+                  //   //   }
+                  //   // },
+                  // ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.location,
+                  //   title: 'Location',
+                  //   subTitle: 'Set recommended based in location',
+                  //   trailing: Switch(value: true, onChanged: (value) {}),
+                  // ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.security_user,
+                  //   title: 'Safe Mode',
+                  //   subTitle: 'Search result is safe for all ages',
+                  //   trailing: Switch(value: false, onChanged: (value) {}),
+                  // ),
+                  // TSettingsMenuTile(
+                  //   icon: Iconsax.image,
+                  //   title: 'HD Image Quality',
+                  //   subTitle: 'Set Image quality to be seen',
+                  //   trailing: Switch(value: false, onChanged: (value) {}),
+                  // ),
                   /// Logout Button
                   const SizedBox(height: TSizes.spaceBtwSections),
                   SizedBox(

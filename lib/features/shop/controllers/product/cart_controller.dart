@@ -29,27 +29,27 @@ class CartController extends GetxController {
     }
 
     // Variation Selected?
-    if (variationController.selectedVariation.value.id.isEmpty) {
-      TLoaders.customToast(message: 'Select Variation');
-      return;
-    }
+    // if (variationController.selectedVariation.value.id.isEmpty) {
+    //   TLoaders.customToast(message: 'Select Variation');
+    //   return;
+    // }
 
     // Out of Stock Status
 
-    if (variationController.selectedVariation.value.stock < 1) {
-      TLoaders.warningSnackBar(
-        message: 'Selected variation is out of stock.',
-        title: 'Oh Snap!',
-      );
-      return;
-    } else {
+    // if (variationController.selectedVariation.value.stock < 1) {
+    //   TLoaders.warningSnackBar(
+    //     message: 'Selected variation is out of stock.',
+    //     title: 'Oh Snap!',
+    //   );
+    //   return;
+    // } else {
       if (product.stock < 1) {
         TLoaders.warningSnackBar(
           message: 'Selected Product is out of stock.',
           title: 'Oh Snap!',
         );
         return;
-      }
+
     }
 
     final selectedCartItem = convertToCartItem(

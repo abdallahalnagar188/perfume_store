@@ -3,6 +3,7 @@ import 'package:ecommerce_store/common/widgets/custom_shapes/curved_edge/curved_
 import 'package:ecommerce_store/common/widgets/icons/t_circular_icon.dart';
 import 'package:ecommerce_store/common/widgets/image/t_rounded_image.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
+import 'package:ecommerce_store/features/shop/screens/checkout/checkout_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/bottom_add_to_cart_widget.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/product_attributes.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/product_details_image_slider.dart';
@@ -56,15 +57,15 @@ class ProductDetailsScreen extends StatelessWidget {
                   TProductAttributes(product: product,),
                   const SizedBox(height: TSizes.spaceBtwSections),
 
-                  /// Checkout Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Checkout'),
-                    ),
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  // /// Checkout Button
+                  // SizedBox(
+                  //   width: double.infinity,
+                  //   child: ElevatedButton(
+                  //     onPressed: () => Get.to(() => const CheckoutScreen()),
+                  //     child: Text('Checkout'),
+                  //   ),
+                  // ),
+               //   const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Description
                   const TSectionHeading(
@@ -78,6 +79,7 @@ class ProductDetailsScreen extends StatelessWidget {
                     trimMode: TrimMode.Line,
                     trimCollapsedText: 'Show more',
                     trimExpandedText: 'Less',
+                    textAlign: TextAlign.start,
                     moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                     lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
                   ),

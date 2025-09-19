@@ -27,19 +27,19 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             ///Header
-            const TPrimaryHeaderContainer(
+            TPrimaryHeaderContainer(
               child: Column(
                 children: [
                   /// Appbar
-                  THomeAppbar(),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                  const THomeAppbar(),
+                  const SizedBox(height: TSizes.spaceBtwSections),
 
                   ///Searchbar
-                  TSearchContainer(text: 'Search in Store'),
-                  SizedBox(height: TSizes.spaceBtwSections),
+                 // TSearchContainer(text: 'Search in Store',onTap: () => Get.to(() => SearchScreen()),),
+                  const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Heading
-                  Padding(
+                  const Padding(
                     padding: EdgeInsets.only(left: TSizes.defaultSpace),
                     child: Column(
                       children: [
