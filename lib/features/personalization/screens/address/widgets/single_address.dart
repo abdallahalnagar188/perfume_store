@@ -40,8 +40,8 @@ class TSingleAddress extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                right: 5,
                 top: 0,
+                left: 5,
                 child: Icon(
                   selectedAddress ? Iconsax.tick_circle5 : null,
                   color: selectedAddress

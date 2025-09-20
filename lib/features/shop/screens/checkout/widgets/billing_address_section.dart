@@ -13,7 +13,7 @@ class TBillingAddressSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        TSectionHeading(title: 'Shipping Address',buttonTitle: 'Change', onPressed: () => controller.selectNewAddressPopup(context),),
+        TSectionHeading(title: 'shippingAddress'.tr,buttonTitle: 'change'.tr, onPressed: () => controller.selectNewAddressPopup(context),),
         controller.selectedAddress.value.id.isNotEmpty ?
         Obx(
           () =>  Column(
@@ -40,7 +40,7 @@ class TBillingAddressSection extends StatelessWidget {
               ),
             ],
           ),
-        ):Text('Select Address',style: Theme.of(context).textTheme.bodyMedium,)
+        ):Text('selectAddress'.tr,style: Theme.of(context).textTheme.bodyMedium,)
 
       ],
     );

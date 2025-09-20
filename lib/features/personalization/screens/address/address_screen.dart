@@ -19,7 +19,7 @@ class UserAddressScreen extends StatelessWidget {
     return Scaffold(
       appBar: TAppbar(
         title: Text(
-          'Addresses',
+          'myAddress'.tr,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         showBackArrow: true,

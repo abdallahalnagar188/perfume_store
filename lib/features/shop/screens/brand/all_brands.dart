@@ -21,7 +21,7 @@ class AllBrandsScreen extends StatelessWidget {
     final brandController = BrandController.instance;
     return Scaffold(
       appBar: TAppbar(
-        title: Text('Brand', style: Theme.of(context).textTheme.headlineSmall),
+        title: Text('brands'.tr, style: Theme.of(context).textTheme.headlineSmall),
         showBackArrow: true,
       ),
       body: SingleChildScrollView(
@@ -30,7 +30,7 @@ class AllBrandsScreen extends StatelessWidget {
           child: Column(
             children: [
               /// Heading
-              TSectionHeading(title: 'Brands', showActionButton: false),
+              TSectionHeading(title: 'brands'.tr, showActionButton: false),
               const SizedBox(height: TSizes.spaceBtwItems),
 
               /// Brands
@@ -41,7 +41,7 @@ class AllBrandsScreen extends StatelessWidget {
                 if (brandController.allBrands.isEmpty) {
                   return Center(
                     child: Text(
-                      'No Found Data',
+                      'No data found'.tr,
                       style: Theme.of(
                         context,
                       ).textTheme.bodyMedium!.apply(color: Colors.white),

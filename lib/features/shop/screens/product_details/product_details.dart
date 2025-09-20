@@ -28,7 +28,6 @@ class ProductDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
     return Scaffold(
       bottomNavigationBar: TBottomAddToCartWidget(product: product,),
       body: SingleChildScrollView(
@@ -68,9 +67,10 @@ class ProductDetailsScreen extends StatelessWidget {
                //   const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Description
-                  const TSectionHeading(
-                    title: 'Description',
+                   TSectionHeading(
+                    title: 'description'.tr,
                     showActionButton: false,
+                     buttonTitle: 'viewAll'.tr,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
                   ReadMoreText(
@@ -90,7 +90,7 @@ class ProductDetailsScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      TSectionHeading(title: 'Reviews (199)', showActionButton: false,),
+                      TSectionHeading(title: 'Reviews (199)', showActionButton: false,buttonTitle: 'viewAll'.tr,),
                       IconButton(onPressed: () => Get.to(() => const ProductReviewsScreen()), icon: Icon(Iconsax.arrow_right_3))
                     ],
                   ),

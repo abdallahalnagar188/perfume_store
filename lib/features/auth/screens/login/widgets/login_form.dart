@@ -27,9 +27,9 @@ class LoginForm extends StatelessWidget {
             TextFormField(
               validator: (value) => TValidator.validateEmail(value),
               controller: controller.email,
-              decoration: const InputDecoration(
+              decoration:  InputDecoration(
                 prefixIcon: Icon(Iconsax.direct_right),
-                labelText: TTexts.email,
+                labelText: 'email'.tr,
               ),
             ),
 
@@ -43,7 +43,7 @@ class LoginForm extends StatelessWidget {
                 obscureText: controller.hidePassword.value,
                 expands: false,
                 decoration: InputDecoration(
-                  labelText: TTexts.password,
+                  labelText: 'password'.tr,
                   prefixIcon: const Icon(Iconsax.password_check),
                   suffixIcon: IconButton(
                     onPressed: () => controller.hidePassword.value =
@@ -70,14 +70,14 @@ class LoginForm extends StatelessWidget {
                        value: controller.rememberMe.value,
                        onChanged: (value) => controller.rememberMe.value = !controller.rememberMe.value,
                      )),
-                    const Text(TTexts.rememberMe),
+                     Text('rememberMe'.tr,style: Theme.of(context).textTheme.bodyMedium,),
                   ],
                 ),
 
                 /// forget password
                 TextButton(
                   onPressed: () => Get.to(() => ForgetPasswordScreen()),
-                  child: const Text(TTexts.forgetPassword),
+                  child:  Text('forgetPassword'.tr, style: Theme.of(context).textTheme.bodyMedium,),
                 ),
               ],
             ),
@@ -88,7 +88,7 @@ class LoginForm extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => controller.emailAndPasswordSignIn(),
-                child: Text(TTexts.signIn),
+                child: Text('signIn'.tr,style: Theme.of(context).textTheme.bodyMedium,),
               ),
             ),
             const SizedBox(height: TSizes.spaceBtwItems),
@@ -98,7 +98,7 @@ class LoginForm extends StatelessWidget {
               width: double.infinity,
               child: OutlinedButton(
                 onPressed: () => Get.to(() => SignupScreen()),
-                child: Text(TTexts.createAccount),
+                child: Text('createAccount'.tr,style: Theme.of(context).textTheme.bodyMedium,),
               ),
             ),
           ],

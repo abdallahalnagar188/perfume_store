@@ -39,12 +39,12 @@ class HomeScreen extends StatelessWidget {
                   const SizedBox(height: TSizes.spaceBtwSections),
 
                   /// Heading
-                  const Padding(
-                    padding: EdgeInsets.only(left: TSizes.defaultSpace),
+                   Padding(
+                    padding: EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
                     child: Column(
                       children: [
                         TSectionHeading(
-                          title: 'Popular Categories',
+                          title: 'popularCategories'.tr,
                           showActionButton: false,
                           textColor: TColors.white,
                         ),
@@ -69,14 +69,15 @@ class HomeScreen extends StatelessWidget {
                   TPromoSlider(),
                   const SizedBox(height: TSizes.spaceBtwSections),
                   TSectionHeading(
-                    title: 'Popular Products',
+                    buttonTitle: 'viewAll'.tr,
+                    title: 'popularProducts'.tr,
                     showActionButton: true,
                     textColor: THelperFunctions.isDarkMode(context)
                         ? TColors.white
                         : TColors.black,
                     onPressed: () => Get.to(
                       () => AllProductsScreen(
-                        title: 'Popular Products',
+                        title: 'popularProducts'.tr,
                         query: FirebaseFirestore.instance
                             .collection('Products')
                             .where('IsFeatured', isEqualTo: true),
@@ -92,7 +93,7 @@ class HomeScreen extends StatelessWidget {
                       return const TVerticalProductShimmer();
                     }
                     if (homeController.featuredProducts.isEmpty) {
-                      return const Center(child: Text('No data found'));
+                      return  Center(child: Text('no data found'.tr));
                     } else {
                       return TGridLayout(
                         itemCount: homeController.featuredProducts.length,

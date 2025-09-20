@@ -30,7 +30,7 @@ class StoreScreen extends StatelessWidget {
       child: Scaffold(
         appBar: TAppbar(
           title: Text(
-            'Store',
+            'Store'.tr,
             style: Theme.of(context).textTheme.headlineMedium,
           ),
           actions: [TCartCounterIcon()],
@@ -66,7 +66,8 @@ class StoreScreen extends StatelessWidget {
 
                       /// Featured Brands
                       TSectionHeading(
-                        title: 'Featured Brands',
+                        title: 'featuredBrands'.tr,
+                        buttonTitle: 'viewAll'.tr,
                         showActionButton: true,
                         onPressed: () => Get.to(() => AllBrandsScreen()),
                       ),
@@ -80,7 +81,7 @@ class StoreScreen extends StatelessWidget {
                         if (brandController.featuredBrands.isEmpty) {
                           return Center(
                             child: Text(
-                              'No Found Data',
+                              'no data found'.tr,
                               style: Theme.of(context).textTheme.bodyMedium!
                                   .apply(color: Colors.white),
                             ),

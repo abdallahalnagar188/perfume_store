@@ -22,19 +22,19 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = FavouriteController.instance;
+    final controller = Get.put(FavouriteController());
     return Scaffold(
       appBar: TAppbar(
         title: Text(
-          'Wishlist',
+          'Wishlist'.tr,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
-        actions: [
-          TCircularIcon(
-            icon: Iconsax.add,
-            onPressed: () => Get.to(const HomeScreen()),
-          ),
-        ],
+        // actions: [
+        //   TCircularIcon(
+        //     icon: Iconsax.add,
+        //     onPressed: () => Get.to(const HomeScreen()),
+        //   ),
+        // ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -45,7 +45,7 @@ class FavoriteScreen extends StatelessWidget {
 
               // Nothing found widget
               final emptyWidget = TAnimationLoaderWidget(
-                text: 'Whoops! Wishlist is empty...',
+                text: 'emptyWishList'.tr,
                 animation: TImages.pencilAnimation,
                 showAction: true,
                 actionText: 'Let\'s add some',

@@ -50,7 +50,8 @@ class TCategoryTab extends StatelessWidget {
                   return Column(
                     children: [
                       TSectionHeading(
-                        title: 'You might like',
+                        title: 'you might like'.tr,
+                        buttonTitle: 'viewAll'.tr,
                         showActionButton: true,
                         onPressed: () => Get.to(
                           AllProductsScreen(

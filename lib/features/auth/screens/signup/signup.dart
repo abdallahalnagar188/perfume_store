@@ -2,6 +2,7 @@ import 'package:ecommerce_store/features/auth/screens/signup/widgets/signup_form
 import 'package:ecommerce_store/utils/constants/text_strings.dart';
 import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../../../../utils/constants/sizes.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -19,7 +20,7 @@ class SignupScreen extends StatelessWidget {
             children: [
               /// Title
               Text(
-                TTexts.signupTitle,
+                'signupTitle'.tr,
                 style: Theme.of(context).textTheme.headlineMedium,
               ),
               const SizedBox(height: TSizes.spaceBtwSections),

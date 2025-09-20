@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../../utils/constants/image_strings.dart';
 import '../../../../../utils/constants/sizes.dart';
@@ -25,12 +26,12 @@ class LoginHeader extends StatelessWidget {
           ),
         ),
         Text(
-          TTexts.loginTitle,
+          'loginTitle'.tr,
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         const SizedBox(height: TSizes.sm),
         Text(
-          TTexts.loginSubTitle,
+          'loginSubTitle'.tr,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
       ],

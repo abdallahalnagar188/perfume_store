@@ -23,13 +23,13 @@ class ForgetPasswordScreen extends StatelessWidget {
           children: [
             /// Headline
             Text(
-              TTexts.forgetPasswordTitle,
+              'forgetPasswordTitle'.tr,
               style: Theme.of(context).textTheme.headlineMedium,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: TSizes.spaceBtwItems),
             Text(
-              TTexts.forgetPasswordSubTitle,
+              'forgetPasswordSubTitle'.tr,
               style: Theme.of(context).textTheme.labelMedium,
               textAlign: TextAlign.center,
             ),
@@ -43,8 +43,8 @@ class ForgetPasswordScreen extends StatelessWidget {
                 controller: controller.email,
                 validator: TValidator.validateEmail,
                 expands: false,
-                decoration: const InputDecoration(
-                  labelText: TTexts.email,
+                decoration:  InputDecoration(
+                  labelText: 'email'.tr,
                   prefixIcon: Icon(Iconsax.direct_right),
                 ),
               ),
@@ -56,7 +56,7 @@ class ForgetPasswordScreen extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => controller.sendResetPasswordEmail(),
-                child: const Text(TTexts.submit),
+                child:  Text('submit'.tr),
               ),
             ),
           ],

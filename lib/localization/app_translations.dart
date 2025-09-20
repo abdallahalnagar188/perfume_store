@@ -1,0 +1,244 @@
+import 'package:get/get.dart';
+
+class AppTranslations extends Translations {
+  @override
+  Map<String, Map<String, String>> get keys => {
+    'en_US': {
+      // Global
+      'and': "and",
+      'skip': "Skip",
+      'done': "Done",
+      'submit': "Submit",
+      'appName': "T-Store",
+      'tContinue': "Continue",
+      'save': "Save",
+
+      // OnBoarding
+      'onBoardingTitle1': "Choose your product",
+      'onBoardingTitle2': "Select Payment Method",
+      'onBoardingTitle3': "Deliver at your door step",
+      'onBoardingSubTitle1':
+          "Welcome to a World of Limitless Choices - Your Perfect Product Awaits!",
+      'onBoardingSubTitle2':
+          "For Seamless Transactions, Choose Your Payment Path - Your Convenience, Our Priority!",
+      'onBoardingSubTitle3':
+          "From Our Doorstep to Yours - Swift, Secure, and Contactless Delivery!",
+
+      // Authentication Forms
+      'firstName': "First Name",
+      'lastName': "Last Name",
+      'name': "Name",
+      'email': "E-Mail",
+      'password': "Password",
+      'newPassword': "New Password",
+      'username': "Username",
+      'phoneNo': "Phone Number",
+      'rememberMe': "Remember Me",
+      'forgetPassword': "Forget Password?",
+      'signIn': "Sign In",
+      'createAccount': "Create Account",
+      'orSignInWith': "or sign in with",
+      'orSignUpWith': "or sign up with",
+      'iAgreeTo': "I agree to",
+      'privacyPolicy': "Privacy Policy",
+      'termsOfUse': "Terms of use",
+      'verificationCode': "Verification Code",
+      'resendEmail': "Resend Email",
+      'resendEmailIn': "Resend email in",
+
+      // Authentication Headings
+      'loginTitle': "Welcome back,",
+      'loginSubTitle': "Discover Limitless Choices and Unmatched Convenience.",
+      'signupTitle': "Let’s create your account",
+      'forgetPasswordTitle': "Forget password",
+      'forgetPasswordSubTitle':
+          "Don’t worry sometimes people can forget too, enter your email and we will send you a password reset link.",
+      'changeYourPasswordTitle': "Password Reset Email Sent",
+      'changeYourPasswordSubTitle':
+          "Your Account Security is Our Priority! We've Sent You a Secure Link to Safely Change Your Password and Keep Your Account Protected.",
+      'confirmEmail': "Verify your email address!",
+      'confirmEmailSubTitle':
+          "Congratulations! Your Account Awaits: Verify Your Email to Start Shopping and Experience a World of Unrivaled Deals and Personalized Offers.",
+      'emailNotReceivedMessage':
+          "Didn’t get the email? Check your junk/spam or resend it.",
+      'yourAccountCreatedTitle': "Your account successfully created!",
+      'yourAccountCreatedSubTitle':
+          "Welcome to Your Ultimate Shopping Destination: Your Account is Created, Unleash the Joy of Seamless Online Shopping!",
+
+      // Product
+      'popularProducts': "Popular Products",
+
+      // Home
+      'homeAppbarTitle': "Good day for shopping",
+      'homeAppbarSubTitle': "Abdallah Alnagar",
+
+      // Settings & Navigation
+      'account': 'Account',
+      'language': 'Language',
+      'choose_language': 'Choose your language',
+      'logout': 'Logout',
+      'english': 'English',
+      'arabic': 'Arabic',
+      'accountSetting': 'Account Settings',
+      'myAddress': 'My Address',
+      'myCart': 'My Cart',
+      'myOrders': 'My Orders',
+      'appSettings': 'App Settings',
+      'popularCategories': 'Popular Categories',
+      'featuredBrands': 'Featured Brands',
+      'No data found': 'No data found',
+      'you might like': 'You might like',
+      'Home': "Home",
+      'Shop': "Shop",
+      'Wishlist': "Wishlist",
+      'Profile': "Profile",
+      'brands': 'Brands',
+      'viewAll': "View All",
+      'description': "Description",
+      'addressTitle': "Set shopping delivery address",
+      'catTitle': "Add, remove products and move to checkout",
+      'orderTitle': "In-progress and Completed Orders",
+      'street': "Street",
+      'postCode': "Postal Code",
+      'city': "City",
+      'state': "State",
+      'country': "Country",
+      'changeImage': "Change Profile Image",
+      'profileInfo': "Profile Information",
+      'personalInfo': "Personal Information",
+      'userId': "User Id",
+      'closeAccount': "Close Account",
+      'emptyWishList': "Whoops! Wishlist is empty...",
+      'emptyCart': "Whoops! Cart is empty...",
+      'checkout': "Checkout",
+      'orderReview': "Order Review",
+      'pymentMethod': "Pyment Method",
+      'change': "Change",
+      'subTotal': "SubTotal",
+      'shipping': "shipping",
+      'tax': "Tax",
+      'orderTotal': "Order Total",
+      'shippingAddress': "Shipping Address",
+      'selectedAddress': "Selected Address",
+    },
+    'ar_EG': {
+      // Global
+      'and': "و",
+      'skip': "تخطي",
+      'done': "تم",
+      'submit': "ارسال",
+      'appName': "تي ستور",
+      'tContinue': "متابعة",
+      'save': "حفظ",
+
+      // OnBoarding
+      'onBoardingTitle1': "اختر منتجك",
+      'onBoardingTitle2': "اختر طريقة الدفع",
+      'onBoardingTitle3': "التوصيل إلى باب منزلك",
+      'onBoardingSubTitle1':
+          "مرحبًا بك في عالم من الخيارات اللامحدودة - منتجك المثالي في انتظارك!",
+      'onBoardingSubTitle2':
+          "لإتمام المعاملات بسهولة، اختر طريقة الدفع الخاصة بك - راحتك أولويتنا!",
+      'onBoardingSubTitle3': "من بابنا إلى بابك - توصيل سريع وآمن وبدون تلامس!",
+
+      // Authentication Forms
+      'firstName': "الاسم الأول",
+      'lastName': "الاسم الأخير",
+      'name': "الاسم",
+      'email': "البريد الإلكتروني",
+      'password': "كلمة المرور",
+      'newPassword': "كلمة مرور جديدة",
+      'username': "اسم المستخدم",
+      'phoneNo': "رقم الهاتف",
+      'rememberMe': "تذكرني",
+      'forgetPassword': "نسيت كلمة المرور؟",
+      'signIn': "تسجيل الدخول",
+      'createAccount': "إنشاء حساب",
+      'orSignInWith': "أو سجل الدخول باستخدام",
+      'orSignUpWith': "أو اشترك باستخدام",
+      'iAgreeTo': "أوافق على",
+      'privacyPolicy': "سياسة الخصوصية",
+      'termsOfUse': "شروط الاستخدام",
+      'verificationCode': "رمز التحقق",
+      'resendEmail': "إعادة إرسال البريد الإلكتروني",
+      'resendEmailIn': "إعادة إرسال البريد الإلكتروني خلال",
+
+      // Authentication Headings
+      'loginTitle': "مرحبًا بعودتك،",
+      'loginSubTitle': "اكتشف خيارات غير محدودة وراحة لا مثيل لها.",
+      'signupTitle': "لنقم بإنشاء حسابك",
+      'forgetPasswordTitle': "نسيت كلمة المرور",
+      'forgetPasswordSubTitle':
+          "لا تقلق، فالنسيان أمر طبيعي. أدخل بريدك الإلكتروني وسنرسل لك رابط إعادة تعيين كلمة المرور.",
+      'changeYourPasswordTitle': "تم إرسال بريد إعادة تعيين كلمة المرور",
+      'changeYourPasswordSubTitle':
+          "أمان حسابك هو أولويتنا! لقد أرسلنا رابطًا آمنًا لتغيير كلمة مرورك وحماية حسابك.",
+      'confirmEmail': "تحقق من بريدك الإلكتروني!",
+      'confirmEmailSubTitle':
+          "مبروك! حسابك في انتظارك: تحقق من بريدك الإلكتروني لبدء التسوق والاستفادة من العروض المميزة.",
+      'emailNotReceivedMessage':
+          "لم يصلك البريد؟ تحقق من الرسائل غير المرغوب فيها أو أعد إرساله.",
+      'yourAccountCreatedTitle': "تم إنشاء حسابك بنجاح!",
+      'yourAccountCreatedSubTitle':
+          "مرحبًا بك في وجهتك المثالية للتسوق: تم إنشاء حسابك، استمتع بتجربة تسوق سلسة!",
+
+      // Product
+      'popularProducts': "اشهر المنتجات",
+
+      // Home
+      'homeAppbarTitle': "يوم رائع للتسوق",
+      'homeAppbarSubTitle': "عبدالله النجار",
+
+      // Settings & Navigation
+      'account': 'الحساب',
+      'language': 'اللغة',
+      'choose_language': 'اختر لغتك',
+      'logout': 'تسجيل الخروج',
+      'english': 'الإنجليزية',
+      'arabic': 'العربية',
+      'accountSetting': 'إعدادات الحساب',
+      'myAddress': 'العناوين',
+      'myCart': 'عربة التسوق',
+      'myOrders': 'طلباتي',
+      'brands': 'العلامات التجاريه',
+      'appSettings': 'إعدادات التطبيق',
+      'popularCategories': 'الأقسام الشائعة',
+      'featuredBrands': 'العلامات التجارية الشهيرة',
+      'No data found': 'لا توجد بيانات',
+      'you might like': 'قد يعجبك أيضًا',
+      'Home': "الرئيسية",
+      'Shop': "المتجر",
+      'Wishlist': "المفضلة",
+      'Profile': "الحساب",
+      'viewAll': 'عرض الكل',
+      'description': "الوصف",
+      'addressTitle': "تعيين عنوان توصيل التسوق",
+      'cartTitle': "إضافة، إزالة المنتجات والانتقال إلى الدفع",
+      'orderTitle': "الطلبات قيد التنفيذ والمكتملة",
+      'addNewAddress': "اضافة عنوان",
+      'street': "الشارع",
+      'postCode': "الرمز البريدي",
+      'city': "المدينة",
+      'state': "المحافظة",
+      'country': "الدولة",
+      'changeImage': "تغيير الصوره الشخصيه",
+      'profileInfo': "معلومات الحساب",
+      'personalInfo': "المعلومات الشخصية",
+      'userId': "الاي دي",
+      'closeAccount': "غلق الحساب",
+      'emptyWishList': "لا يوجد عناصر ",
+      'emptyCart': "لا يوجد عناصر ",
+      'checkout': "إتمام الشراء",
+      'orderReview': "متابعه الشراء",
+      'pymentMethod': "طريقه الدفع",
+      'change': "تغيير",
+      'subTotal': "المجموع الفرعي",
+      'shipping': "الشحن",
+      'tax': "الضريبة",
+      'orderTotal': "إجمالي الطلب",
+      'shippingAddress': "عنوان الطلب",
+      'selectedAddress': "اختيار العنوان",
+
+    },
+  };
+}

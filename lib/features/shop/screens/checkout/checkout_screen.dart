@@ -34,7 +34,7 @@ class CheckoutScreen extends StatelessWidget {
     return Scaffold(
       appBar: TAppbar(
         title: Text(
-          'Order Review',
+          'orderReview'.tr,
           style: Theme.of(context).textTheme.headlineSmall,
         ),
         showBackArrow: true,
@@ -50,7 +50,7 @@ class CheckoutScreen extends StatelessWidget {
               const SizedBox(height: TSizes.spaceBtwSections),
 
               /// Coupon TextField
-              TCouponCode(),
+            //  TCouponCode(),
               const SizedBox(height: TSizes.spaceBtwSections),
 
               ///Billing Section
@@ -87,9 +87,9 @@ class CheckoutScreen extends StatelessWidget {
           onPressed: subTotal > 0
               ? () => orderController.processOrder(totalAmount)
               : () => TLoaders.warningSnackBar(title: 'Empty Cart', message: 'Add items in the cart in order to process',),
-          child: Text('Checkout \$$totalAmount'),
+          child: Text('${'checkout'.tr} \$$totalAmount', style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: Colors.white))),
         ),
-      ),
+
     );
   }
 }

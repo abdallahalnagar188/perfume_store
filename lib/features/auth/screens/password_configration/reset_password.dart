@@ -45,19 +45,19 @@ class ResetPasswordScreen extends StatelessWidget {
 
               /// Email and Title and SubTitle
               Text(
-                email,
+                'email'.tr,
                 style: Theme.of(context).textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
               Text(
-                TTexts.changeYourPasswordTitle,
+                'changeYourPasswordTitle'.tr,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
               Text(
-                TTexts.changeYourPasswordSubTitle,
+                'changeYourPasswordSubTitle'.tr,
                 style: Theme.of(context).textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
@@ -68,7 +68,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () => Get.offAll(() => LoginScreen()),
-                  child: const Text(TTexts.done),
+                  child:  Text('done'.tr),
                 ),
               ),
               const SizedBox(height: TSizes.spaceBtwSections),
@@ -78,7 +78,7 @@ class ResetPasswordScreen extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => controller.resendPasswordResetEmail(email),
-                  child: const Text(TTexts.resendEmail),
+                  child:  Text('resendEmail'.tr),
                 ),
               ),
             ],

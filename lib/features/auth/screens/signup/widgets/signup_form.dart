@@ -31,8 +31,8 @@ class TSignUpForm extends StatelessWidget {
                   controller: controller.firstName,
                   validator: (value) =>
                       TValidator.validateEmptyText('First Name', value),
-                  decoration: const InputDecoration(
-                    labelText: TTexts.firstName,
+                  decoration:  InputDecoration(
+                    labelText: 'firstName'.tr,
                     prefixIcon: Icon(Iconsax.user),
                   ),
                 ),
@@ -45,8 +45,8 @@ class TSignUpForm extends StatelessWidget {
                       TValidator.validateEmptyText('Last Name', value),
 
                   expands: false,
-                  decoration: const InputDecoration(
-                    labelText: TTexts.lastName,
+                  decoration:  InputDecoration(
+                    labelText:"lastName".tr,
                     prefixIcon: Icon(Iconsax.user),
                   ),
                 ),
@@ -61,8 +61,8 @@ class TSignUpForm extends StatelessWidget {
             controller: controller.username,
             validator: (value) =>
                 TValidator.validateEmptyText('UserName', value),
-            decoration: const InputDecoration(
-              labelText: TTexts.username,
+            decoration:  InputDecoration(
+              labelText: 'username'.tr,
               prefixIcon: Icon(Iconsax.user_edit),
             ),
           ),
@@ -74,8 +74,8 @@ class TSignUpForm extends StatelessWidget {
             validator: (value) => TValidator.validateEmail(value),
 
             expands: false,
-            decoration: const InputDecoration(
-              labelText: TTexts.email,
+            decoration:  InputDecoration(
+              labelText: 'email'.tr,
               prefixIcon: Icon(Iconsax.direct),
             ),
           ),
@@ -87,8 +87,8 @@ class TSignUpForm extends StatelessWidget {
             validator: (value) => TValidator.validatePhoneNumber(value),
 
             expands: false,
-            decoration: const InputDecoration(
-              labelText: TTexts.phoneNo,
+            decoration:  InputDecoration(
+              labelText: 'phoneNo'.tr,
               prefixIcon: Icon(Iconsax.call),
             ),
           ),
@@ -102,7 +102,7 @@ class TSignUpForm extends StatelessWidget {
               obscureText: controller.hidePassword.value,
               expands: false,
               decoration: InputDecoration(
-                labelText: TTexts.password,
+                labelText: 'password'.tr,
                 prefixIcon: const Icon(Iconsax.password_check),
                 suffixIcon: IconButton(
                   onPressed: () => controller.hidePassword.value =
@@ -137,11 +137,11 @@ class TSignUpForm extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(
-                      text: '${TTexts.iAgreeTo} ',
+                      text: '${'iAgreeTo'.tr} ',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextSpan(
-                      text: '${TTexts.privacyPolicy} ',
+                      text: '${'privacyPolicy'.tr} ',
                       style: Theme.of(context).textTheme.bodyMedium!.apply(
                         color: dark ? TColors.white : TColors.primary,
                         decoration: TextDecoration.underline,
@@ -149,11 +149,11 @@ class TSignUpForm extends StatelessWidget {
                       ),
                     ),
                     TextSpan(
-                      text: '${TTexts.and} ',
+                      text: '${'and'.tr} ',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
                     TextSpan(
-                      text: '${TTexts.termsOfUse} ',
+                      text: '${'termsOfUse'.tr} ',
                       style: Theme.of(context).textTheme.bodyMedium!.apply(
                         overflow: TextOverflow.ellipsis,
                         color: dark ? TColors.white : TColors.primary,
@@ -174,7 +174,7 @@ class TSignUpForm extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () => controller.signup(),
-              child: Text(TTexts.createAccount),
+              child: Text('createAccount'.tr,style: Theme.of(context).textTheme.titleMedium,),
             ),
           ),
 

@@ -42,7 +42,7 @@ class VerifyEmailScreen extends StatelessWidget {
 
               /// Title and SubTitle
               Text(
-                TTexts.confirmEmail,
+                'confirmEmail'.tr,
                 style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
@@ -54,7 +54,7 @@ class VerifyEmailScreen extends StatelessWidget {
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
               Text(
-                TTexts.confirmEmailSubTitle,
+                'confirmEmailSubTitle'.tr,
                 style: Theme.of(context).textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
@@ -67,7 +67,7 @@ class VerifyEmailScreen extends StatelessWidget {
                   onPressed: () => Get.to(
                     () => controller.checkEmailVerificationStatus(),
                   ),
-                  child: const Text(TTexts.tContinue),
+                  child:  Text('tContinue'.tr,style: Theme.of(context).textTheme.labelLarge),
                 ),
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
@@ -75,7 +75,7 @@ class VerifyEmailScreen extends StatelessWidget {
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () => controller.sendEmailVerification(),
-                  child: const Text(TTexts.resendEmail),
+                  child:  Text('resendEmail'.tr,style: Theme.of(context).textTheme.labelLarge),
                 ),
               ),
             ],

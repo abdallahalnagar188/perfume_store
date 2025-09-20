@@ -22,7 +22,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.put(UserController());
     return Scaffold(
-      appBar: TAppbar(showBackArrow: true, title: Text('Profile')),
+      appBar: TAppbar(showBackArrow: true, title: Text('account'.tr,style: Theme.of(context).textTheme.headlineMedium)),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(TSizes.defaultSpace),
@@ -55,7 +55,7 @@ class ProfileScreen extends StatelessWidget {
 
                     TextButton(
                       onPressed: () => controller.uploadUserProfileImage(),
-                      child: Text('Change Profile Image'),
+                      child: Text('changeImage'.tr,style: TextStyle(color: TColors.primary),),
                     ),
                   ],
                 ),
@@ -68,19 +68,19 @@ class ProfileScreen extends StatelessWidget {
 
               /// Heading Profile info
               TSectionHeading(
-                title: 'Profile Information',
+                title: 'profileInfo'.tr,
                 showActionButton: false,
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
 
               TProfileMenu(
                 onPressed: () => Get.to(ChangeName()),
-                title: 'Name',
+                title: 'name'.tr,
                 value: controller.user.value.fullName,
               ),
               TProfileMenu(
                 onPressed: () {},
-                title: 'Username',
+                title: 'username'.tr,
                 value: controller.user.value.username,
               ),
 
@@ -90,32 +90,32 @@ class ProfileScreen extends StatelessWidget {
 
               /// Heading Personal info
               TSectionHeading(
-                title: 'Personal Information',
+                title: 'personalInfo'.tr,
                 showActionButton: false,
               ),
               const SizedBox(height: TSizes.spaceBtwItems),
               TProfileMenu(
                 onPressed: () {},
-                title: 'User Id',
+                title: 'userId'.tr,
                 value: controller.user.value.id,
                 icon: Iconsax.copy,
               ),
               TProfileMenu(
                 onPressed: () {},
-                title: 'E-mail',
+                title: 'email'.tr,
                 value: controller.user.value.email,
               ),
               TProfileMenu(
                 onPressed: () {},
-                title: 'Phone Number',
+                title: 'phoneNo'.tr,
                 value: controller.user.value.phoneNumber,
               ),
-              TProfileMenu(onPressed: () {}, title: 'Gender', value: 'Mail'),
-              TProfileMenu(
-                onPressed: () {},
-                title: 'Date of Birth',
-                value: '18 Ogs, 2002',
-              ),
+              // TProfileMenu(onPressed: () {}, title: 'Gender', value: 'Mail'),
+              // TProfileMenu(
+              //   onPressed: () {},
+              //   title: 'Date of Birth',
+              //   value: '18 Ogs, 2002',
+              // ),
               const SizedBox(height: TSizes.spaceBtwItems),
 
               Divider(),
@@ -125,8 +125,8 @@ class ProfileScreen extends StatelessWidget {
                 child: TextButton(
                   onPressed: () => controller.deleteAccountWarningPopup(),
                   child: Text(
-                    'Close Account',
-                    style: TextStyle(color: Colors.red),
+                    'closeAccount'.tr,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Colors.red),
                   ),
                 ),
               ),

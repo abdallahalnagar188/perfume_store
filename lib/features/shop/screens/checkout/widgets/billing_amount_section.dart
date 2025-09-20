@@ -2,6 +2,7 @@ import 'package:ecommerce_store/features/shop/controllers/product/cart_controlle
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:ecommerce_store/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TBillingAmountSection extends StatelessWidget {
   const TBillingAmountSection({super.key});
@@ -16,7 +17,7 @@ class TBillingAmountSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('SubTotal',style: Theme.of(context).textTheme.bodyMedium,),
+            Text('subTotal'.tr,style: Theme.of(context).textTheme.bodyMedium,),
             Text('\$$subTotal',style: Theme.of(context).textTheme.bodyMedium,),
           ],
         ),
@@ -26,7 +27,7 @@ class TBillingAmountSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Shipping Fee',style: Theme.of(context).textTheme.bodyMedium,),
+            Text('shipping'.tr,style: Theme.of(context).textTheme.bodyMedium,),
             Text('\$${TPricingCalculator.calculateShippingCost(subTotal, 'US')}',style: Theme.of(context).textTheme.labelLarge,),
           ],
         ),
@@ -36,7 +37,7 @@ class TBillingAmountSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Tax Fee',style: Theme.of(context).textTheme.bodyMedium,),
+            Text('tax'.tr,style: Theme.of(context).textTheme.bodyMedium,),
             Text('\$${TPricingCalculator.calculateTax(subTotal, 'US')}',style: Theme.of(context).textTheme.labelLarge,),
           ],
         ),
@@ -45,7 +46,7 @@ class TBillingAmountSection extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text('Order Total',style: Theme.of(context).textTheme.bodyMedium,),
+            Text('orderTotal'.tr,style: Theme.of(context).textTheme.bodyMedium,),
             Text('\$${TPricingCalculator.calculateTotalPrice(subTotal, 'US')}',style: Theme.of(context).textTheme.titleMedium,),
           ],
         ),
