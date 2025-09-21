@@ -11,7 +11,6 @@ import 'package:ecommerce_store/utils/helpers/cloud_helper_functions.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 import '../../models/category_model.dart';
 
@@ -78,6 +77,8 @@ class SubCategoriesScreen extends StatelessWidget {
                           if (widget != null) return widget;
 
                           final products = asyncSnapshot.data!;
+                          debugPrint("Products for ${subCategory.name} (${subCategory.id}): ${products.length}");
+
 
                           return Column(
                             children: [
@@ -89,7 +90,6 @@ class SubCategoriesScreen extends StatelessWidget {
                                     title: subCategory.name,
                                     futureMethod: controller.getCategoryProducts(
                                       categoryId: subCategory.id,
-                                      limit: -1,
                                     ),
                                   ),
                                 ),

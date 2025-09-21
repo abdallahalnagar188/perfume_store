@@ -46,5 +46,15 @@ class OrderRepo extends GetxController{
     }
   }
 
+  /// save a new order to the Orders Collection in Firestore
+
+Future<void> saveOrderToFirestore(OrderModel order) async {
+    try{
+      await _db.collection('Orders').add(order.toJson());
+    }catch(e){
+      throw 'Something went wrong while saving Order Information. Try again later';
+    }
+}
+
 
 }

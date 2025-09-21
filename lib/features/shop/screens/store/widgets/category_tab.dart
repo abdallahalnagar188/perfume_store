@@ -11,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/cloud_helper_functions.dart';
-import '../../../models/product_model.dart';
 
 class TCategoryTab extends StatelessWidget {
   const TCategoryTab({super.key, required this.categoryModel});
@@ -58,7 +57,7 @@ class TCategoryTab extends StatelessWidget {
                             title: categoryModel.name,
                             futureMethod: controller.getCategoryProducts(
                               categoryId: categoryModel.id,
-                              limit: -1,
+
                             ),
                           ),
                         ),

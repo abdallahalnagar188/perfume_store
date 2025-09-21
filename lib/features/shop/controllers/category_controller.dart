@@ -37,12 +37,13 @@ class CategoryController extends GetxController {
       featuredCategories.assignAll(
         allCategories
             .where(
-              (category) => category.isFeatured && category.parentId.isEmpty,
-            )
+              (category) => category.isFeatured && category.parentId.isEmpty,)
             .take(8)
             .toList(),
       );
     } catch (e) {
+      print(e.toString());
+      print('fetch categories error');
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
       // remove loading
@@ -58,6 +59,8 @@ class CategoryController extends GetxController {
       return subCategory;
 
     } catch (e) {
+      print(e.toString());
+      print('get sub categories error');
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
       return[];
     }
@@ -65,13 +68,16 @@ class CategoryController extends GetxController {
 
 
   /// ---- Get Category or sub-category Products
-  Future<List<ProductModel>> getCategoryProducts({ required String categoryId, int limit = -1}) async {
+  Future<List<ProductModel>> getCategoryProducts({ required String categoryId}) async {
     try {
 
-      final  products = await ProductRepo.instance.getProductsForCategory(categoryId: categoryId,limit: limit);
+      final  products = await ProductRepo.instance.getProductsForCategory(categoryId: categoryId);
       return products;
 
+
     } catch (e) {
+      print(e.toString());
+      print('get category products error');
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
       return[];
     }

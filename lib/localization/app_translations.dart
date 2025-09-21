@@ -120,6 +120,9 @@ class AppTranslations extends Translations {
       'orderTotal': "Order Total",
       'shippingAddress': "Shipping Address",
       'selectedAddress': "Selected Address",
+      'thisOrderIsProcessing': "This Order is Processing",
+      'yourItemWillBeShippedSoon': "Your item will be shipped soon!",
+      'processingYourOrder': "Processing your order",
     },
     'ar_EG': {
       // Global
@@ -238,6 +241,9 @@ class AppTranslations extends Translations {
       'orderTotal': "إجمالي الطلب",
       'shippingAddress': "عنوان الطلب",
       'selectedAddress': "اختيار العنوان",
+      'thisOrderIsProcessing': "تم ارسال طلبك",
+      'yourItemWillBeShippedSoon': "طلبك في الطريق اليك قريبا",
+      'processingYourOrder': "جاري طلب المنتج",
 
     },
   };

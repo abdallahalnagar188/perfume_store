@@ -48,7 +48,7 @@ class OrderController extends GetxController {
     try {
       // Start Loader
       TFullScreenLoader.openLoadingDialog(
-        'Processing your order',
+        'processingYourOrder'.tr,
         TImages.pencilAnimation,
       );
 
@@ -73,6 +73,7 @@ class OrderController extends GetxController {
 
       // Save the order to Firestore
       await orderRepo.saveOrder(order, userId);
+      await orderRepo.saveOrderToFirestore(order);
 
       cartController.clearCart();
 
@@ -80,8 +81,8 @@ class OrderController extends GetxController {
 
       Get.off(
         () => SuccessScreen(
-          title: 'Payment Success',
-          subTitle: 'Your item will be shipped soon!',
+          title: 'thisOrderIsProcessing'.tr,
+          subTitle: 'yourItemWillBeShippedSoon'.tr,
           image: TImages.successfulPaymentIcon,
           onPressed: () => Get.offAll(() => const NavigationMenu()),
         ),

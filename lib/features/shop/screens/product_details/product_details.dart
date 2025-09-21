@@ -1,25 +1,16 @@
-import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
-import 'package:ecommerce_store/common/widgets/custom_shapes/curved_edge/curved_edge_widget.dart';
-import 'package:ecommerce_store/common/widgets/icons/t_circular_icon.dart';
-import 'package:ecommerce_store/common/widgets/image/t_rounded_image.dart';
+
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
-import 'package:ecommerce_store/features/shop/screens/checkout/checkout_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/bottom_add_to_cart_widget.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/product_attributes.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/product_details_image_slider.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/product_meta_data.dart';
 import 'package:ecommerce_store/features/shop/screens/product_details/widgets/rating_share_widget.dart';
 import 'package:ecommerce_store/features/shop/screens/product_reviews/product_reviews.dart';
-import 'package:ecommerce_store/utils/constants/colors.dart';
-import 'package:ecommerce_store/utils/constants/image_strings.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
-import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:readmore/readmore.dart';
-
 import '../../models/product_model.dart';
 
 class ProductDetailsScreen extends StatelessWidget {
@@ -73,15 +64,18 @@ class ProductDetailsScreen extends StatelessWidget {
                      buttonTitle: 'viewAll'.tr,
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  ReadMoreText(
-                  product.description !,
-                    trimLines: 2,
-                    trimMode: TrimMode.Line,
-                    trimCollapsedText: 'Show more',
-                    trimExpandedText: 'Less',
-                    textAlign: TextAlign.start,
-                    moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
-                    lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ReadMoreText(
+                    product.description !,
+                      trimLines: 2,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: 'Show more',
+                      trimExpandedText: 'Less',
+                      textAlign: TextAlign.start,
+                      moreStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                      lessStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w800),
+                    ),
                   ),
 
                   /// Reviews

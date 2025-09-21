@@ -28,8 +28,8 @@ class ProductCardAddToCartButton extends StatelessWidget {
           decoration: BoxDecoration(
             color: productQuantityInCart > 0 ? TColors.primary : TColors.dark,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(TSizes.cardRadiusMd),
-              bottomRight: Radius.circular(TSizes.productImageRadius),
+              topRight: Radius.circular(TSizes.cardRadiusMd),
+              bottomLeft: Radius.circular(TSizes.productImageRadius),
             ),
           ),
           child: SizedBox(

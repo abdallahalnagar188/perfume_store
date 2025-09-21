@@ -28,7 +28,7 @@ class ProductRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again';
+      throw 'Something went wrong , Please try again$e';
     }
   }
 
@@ -42,7 +42,7 @@ class ProductRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again';
+      throw 'Something went wrong , Please try again$e';
     }
   }
 
@@ -59,7 +59,7 @@ class ProductRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again';
+      throw 'Something went wrong , Please try again$e';
     }
   }
 
@@ -76,7 +76,7 @@ class ProductRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again';
+      throw 'Something went wrong , Please try again$e';
     }
   }
 
@@ -94,31 +94,76 @@ class ProductRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again';
+      throw 'Something went wrong , Please try again$e';
     }
   }
 
-  Future<List<ProductModel>> getProductsForCategory({required String categoryId, int limit = -1}) async {
+  Future<List<ProductModel>> getProductsForCategory({
+    required String categoryId,
+    int limit = -1,
+  }) async {
     try {
+      // Get product IDs from ProductCategory
+      QuerySnapshot querySnapshot = limit == -1
+          ? await _db
+          .collection('ProductCategory')
+          .where('categoryId', isEqualTo: categoryId)
+          .get()
+          : await _db
+          .collection('ProductCategory')
+          .where('categoryId', isEqualTo: categoryId)
+          .limit(limit)
+          .get();
 
-      QuerySnapshot  querySnapshot = limit == -1
-          ? await _db.collection('ProductCategory').where('categoryId',isEqualTo: categoryId).get()
-          : await _db.collection('ProductCategory').where('categoryId',isEqualTo: categoryId).limit(limit).get();
+      List<String> categoryIds = querySnapshot.docs
+          .map((doc) => doc['productId']?.toString() ?? '')
+          .where((id) => id.isNotEmpty)
+          .toList();
 
+      // ✅ Avoid empty whereIn
+      if (categoryIds.isEmpty) return [];
 
-      List<String> categoryIds = querySnapshot.docs.map((doc) => doc['productId'] as String).toList();
+      // ✅ Firestore whereIn supports max 10
+      if (categoryIds.length > 10) {
+        final chunks = <List<String>>[];
+        for (var i = 0; i < categoryIds.length; i += 10) {
+          chunks.add(categoryIds.sublist(
+              i, i + 10 > categoryIds.length ? categoryIds.length : i + 10));
+        }
 
-      final productsQuery = await _db.collection('Products').where(FieldPath.documentId,whereIn: categoryIds).limit(2).get();
+        List<ProductModel> products = [];
+        for (var chunk in chunks) {
+          final query = await _db
+              .collection('Products')
+              .where(FieldPath.documentId, whereIn: chunk)
+              .get();
+          products.addAll(
+              query.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList());
+        }
+        return products;
+      }
 
-      List<ProductModel> products = productsQuery.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList();
-      return products;
+      // ✅ Normal case
+      final productsQuery = limit == -1
+          ? await _db
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: categoryIds)
+          .get()
+          : await _db
+          .collection('Products')
+          .where(FieldPath.documentId, whereIn: categoryIds)
+          .limit(limit)
+          .get();
 
+      return productsQuery.docs
+          .map((doc) => ProductModel.fromSnapshot(doc))
+          .toList();
     } on FirebaseException catch (e) {
       throw TFirebaseException(e.code).message;
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again';
+      throw 'Something went wrong , Please try again $e';
     }
   }
 
