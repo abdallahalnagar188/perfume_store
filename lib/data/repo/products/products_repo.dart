@@ -103,8 +103,8 @@ class ProductRepo extends GetxController {
     int limit = -1,
   }) async {
     try {
-      // Get product IDs from ProductCategory
-      QuerySnapshot querySnapshot = limit == -1
+      // Step 1: Get product IDs from ProductCategory
+      final querySnapshot = limit == -1
           ? await _db
           .collection('ProductCategory')
           .where('categoryId', isEqualTo: categoryId)
@@ -115,35 +115,41 @@ class ProductRepo extends GetxController {
           .limit(limit)
           .get();
 
-      List<String> categoryIds = querySnapshot.docs
+      final categoryIds = querySnapshot.docs
           .map((doc) => doc['productId']?.toString() ?? '')
           .where((id) => id.isNotEmpty)
           .toList();
 
-      // ✅ Avoid empty whereIn
-      if (categoryIds.isEmpty) return [];
+      // ✅ Avoid empty whereIn completely
+      if (categoryIds.isEmpty) {
+        return [];
+      }
 
-      // ✅ Firestore whereIn supports max 10
+      // ✅ Firestore whereIn supports max 10 values
       if (categoryIds.length > 10) {
         final chunks = <List<String>>[];
         for (var i = 0; i < categoryIds.length; i += 10) {
-          chunks.add(categoryIds.sublist(
-              i, i + 10 > categoryIds.length ? categoryIds.length : i + 10));
+          chunks.add(
+            categoryIds.sublist(i, i + 10 > categoryIds.length ? categoryIds.length : i + 10),
+          );
         }
 
-        List<ProductModel> products = [];
-        for (var chunk in chunks) {
+        final products = <ProductModel>[];
+        for (final chunk in chunks) {
+          if (chunk.isEmpty) continue; // ✅ protect against empty chunk
           final query = await _db
               .collection('Products')
               .where(FieldPath.documentId, whereIn: chunk)
               .get();
           products.addAll(
-              query.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList());
+            query.docs.map((doc) => ProductModel.fromSnapshot(doc)).toList(),
+          );
         }
         return products;
       }
 
-      // ✅ Normal case
+      // ✅ Normal case (≤ 10 IDs)
+      if (categoryIds.isEmpty) return []; // extra safety
       final productsQuery = limit == -1
           ? await _db
           .collection('Products')
@@ -163,9 +169,11 @@ class ProductRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again $e';
+      throw 'Something went wrong, Please try again: $e';
     }
   }
+
+
 
   Future<void> uploadProductCategory(List<ProductCategoryModel> productCategories) async {
     try {

@@ -55,14 +55,14 @@ class StoreScreen extends StatelessWidget {
                     children: [
                       SizedBox(height: TSizes.spaceBtwItems),
 
-                      /// Search bar
-                      TSearchContainer(
-                        text: 'Search in Store',
-                        showBorder: true,
-                        showBackground: false,
-                        padding: EdgeInsets.zero,
-                      ),
-                      SizedBox(height: TSizes.spaceBtwSections),
+                      // /// Search bar
+                      // TSearchContainer(
+                      //   text: 'Search in Store',
+                      //   showBorder: true,
+                      //   showBackground: false,
+                      //   padding: EdgeInsets.zero,
+                      // ),
+                      // SizedBox(height: TSizes.spaceBtwSections),
 
                       /// Featured Brands
                       TSectionHeading(

@@ -51,7 +51,7 @@ class BrandRepo extends GetxController {
     } on PlatformException catch (e) {
       throw TPlatformException(e.code).message;
     } catch (e) {
-      throw 'Something went wrong , Please try again';
+      throw 'Something went wrong , Please try again $e';
     }
   }
 

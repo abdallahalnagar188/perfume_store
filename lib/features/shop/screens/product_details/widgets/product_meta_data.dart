@@ -68,7 +68,7 @@ class TProductMetaData extends StatelessWidget {
         /// Stoke Status
         Row(
           children: [
-            const TProductTitleText(text: 'Status'),
+             TProductTitleText(text: 'states'.tr),
             const SizedBox(width: TSizes.spaceBtwItems),
             Text(controller.getProductStockStatus(product.stock), style: Theme.of(context).textTheme.titleMedium),
           ],

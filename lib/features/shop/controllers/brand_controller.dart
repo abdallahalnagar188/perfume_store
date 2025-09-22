@@ -32,10 +32,10 @@ class BrandController extends GetxController{
       final brands = await brandRepo.getAllBrands();
       allBrands.assignAll(brands);
 
-      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured ?? false).take(4));
+      featuredBrands.assignAll(allBrands.where((brand) => brand.isFeatured ?? false).take(6));
 
     } catch (e) {
-      TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+    //  TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
 
     }finally{
       isLoading.value =false;
@@ -50,7 +50,8 @@ class BrandController extends GetxController{
       return brands;
 
     } catch (e) {
-      TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
+      print(e);
+    //  TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
       return[];
     }
   }

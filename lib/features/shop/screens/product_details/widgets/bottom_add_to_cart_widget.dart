@@ -75,7 +75,7 @@ class TBottomAddToCartWidget extends StatelessWidget {
                 Icon(Iconsax.shopping_bag, size: 24),
                 SizedBox(width: TSizes.sm),
                 Text(
-                  'Add to Cart',
+                  'addToCart'.tr,
                   style: Theme.of(
                     context,
                   ).textTheme.bodyLarge!.apply(color: TColors.white),

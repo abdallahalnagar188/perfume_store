@@ -103,6 +103,7 @@ class AppTranslations extends Translations {
       'city': "City",
       'state': "State",
       'country': "Country",
+      'states': "States",
       'changeImage': "Change Profile Image",
       'profileInfo': "Profile Information",
       'personalInfo': "Personal Information",
@@ -123,6 +124,15 @@ class AppTranslations extends Translations {
       'thisOrderIsProcessing': "This Order is Processing",
       'yourItemWillBeShippedSoon': "Your item will be shipped soon!",
       'processingYourOrder': "Processing your order",
+      "Store":"Store",
+      "addToCart":"Add to Cart",
+      "removeProduct":"Remove Product",
+      "yourProductAddedToCart":"Your Product has been add to the cart",
+      "productRemovedFromCart":"Product removed from the Cart.",
+      "areYouSureYouWantToRemoveThisProduct":"Are you sure you want to remove this product?",
+      "productAddedToWishlist":"Product has been added to wishlist",
+      "productRemovedFromWishlist":"Product has been removed from wishlist",
+
     },
     'ar_EG': {
       // Global
@@ -215,6 +225,7 @@ class AppTranslations extends Translations {
       'Profile': "الحساب",
       'viewAll': 'عرض الكل',
       'description': "الوصف",
+      'states': "الحاله",
       'addressTitle': "تعيين عنوان توصيل التسوق",
       'cartTitle': "إضافة، إزالة المنتجات والانتقال إلى الدفع",
       'orderTitle': "الطلبات قيد التنفيذ والمكتملة",
@@ -244,7 +255,14 @@ class AppTranslations extends Translations {
       'thisOrderIsProcessing': "تم ارسال طلبك",
       'yourItemWillBeShippedSoon': "طلبك في الطريق اليك قريبا",
       'processingYourOrder': "جاري طلب المنتج",
-
+      "Store":"المتجر",
+      "addToCart":"اضافه الي العربه",
+      "yourProductAddedToCart":"تم اضافه المنتج الي العربه",
+      "areYouSureYouWantToRemoveThisProduct":"هل انت متاكد من ازاله المنتجات من العربه؟",
+      "removeProduct":"ازاله المنتج",
+      "productRemovedFromCart":"تم ازاله المنتجات من العربه",
+      "productAddedToWishlist": "تمت إضافة المنتج إلى قائمة المفضلة",
+      "productRemovedFromWishlist": "تمت إزالة المنتج من قائمة المفضلة",
     },
   };
 }

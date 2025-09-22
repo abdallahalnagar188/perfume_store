@@ -14,7 +14,6 @@ class BannerController extends GetxController{
   final _bannerRepo = Get.put(BannerRepo());
   RxList<BannerModel> allBanners = <BannerModel>[].obs;
 
-
   @override
   void onInit() {
     fetchBanners();

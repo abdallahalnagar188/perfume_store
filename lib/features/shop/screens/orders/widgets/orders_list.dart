@@ -46,6 +46,7 @@ class TOrdersList extends StatelessWidget {
           separatorBuilder: (_,index) => const SizedBox(height: TSizes.spaceBtwItems,),
          itemBuilder: (_,index) {
             final order = orders[index];
+            print(order.orderStatusText);
             return TRoundedContainer(
               padding: EdgeInsets.all(TSizes.md),
               showBorder: true,
@@ -81,7 +82,10 @@ class TOrdersList extends StatelessWidget {
                       ),
 
                       /// Icon
-                      IconButton(onPressed: (){}, icon: Icon(Iconsax.arrow_right_34,size: TSizes.iconSm,),)
+                      IconButton(onPressed: (){
+                        print(order.orderStatusText);
+
+                      }, icon: Icon(Iconsax.arrow_right_34,size: TSizes.iconSm,),)
                     ],
                   ),
                   const SizedBox(height: TSizes.spaceBtwItems,),

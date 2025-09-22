@@ -81,14 +81,14 @@ class ProductDetailsScreen extends StatelessWidget {
                   /// Reviews
                   const Divider(),
                   const SizedBox(height: TSizes.spaceBtwItems),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TSectionHeading(title: 'Reviews (199)', showActionButton: false,buttonTitle: 'viewAll'.tr,),
-                      IconButton(onPressed: () => Get.to(() => const ProductReviewsScreen()), icon: Icon(Iconsax.arrow_right_3))
-                    ],
-                  ),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     TSectionHeading(title: 'Reviews (199)', showActionButton: false,buttonTitle: 'viewAll'.tr,),
+                  //     IconButton(onPressed: () => Get.to(() => const ProductReviewsScreen()), icon: Icon(Iconsax.arrow_right_3))
+                  //   ],
+                  // ),
+                  // const SizedBox(height: TSizes.spaceBtwSections),
 
                 ],
               ),

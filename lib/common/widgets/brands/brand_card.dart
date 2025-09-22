@@ -48,11 +48,11 @@ class TBrandCard extends StatelessWidget {
                     brandTextSize: TextSizes.large,
                   ),
 
-                  Text(
-                    '${brand.productsCount ?? 0} Products',
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.labelSmall,
-                  ),
+                  // Text(
+                  //   '${brand.productsCount ?? 0} Products',
+                  //   overflow: TextOverflow.ellipsis,
+                  //   style: Theme.of(context).textTheme.labelSmall,
+                  // ),
                 ],
               ),
             ),
