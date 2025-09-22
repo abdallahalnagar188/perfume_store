@@ -15,8 +15,10 @@ class CategoryRepo extends GetxController {
   // get sub categories
   Future<List<CategoryModel>> getSubCategories(String categoryId) async {
     try {
-      final snapshot = await _db.collection('Categories').where('ParentId',isEqualTo: categoryId).get();
-      final list = snapshot.docs.map((document) => CategoryModel.fromSnapshot(document)).toList();
+      final snapshot = await _db
+          .collection('Categories')
+          .where(FieldPath.documentId, isEqualTo: categoryId)
+          .get();      final list = snapshot.docs.map((document) => CategoryModel.fromSnapshot(document)).toList();
       return list;
 
     } on FirebaseException catch (e) {

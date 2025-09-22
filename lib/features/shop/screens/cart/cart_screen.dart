@@ -17,7 +17,6 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dark = THelperFunctions.isDarkMode(context);
     final controller = CartController.instance;
     return Scaffold(
       appBar: TAppbar(
@@ -25,32 +24,28 @@ class CartScreen extends StatelessWidget {
         showBackArrow: true,
       ),
 
-      body: SingleChildScrollView(
-        child: Obx(() {
-          // Nothing found widget
-          final emptyWidget = TAnimationLoaderWidget(
-            text: 'emptyCart'.tr,
-            animation: TImages.emptyCartAnimation,
-            showAction: true,
-            actionText: 'Let\'s add some',
-            onActionPressed: () => Get.off(() => NavigationMenu()),
-          );
+      body: Obx(() {
+        // Nothing found widget
+        final emptyWidget = TAnimationLoaderWidget(
+          text: 'emptyCart'.tr,
+          animation: TImages.emptyCartAnimation,
+          showAction: true,
+          actionText: 'Let\'s add some',
+          onActionPressed: () => Get.off(() => NavigationMenu()),
+        );
 
-          return controller.cartItems.isEmpty
-              ? Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  emptyWidget,
-                ],
-              )
-              : SingleChildScrollView(
-                child: Padding(
-                    padding: EdgeInsets.all(TSizes.defaultSpace),
-                    child: TCartItems(),
-                  ),
-              );
-        }),
-      ),
+        return controller.cartItems.isEmpty
+            ? Center(   // ✅ Center the widget
+          child: emptyWidget,
+        )
+            : SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(TSizes.defaultSpace),
+            child: TCartItems(),
+          ),
+        );
+      }),
+
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(TSizes.defaultSpace),
         child:controller.totalCartPrice > 0 ? ElevatedButton(

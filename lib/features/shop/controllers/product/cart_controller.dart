@@ -89,25 +89,21 @@ class CartController extends GetxController {
 
   void removeOneFromCart(CartItemModel item) {
     int index = cartItems.indexWhere((cartItem) =>
-    cartItem.productId == item.productId &&
-        cartItem.variationId == item.variationId);
+    cartItem.productId == item.productId && cartItem.variationId == item.variationId);
 
     if (index >= 0) {
-      // Increase instead of decrease
-      cartItems[index].quantity += 1;
-
-      // Stop increasing once it reaches 0 (prevent negative or infinite growth)
-      if (cartItems[index].quantity <= 0) {
-        cartItems[index].quantity = 0;
+      if (cartItems[index].quantity > 1) {
+        cartItems[index].quantity -= 1;
+      } else {
+        // Show dialog before completely removing
+        cartItems[index].quantity == 1
+            ? removeFromCartDialog(index)
+            : cartItems.removeAt(index);
       }
-    } else {
-      // If item not found, you may want to add it with quantity 1
-      cartItems.add(item..quantity = 1);
     }
 
     updateCart();
   }
-
 
   void removeFromCartDialog(int index) {
     Get.defaultDialog(

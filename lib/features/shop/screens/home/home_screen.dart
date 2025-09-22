@@ -15,6 +15,9 @@ import '../../../../common/widgets/custom_shapes/containers/search_container.dar
 import '../../../../common/widgets/layouts/grid_layout.dart';
 import '../../../../common/widgets/products/products_cards/product_card_vertical.dart';
 import '../../../../common/widgets/texts/section_heading.dart';
+import '../../controllers/banner_controller.dart';
+import '../../controllers/category_controller.dart';
+
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -22,93 +25,111 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final homeController = Get.put(ProductController());
+    final bannerController = Get.put(BannerController());
+    final categoryController = Get.put(CategoryController());
+
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            ///Header
-            TPrimaryHeaderContainer(
-              child: Column(
-                children: [
-                  /// Appbar
-                  const THomeAppbar(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          // ✅ Refetch featured products
+          await homeController.fetchAllFeatureProducts();
 
-                  ///Searchbar
-                 // TSearchContainer(text: 'Search in Store',onTap: () => Get.to(() => SearchScreen()),),
-                  const SizedBox(height: TSizes.spaceBtwSections),
+          // ✅ Refetch banners
+          await bannerController.fetchBanners();
 
-                  /// Heading
-                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
-                    child: Column(
-                      children: [
-                        TSectionHeading(
-                          title: 'popularCategories'.tr,
-                          showActionButton: false,
-                          textColor: TColors.white,
-                        ),
-                        SizedBox(height: TSizes.spaceBtwItems),
+          // ✅ Refetch categories
+          await categoryController.fetchCategories();
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(), // important for RefreshIndicator
+          child: Column(
+            children: [
+              /// Header
+              TPrimaryHeaderContainer(
+                child: Column(
+                  children: [
+                    /// Appbar
+                    const THomeAppbar(),
+                    const SizedBox(height: TSizes.spaceBtwSections),
 
-                        /// Category
-                        THomeCategory(),
-                        SizedBox(height: TSizes.spaceBtwSections),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
+                    /// Searchbar
+                    // TSearchContainer(text: 'Search in Store', onTap: () => Get.to(() => SearchScreen()),),
+                    const SizedBox(height: TSizes.spaceBtwSections),
 
-            /// Body
-            Padding(
-              padding: const EdgeInsets.all(TSizes.defaultSpace),
-              child: Column(
-                children: [
-                  /// Slider
-                  TPromoSlider(),
-                  const SizedBox(height: TSizes.spaceBtwSections),
-                  TSectionHeading(
-                    buttonTitle: 'viewAll'.tr,
-                    title: 'popularProducts'.tr,
-                    showActionButton: true,
-                    textColor: THelperFunctions.isDarkMode(context)
-                        ? TColors.white
-                        : TColors.black,
-                    onPressed: () => Get.to(
-                      () => AllProductsScreen(
-                        title: 'popularProducts'.tr,
-                        query: FirebaseFirestore.instance
-                            .collection('Products')
-                            .where('IsFeatured', isEqualTo: true),
-                        futureMethod: homeController.fetchAllFeatureProducts(),
+                    /// Heading
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: TSizes.defaultSpace),
+                      child: Column(
+                        children: [
+                          TSectionHeading(
+                            title: 'popularCategories'.tr,
+                            showActionButton: false,
+                            textColor: TColors.white,
+                          ),
+                          const SizedBox(height: TSizes.spaceBtwItems),
+
+                          /// Category
+                          const THomeCategory(),
+                          const SizedBox(height: TSizes.spaceBtwSections),
+                        ],
                       ),
                     ),
-                  ),
-                  SizedBox(height: TSizes.spaceBtwItems),
-
-                  /// Popular Products
-                  Obx(() {
-                    if (homeController.isLoading.value) {
-                      return const TVerticalProductShimmer();
-                    }
-                    if (homeController.featuredProducts.isEmpty) {
-                      return  Center(child: Text('no data found'.tr));
-                    } else {
-                      return TGridLayout(
-                        itemCount: homeController.featuredProducts.length,
-                        itemBuilder: (_, index) => TProductCardVertical(
-                          productModel: homeController.featuredProducts[index],
-                        ),
-                      );
-                    }
-                  }),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+
+              /// Body
+              Padding(
+                padding: const EdgeInsets.all(TSizes.defaultSpace),
+                child: Column(
+                  children: [
+                    /// Slider
+                    const TPromoSlider(),
+                    const SizedBox(height: TSizes.spaceBtwSections),
+
+                    TSectionHeading(
+                      buttonTitle: 'viewAll'.tr,
+                      title: 'popularProducts'.tr,
+                      showActionButton: true,
+                      textColor: THelperFunctions.isDarkMode(context)
+                          ? TColors.white
+                          : TColors.black,
+                      onPressed: () => Get.to(
+                            () => AllProductsScreen(
+                          title: 'popularProducts'.tr,
+                          query: FirebaseFirestore.instance
+                              .collection('Products')
+                              .where('IsFeatured', isEqualTo: true),
+                          futureMethod: homeController.fetchAllFeatureProducts(),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: TSizes.spaceBtwItems),
+
+                    /// Popular Products
+                    Obx(() {
+                      if (homeController.isLoading.value) {
+                        return const TVerticalProductShimmer();
+                      }
+                      if (homeController.featuredProducts.isEmpty) {
+                        return Center(child: Text('no data found'.tr));
+                      } else {
+                        return TGridLayout(
+                          itemCount: homeController.featuredProducts.length,
+                          itemBuilder: (_, index) => TProductCardVertical(
+                            productModel: homeController.featuredProducts[index],
+                          ),
+                        );
+                      }
+                    }),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
