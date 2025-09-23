@@ -6,6 +6,7 @@ import 'package:iconsax/iconsax.dart';
 import '../../../../features/shop/models/product_model.dart';
 import '../../../../utils/constants/colors.dart';
 import '../../../../utils/constants/sizes.dart';
+import '../../../../utils/popups/loaders.dart';
 
 class ProductCardAddToCartButton extends StatelessWidget {
   const ProductCardAddToCartButton({super.key, required this.product});
@@ -17,8 +18,17 @@ class ProductCardAddToCartButton extends StatelessWidget {
     final controller = CartController.instance;
     return InkWell(
       onTap: () {
-        final cartItem = controller.convertToCartItem(product, 1);
-        controller.addOneToCart(cartItem);
+        if(product.stock < 1){
+          TLoaders.warningSnackBar(
+            message: 'Selected Product is out of stock.',
+            title: 'Oh Snap!',
+          );
+
+        }else{
+          final cartItem = controller.convertToCartItem(product, 1);
+          controller.addOneToCart(cartItem);
+        }
+
       },
       child: Obx(() {
         final productQuantityInCart = controller.getProductQuantityInCart(
