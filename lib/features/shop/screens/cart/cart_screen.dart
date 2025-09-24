@@ -30,7 +30,7 @@ class CartScreen extends StatelessWidget {
           text: 'emptyCart'.tr,
           animation: TImages.emptyCartAnimation,
           showAction: true,
-          actionText: 'Let\'s add some',
+          actionText: "let'sAddSome".tr,
           onActionPressed: () => Get.off(() => NavigationMenu()),
         );
 

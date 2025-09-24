@@ -81,6 +81,7 @@ class CheckoutScreen extends StatelessWidget {
           ),
         ),
       ),
+
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(TSizes.defaultSpace),
         child: ElevatedButton(

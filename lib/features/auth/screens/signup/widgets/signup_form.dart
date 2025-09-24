@@ -174,7 +174,7 @@ class TSignUpForm extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () => controller.signup(),
-              child: Text('createAccount'.tr,style: Theme.of(context).textTheme.titleMedium,),
+              child: Text('createAccount'.tr,style: Theme.of(context).textTheme.titleMedium!.apply(color: Colors.white),),
             ),
           ),
 

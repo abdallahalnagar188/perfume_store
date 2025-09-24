@@ -127,6 +127,7 @@ class AppTranslations extends Translations {
       "Store":"Store",
       "addToCart":"Add to Cart",
       "removeProduct":"Remove Product",
+      "let'sAddSome":"Let's add some",
       "yourProductAddedToCart":"Your Product has been add to the cart",
       "productRemovedFromCart":"Product removed from the Cart.",
       "areYouSureYouWantToRemoveThisProduct":"Are you sure you want to remove this product?",
@@ -263,6 +264,8 @@ class AppTranslations extends Translations {
       "productRemovedFromCart":"تم ازاله المنتجات من العربه",
       "productAddedToWishlist": "تمت إضافة المنتج إلى قائمة المفضلة",
       "productRemovedFromWishlist": "تمت إزالة المنتج من قائمة المفضلة",
+      "let'sAddSome": "دعنا نضيف بعضًا",
+
     },
   };
 }

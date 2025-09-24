@@ -88,7 +88,7 @@ class LoginForm extends StatelessWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () => controller.emailAndPasswordSignIn(),
-                child: Text('signIn'.tr,style: Theme.of(context).textTheme.bodyMedium,),
+                child: Text('signIn'.tr,style: Theme.of(context).textTheme.bodyMedium!.apply(color: Colors.white)),
               ),
             ),
             const SizedBox(height: TSizes.spaceBtwItems),
