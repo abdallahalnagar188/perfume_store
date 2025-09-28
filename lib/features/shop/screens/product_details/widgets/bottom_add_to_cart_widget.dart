@@ -34,58 +34,66 @@ class TBottomAddToCartWidget extends StatelessWidget {
         ),
       ),
 
-      child:  Obx(() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              TCircularIcon(
-                icon: Iconsax.minus,
-                backgroundColor: TColors.darkGrey,
-                width: 40,
-                height: 40,
-                color: TColors.white,
-                onPressed: () => controller.productQuantityInCart.value < 1
-                    ? null
-                    : controller.productQuantityInCart.value = -1,
-              ),
-              const SizedBox(width: TSizes.spaceBtwItems),
-              Text(controller.productQuantityInCart.value.toString(), style: Theme.of(context).textTheme.titleSmall),
-              const SizedBox(width: TSizes.spaceBtwItems),
-              TCircularIcon(
-                icon: Iconsax.add,
-                backgroundColor: TColors.black,
-                width: 40,
-                height: 40,
-                color: TColors.white,
-                onPressed: () => controller.productQuantityInCart +=1,
-              ),
-            ],
-          ),
-
-          ElevatedButton(
-            onPressed: controller.productQuantityInCart.value < 1 ? null :() => controller.addToCart(product),
-            style: ElevatedButton.styleFrom(
-              padding: EdgeInsets.all(TSizes.md),
-              backgroundColor: TColors.black,
-              side: const BorderSide(color: TColors.black),
-            ),
-            child: Row(
+      child: Obx(
+        () => Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
               children: [
-                Icon(Iconsax.shopping_bag, size: 24),
-                SizedBox(width: TSizes.sm),
+                TCircularIcon(
+                  icon: Iconsax.minus,
+                  backgroundColor: TColors.darkGrey,
+                  width: 40,
+                  height: 40,
+                  color: TColors.white,
+                  onPressed: () {
+                    if (controller.productQuantityInCart.value > 0) {
+                      controller.productQuantityInCart.value--;
+                    }
+                  },
+                ),
+                const SizedBox(width: TSizes.spaceBtwItems),
                 Text(
-                  'addToCart'.tr,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyLarge!.apply(color: TColors.white),
+                  controller.productQuantityInCart.value.toString(),
+                  style: Theme.of(context).textTheme.titleSmall,
+                ),
+                const SizedBox(width: TSizes.spaceBtwItems),
+                TCircularIcon(
+                  icon: Iconsax.add,
+                  backgroundColor: TColors.black,
+                  width: 40,
+                  height: 40,
+                  color: TColors.white,
+                  onPressed: () => controller.productQuantityInCart += 1,
                 ),
               ],
             ),
-          ),
-        ],
-      ), )
 
+            ElevatedButton(
+              onPressed: controller.productQuantityInCart.value < 1
+                  ? null
+                  : () => controller.addToCart(product),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(TSizes.md),
+                backgroundColor: TColors.black,
+                side: const BorderSide(color: TColors.black),
+              ),
+              child: Row(
+                children: [
+                  Icon(Iconsax.shopping_bag, size: 24),
+                  SizedBox(width: TSizes.sm),
+                  Text(
+                    'addToCart'.tr,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodyLarge!.apply(color: TColors.white),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
