@@ -7,17 +7,17 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'localization/app_translations.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Load saved locale before starting app
-  final prefs = await SharedPreferences.getInstance();
-  final langCode = prefs.getString('langCode') ?? 'en';
-  final countryCode = prefs.getString('countryCode') ?? 'US';
-  final savedLocale = Locale(langCode, countryCode);
-
-  runApp(PerfumeStore(savedLocale: savedLocale));
-}
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+//
+//   // Load saved locale before starting app
+//   final prefs = await SharedPreferences.getInstance();
+//   final langCode = prefs.getString('langCode') ?? 'en';
+//   final countryCode = prefs.getString('countryCode') ?? 'US';
+//   final savedLocale = Locale(langCode, countryCode);
+//
+//   runApp(PerfumeStore(savedLocale: savedLocale));
+// }
 
 class PerfumeStore extends StatelessWidget {
   final Locale savedLocale;

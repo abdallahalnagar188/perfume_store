@@ -11,8 +11,7 @@ import 'data/repo/auth/auth_repo.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
-  final WidgetsBinding widgetsBinding =
-  WidgetsFlutterBinding.ensureInitialized();
+  final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
   /// GetX Storage
   await GetStorage.init();
