@@ -1,14 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce_store/features/shop/models/category_model.dart';
 import 'package:ecommerce_store/features/shop/models/product_category_model.dart';
 import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:ecommerce_store/utils/exceptions/TFirebaseStorageService.dart';
 import 'package:ecommerce_store/utils/exceptions/firebase_exceptions.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import '../../../features/shop/models/banner_model.dart';
-import '../../../utils/exceptions/firebase_auth_exceptions.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
 
 class ProductRepo extends GetxController {

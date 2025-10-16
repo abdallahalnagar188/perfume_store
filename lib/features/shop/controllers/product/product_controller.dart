@@ -1,5 +1,4 @@
-import 'package:ecommerce_store/data/repo/banner/banner_repo.dart';
-import 'package:ecommerce_store/features/shop/models/banner_model.dart';
+
 import 'package:ecommerce_store/features/shop/models/product_model.dart';
 import 'package:get/get.dart';
 

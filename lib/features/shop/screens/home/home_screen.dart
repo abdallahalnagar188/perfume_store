@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
     final bannerController = Get.put(BannerController());
     final categoryController = Get.put(CategoryController());
 
+    final productController = ProductController.instance;
     return Scaffold(
       body: RefreshIndicator(
         onRefresh: () async {
