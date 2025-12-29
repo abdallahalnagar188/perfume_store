@@ -4,8 +4,8 @@ import 'package:ecommerce_store/utils/helpers/helper_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../../utils/constants/colors.dart';
+import '../../../features/antigravity/antigravity.dart';
 
 class TAppbar extends StatelessWidget implements PreferredSizeWidget {
   const TAppbar({
@@ -15,6 +15,8 @@ class TAppbar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingIcon,
     this.actions,
     this.leadingOnPressed,
+    this.enableGlassEffect = false, // Default false to not break existing UI
+    this.scrollOffset = 0.0,
   });
 
   final Widget? title;
@@ -22,9 +24,26 @@ class TAppbar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final List<Widget>? actions;
   final VoidCallback? leadingOnPressed;
+  final bool enableGlassEffect;
+  final double scrollOffset;
 
   @override
   Widget build(BuildContext context) {
+    // Use AGGlassAppBar if glass effect is enabled
+    if (enableGlassEffect) {
+      return AGGlassAppBar(
+        title: title,
+        showBackButton: showBackArrow,
+        onBackPressed: leadingOnPressed,
+        leading: leadingIcon != null
+            ? IconButton(onPressed: leadingOnPressed, icon: Icon(leadingIcon))
+            : null,
+        actions: actions,
+        scrollOffset: scrollOffset,
+      );
+    }
+
+    // Original implementation
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: TSizes.md),
       child: AppBar(
