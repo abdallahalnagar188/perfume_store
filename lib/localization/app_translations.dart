@@ -135,6 +135,7 @@ class AppTranslations extends Translations {
       "productRemovedFromWishlist":"Product has been removed from wishlist",
 
     },
+
     'ar_EG': {
       // Global
       'and': "و",

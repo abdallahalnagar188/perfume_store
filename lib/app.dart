@@ -7,18 +7,6 @@ import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'localization/app_translations.dart';
 
-// void main() async {
-//   WidgetsFlutterBinding.ensureInitialized();
-//
-//   // Load saved locale before starting app
-//   final prefs = await SharedPreferences.getInstance();
-//   final langCode = prefs.getString('langCode') ?? 'en';
-//   final countryCode = prefs.getString('countryCode') ?? 'US';
-//   final savedLocale = Locale(langCode, countryCode);
-//
-//   runApp(PerfumeStore(savedLocale: savedLocale));
-// }
-
 class PerfumeStore extends StatelessWidget {
   final Locale savedLocale;
 
@@ -27,6 +15,7 @@ class PerfumeStore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       translations: AppTranslations(),
       locale: savedLocale,
       fallbackLocale: const Locale('en', 'US'),
@@ -37,9 +26,7 @@ class PerfumeStore extends StatelessWidget {
       getPages: AppRoutes.pages,
       home: const Scaffold(
         backgroundColor: TColors.primary,
-        body: Center(
-          child: CircularProgressIndicator(color: TColors.white),
-        ),
+        body: Center(child: CircularProgressIndicator(color: TColors.white)),
       ),
     );
   }

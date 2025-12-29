@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../../data/repo/brands/brand_repo.dart';
 import '../../../utils/popups/loaders.dart';
 
-class BannerController extends GetxController{
+class BannerController extends GetxController {
   static BannerController get instance => Get.find();
 
   // Variables
@@ -19,8 +19,9 @@ class BannerController extends GetxController{
     fetchBanners();
     super.onInit();
   }
+
   // Update Page Dots
-  void updatePageIndicator(index){
+  void updatePageIndicator(index) {
     carousalCurrentIndex.value = index;
   }
 
@@ -35,8 +36,6 @@ class BannerController extends GetxController{
 
       // update the category list
       allBanners.assignAll(banners);
-
-
     } catch (e) {
       TLoaders.errorSnackBar(title: 'Oh Snap!', message: e.toString());
     } finally {
@@ -44,5 +43,4 @@ class BannerController extends GetxController{
       isLoading.value = false;
     }
   }
-
 }

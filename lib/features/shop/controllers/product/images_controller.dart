@@ -24,7 +24,8 @@ class ImagesController extends GetxController {
     if (product.productVariations != null ||
         product.productVariations!.isNotEmpty) {
       images.addAll(
-          product.productVariations!.map((variation) => variation.image));
+        product.productVariations!.map((variation) => variation.image),
+      );
     }
 
     return images.toList();
@@ -33,31 +34,35 @@ class ImagesController extends GetxController {
   // show image Popup
   void showEnlargedImage(String image) {
     Get.to(
-        fullscreenDialog: true,
-            () =>
-            Dialog.fullscreen(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Padding(padding: const EdgeInsets.symmetric(
-                      vertical: TSizes.defaultSpace * 2,
-                      horizontal: TSizes.defaultSpace),
-                    child: CachedNetworkImage(imageUrl: image),),
-
-                  const SizedBox(height: TSizes.spaceBtwSections,),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: SizedBox(
-                      width: 120,
-                      child: OutlinedButton(onPressed: () => Get.back(),
-                          child: const Text('Close')),
-                    ),
-                  )
-                ],
+      fullscreenDialog: true,
+      () => Dialog.fullscreen(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                vertical: TSizes.defaultSpace * 2,
+                horizontal: TSizes.defaultSpace,
               ),
-            )
+              child: CachedNetworkImage(imageUrl: image),
+            ),
+
+            const SizedBox(height: TSizes.spaceBtwSections),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: SizedBox(
+                width: 120,
+                child: OutlinedButton(
+                  onPressed: () => Get.back(),
+                  child: const Text('Close'),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
