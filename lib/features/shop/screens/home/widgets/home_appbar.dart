@@ -1,14 +1,11 @@
 import 'package:ecommerce_store/features/personalization/controllers/user_controller.dart';
-import 'package:ecommerce_store/features/shop/screens/cart/cart_screen.dart';
+import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../../../../../common/widgets/appbar/appbar.dart';
 import '../../../../../common/widgets/products/cart/cart_menu_icon.dart';
 import '../../../../../common/widgets/shimmer/shimmer.dart';
 import '../../../../../utils/constants/colors.dart';
-import '../../../../../utils/constants/text_strings.dart';
 
 class THomeAppbar extends StatelessWidget {
   const THomeAppbar({super.key});
@@ -21,11 +18,12 @@ class THomeAppbar extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            TTexts.homeAppbarTitle,
+            'homeAppbarTitle'.tr,
             style: Theme.of(
               context,
             ).textTheme.labelMedium!.apply(color: TColors.grey),
           ),
+          const SizedBox(height: TSizes.spaceBtwItems / 2),
           Obx(() {
             if (controller.profileLoading.value) {
               return const TShimmerEffect(width: 80, height: 15);

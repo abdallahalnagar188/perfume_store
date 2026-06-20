@@ -10,6 +10,8 @@ import 'app.dart';
 import 'data/repo/auth/auth_repo.dart';
 import 'firebase_options.dart';
 import 'package:ecommerce_store/utils/notifications/notification_service.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:ecommerce_store/utils/constants/supabase_config.dart';
 
 Future<void> main() async {
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +29,12 @@ Future<void> main() async {
 
   /// Initialize Notifications
   await NotificationService().initialize();
+
+  /// Initialize Supabase
+  await Supabase.initialize(
+    url: SupabaseConfig.supabaseUrl,
+    anonKey: SupabaseConfig.supabaseAnonKey,
+  );
 
   /// Load saved language
   final prefs = await SharedPreferences.getInstance();

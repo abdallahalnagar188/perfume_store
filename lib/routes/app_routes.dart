@@ -22,6 +22,7 @@ import '../features/shop/screens/product_details/product_details.dart';
 import '../features/shop/screens/store/store_screen.dart';
 import '../features/shop/screens/sub_category/sub_categories_screen.dart';
 import '../features/shop/screens/wishlist/wishlist_screen.dart';
+import '../features/shop/screens/search/search_screen.dart';
 
 class AppRoutes {
   static final pages = [
@@ -33,7 +34,7 @@ class AppRoutes {
 
     // Products
     GetPage(name: TRoutes.subCategories, page: () =>  SubCategoriesScreen(category: CategoryModel.empty(),)),
-    // GetPage(name: TRoutes.search, page: () => const SearchScreen()),
+    GetPage(name: TRoutes.search, page: () => const SearchScreen()),
     // GetPage(name: TRoutes.productReview, page: () => const ProductReviewScreen()),
     GetPage(name: TRoutes.productDetails, page: () =>  ProductDetailsScreen(product:  ProductModel.empty(),)),
     GetPage(name: TRoutes.allProducts, page: () => const AllProductsScreen(title: '',)),

@@ -17,6 +17,7 @@ import '../../../../common/widgets/products/products_cards/product_card_vertical
 import '../../../../common/widgets/texts/section_heading.dart';
 import '../../controllers/banner_controller.dart';
 import '../../controllers/category_controller.dart';
+import '../search/search_screen.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -54,7 +55,10 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: TSizes.spaceBtwSections),
 
                     /// Searchbar
-                    // TSearchContainer(text: 'Search in Store', onTap: () => Get.to(() => SearchScreen()),),
+                    TSearchContainer(
+                      text: 'searchInStore'.tr, 
+                      onTap: () => Get.to(() => const SearchScreen()),
+                    ),
                     const SizedBox(height: TSizes.spaceBtwSections),
 
                     /// Heading

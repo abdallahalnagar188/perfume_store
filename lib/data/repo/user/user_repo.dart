@@ -8,6 +8,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:ecommerce_store/utils/constants/supabase_config.dart';
 
 import '../../../features/personalization/models/user_model.dart';
 import '../../../utils/exceptions/platform_exceptions.dart';
@@ -136,4 +138,29 @@ class UserRepo extends GetxController {
     }
   }
 
+  /// Upload Profile Image to Supabase
+  Future<String> uploadImageToSupabase(String path, XFile image) async {
+    try {
+      final file = File(image.path);
+      // Ensure unique and safe filename (strip non-ascii characters)
+      final ext = image.name.split('.').last;
+      final fileName = '${DateTime.now().millisecondsSinceEpoch}.$ext';
+      final fullPath = '$path/$fileName';
+
+      // Upload to Supabase bucket
+      await Supabase.instance.client.storage
+          .from(SupabaseConfig.storageBucket)
+          .upload(fullPath, file);
+
+      // Get public URL
+      final publicUrl = Supabase.instance.client.storage
+          .from(SupabaseConfig.storageBucket)
+          .getPublicUrl(fullPath);
+
+      return publicUrl;
+    } catch (e) {
+      print('🔥 SUPABASE UPLOAD ERROR (UserRepo): $e');
+      throw 'Something went wrong while uploading to Supabase: $e';
+    }
+  }
 }

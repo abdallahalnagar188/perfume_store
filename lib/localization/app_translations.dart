@@ -133,6 +133,11 @@ class AppTranslations extends Translations {
       "areYouSureYouWantToRemoveThisProduct":"Are you sure you want to remove this product?",
       "productAddedToWishlist":"Product has been added to wishlist",
       "productRemovedFromWishlist":"Product has been removed from wishlist",
+      "searchInStore": "Search in Store",
+      "searchForProducts": "Search for products...",
+      "typeToSearch": "Type something to search...",
+      "noProductsFound": "No products found!",
+      "search": "Search",
 
     },
 
@@ -266,6 +271,11 @@ class AppTranslations extends Translations {
       "productAddedToWishlist": "تمت إضافة المنتج إلى قائمة المفضلة",
       "productRemovedFromWishlist": "تمت إزالة المنتج من قائمة المفضلة",
       "let'sAddSome": "دعنا نضيف بعضًا",
+      "searchInStore": "البحث في المتجر",
+      "searchForProducts": "ابحث عن المنتجات...",
+      "typeToSearch": "اكتب شيئًا للبحث...",
+      "noProductsFound": "لم يتم العثور على منتجات!",
+      "search": "بحث",
 
     },
   };

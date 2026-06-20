@@ -210,9 +210,9 @@ class UserController extends GetxController {
       );
       if (image != null) {
         imageUploading.value = true;
-        // Upload Image
-        final imageUrl = await userRepo.uploadImage(
-          'User/Images/Profile/',
+        // Upload Image to Supabase
+        final imageUrl = await userRepo.uploadImageToSupabase(
+          'users/profiles',
           image,
         );
 
@@ -229,6 +229,7 @@ class UserController extends GetxController {
         );
       }
     } catch (e) {
+      print('🔥 UPLOAD ERROR (UserController): $e');
       TLoaders.errorSnackBar(title: "Oh Snap", message: e.toString());
     } finally {
       imageUploading.value = false;

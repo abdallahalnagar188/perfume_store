@@ -11,6 +11,7 @@ import 'package:ecommerce_store/navigation_menu.dart';
 import 'package:ecommerce_store/utils/local_storage/storage_utility.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_store/features/personalization/models/notification_model.dart';
+import 'package:ecommerce_store/utils/helpers/pricing_calculator.dart';
 import 'package:ecommerce_store/utils/notifications/send_notification_service.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
@@ -88,6 +89,11 @@ class OrderController extends GetxController {
         }
       }
 
+      // Calculate subtotal
+      final subTotal = cartController.totalCartPrice.value;
+      final taxAmount = double.parse(TPricingCalculator.calculateTax(subTotal, 'US'));
+      final shippingAmount = double.parse(TPricingCalculator.calculateShippingCost(subTotal, 'US'));
+
       // Add Details
       final order = OrderModel(
         // Generate a unique ID for the order
@@ -95,6 +101,8 @@ class OrderController extends GetxController {
         userId: userId,
         status: OrderStatus.processing,
         totalAmount: totalAmount,
+        taxCost: taxAmount,
+        shippingCost: shippingAmount,
         orderDate: DateTime.now(),
         paymentMethod: checkoutController.selectedPaymentMethod.value.name,
         address: addressController.selectedAddress.value,
@@ -106,6 +114,36 @@ class OrderController extends GetxController {
       // Save the order to Firestore
       await orderRepo.saveOrder(order, userId);
       await orderRepo.saveOrderToFirestore(order);
+
+      // Update Product Stock
+      for (var cartItem in cartController.cartItems) {
+        final productRef = FirebaseFirestore.instance.collection('Products').doc(cartItem.productId);
+        
+        if (cartItem.variationId.isNotEmpty) {
+          // Decrement specific variation stock
+          final productDoc = await productRef.get();
+          if (productDoc.exists) {
+            final product = ProductModel.fromSnapshot(productDoc);
+            for (var i = 0; i < (product.productVariations?.length ?? 0); i++) {
+              if (product.productVariations![i].id == cartItem.variationId) {
+                product.productVariations![i].stock -= cartItem.quantity;
+                if (product.productVariations![i].stock < 0) {
+                  product.productVariations![i].stock = 0;
+                }
+                break;
+              }
+            }
+            await productRef.update({
+              'ProductVariations': product.productVariations!.map((e) => e.toJson()).toList(),
+            });
+          }
+        } else {
+          // Decrement main product stock
+          await productRef.update({
+            'Stock': FieldValue.increment(-cartItem.quantity),
+          });
+        }
+      }
 
       // Create and save Notification to Firestore
       final notificationRef = FirebaseFirestore.instance

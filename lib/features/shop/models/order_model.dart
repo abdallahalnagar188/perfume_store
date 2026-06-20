@@ -10,6 +10,8 @@ class OrderModel {
   final String userId;
   final OrderStatus status;
   final double totalAmount;
+  final double taxCost;
+  final double shippingCost;
   final DateTime orderDate;
   final String paymentMethod;
   final AddressModel? address;
@@ -22,6 +24,8 @@ class OrderModel {
     required this.status,
     required this.items,
     required this.totalAmount,
+    this.taxCost = 0.0,
+    this.shippingCost = 0.0,
     required this.orderDate,
     this.paymentMethod = 'Paypal',
     this.address,
@@ -55,6 +59,8 @@ class OrderModel {
       'userId': userId,
       'status': status.toString(),
       'totalAmount': totalAmount,
+      'taxCost': taxCost,
+      'shippingCost': shippingCost,
       'orderDate': orderDate.toIso8601String(),
       'paymentMethod': paymentMethod,
       'deliveryDate': deliveryDate?.toIso8601String(),
@@ -72,6 +78,8 @@ class OrderModel {
       userId: data['userId']as String,
       status: OrderStatus.values.firstWhere((e) => e.toString() == data['status']),
       totalAmount: data['totalAmount'] as double,
+      taxCost: (data['taxCost'] as num?)?.toDouble() ?? 0.0,
+      shippingCost: (data['shippingCost'] as num?)?.toDouble() ?? 0.0,
       orderDate: DateTime.parse(data['orderDate']),
       paymentMethod: data['paymentMethod'] as String,
       deliveryDate: data['deliveryDate'] != null ? DateTime.parse(data['deliveryDate']) : null,

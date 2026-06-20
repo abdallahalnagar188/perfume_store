@@ -6,6 +6,7 @@ import '../../../../../utils/constants/colors.dart';
 import '../../../../../utils/constants/enums.dart';
 import '../../../../../utils/constants/sizes.dart';
 import '../../../../../utils/helpers/helper_functions.dart';
+import '../../../../../utils/helpers/pricing_calculator.dart';
 import '../../../models/order_model.dart';
 
 class OrderListItem extends StatelessWidget {
@@ -16,6 +17,10 @@ class OrderListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = THelperFunctions.isDarkMode(context);
+    final subTotal = order.items.fold(
+        0.0,
+        (previousValue, element) =>
+            previousValue + (element.price * element.quantity));
 
     return TRoundedContainer(
       padding: const EdgeInsets.all(TSizes.md),
@@ -96,6 +101,50 @@ class OrderListItem extends StatelessWidget {
                           Text('Shipping Date',
                               style: Theme.of(context).textTheme.labelMedium),
                           Text(order.formattedDeliveryDate,
+                              style: Theme.of(context).textTheme.titleMedium),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: TSizes.spaceBtwItems),
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    const Icon(Iconsax.money),
+                    const SizedBox(width: TSizes.spaceBtwItems / 2),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Shipping: \$${TPricingCalculator.calculateShippingCost(subTotal, 'US')}',
+                              style: Theme.of(context).textTheme.labelMedium),
+                          Text('Tax: \$${TPricingCalculator.calculateTax(subTotal, 'US')}',
+                              style: Theme.of(context).textTheme.labelMedium),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Row(
+                  children: [
+                    const Icon(Iconsax.wallet),
+                    const SizedBox(width: TSizes.spaceBtwItems / 2),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text('Total', style: Theme.of(context).textTheme.labelMedium),
+                          Text('\$${order.totalAmount.toStringAsFixed(2)}',
                               style: Theme.of(context).textTheme.titleMedium),
                         ],
                       ),
