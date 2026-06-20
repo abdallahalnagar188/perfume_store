@@ -57,8 +57,10 @@ class LoginControllers extends GetxController {
       }
 
       // Login user using Email and Password Auth
-      final user = await AuthenticationRepo.instance
-          .loginWithEmailAndPassword(email.text.trim(), password.text.trim());
+      final user = await AuthenticationRepo.instance.loginWithEmailAndPassword(
+        email.text.trim(),
+        password.text.trim(),
+      );
 
       // Remove Loading
       TFullScreenLoader.stopLoading();
@@ -72,8 +74,8 @@ class LoginControllers extends GetxController {
   }
 
   /// Google Sign in
-  Future<void> googleSignIn() async{
-    try{
+  Future<void> googleSignIn() async {
+    try {
       // Start Loading
       TFullScreenLoader.openLoadingDialog(
         'Logging you in...',
@@ -88,15 +90,15 @@ class LoginControllers extends GetxController {
       }
 
       // Google Auth
-      final userCredentials = await AuthenticationRepo.instance.signInWithGoogle();
+      final userCredentials = await AuthenticationRepo.instance
+          .signInWithGoogle();
 
       // save user data
-      await userControl.saveUserRecord( userCredentials);
+      await userControl.saveUserRecord(userCredentials);
 
       // stop loading
       TFullScreenLoader.stopLoading();
-
-    }catch(e){
+    } catch (e) {
       TFullScreenLoader.stopLoading();
       TLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }

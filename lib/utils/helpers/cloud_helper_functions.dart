@@ -2,6 +2,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../common/widgets/loaders/empty_data_widget.dart';
+
 
 /// Helper functions for cloud-related operations.
 class TCloudHelperFunctions {
@@ -19,7 +21,7 @@ class TCloudHelperFunctions {
     }
 
     if (!snapshot.hasData || snapshot.data == null) {
-      return const Center(child: Text('No Data Found!'));
+      return const TEmptyDataWidget(text: 'No Data Found!');
     }
 
     if (snapshot.hasError) {
@@ -44,7 +46,7 @@ class TCloudHelperFunctions {
 
     if (!snapshot.hasData || snapshot.data == null || snapshot.data!.isEmpty) {
       if (nothingFound != null) return nothingFound;
-      return const Center(child: Text('No Data Found!'));
+      return const TEmptyDataWidget(text: 'No Data Found!');
     }
 
     if (snapshot.hasError) {

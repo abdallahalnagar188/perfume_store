@@ -27,7 +27,11 @@ class AuthenticationRepo extends GetxController {
 
   @override
   void onReady() {
-    FlutterNativeSplash.remove();
+    try {
+      FlutterNativeSplash.remove();
+    } catch (e) {
+      print('FlutterNativeSplash.remove() failed (likely on Web): $e');
+    }
     screenRedirect();
   }
 

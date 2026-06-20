@@ -34,11 +34,20 @@ class OrderModel {
   String get formattedDeliveryDate =>
       deliveryDate != null ? THelperFunctions.getFormattedDate(deliveryDate!) : '';
 
-  String get orderStatusText => status == OrderStatus.delivered
-      ? 'Delivered'
-      : status == OrderStatus.shipped
-      ? 'Shipment on the way'
-      : 'Processing';
+  String get orderStatusText {
+    switch (status) {
+      case OrderStatus.pending:
+        return 'Pending';
+      case OrderStatus.processing:
+        return 'Processing';
+      case OrderStatus.shipped:
+        return 'Shipment on the way';
+      case OrderStatus.delivered:
+        return 'Delivered';
+      case OrderStatus.cancelled:
+        return 'Cancelled';
+    }
+  }
 
   Map<String, dynamic> toJson() {
     return {

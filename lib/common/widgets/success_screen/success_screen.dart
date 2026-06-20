@@ -2,6 +2,7 @@ import 'package:ecommerce_store/features/auth/screens/login/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 import '../../../../utils/constants/image_strings.dart';
 import '../../../../utils/constants/sizes.dart';
 import '../../../../utils/constants/text_strings.dart';
@@ -30,10 +31,16 @@ class SuccessScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               /// Image
-              Image(
-                image: AssetImage(image),
-                width: THelperFunctions.screenWidth() * 0.6,
-              ),
+              if (image.endsWith('.json'))
+                Lottie.asset(
+                  image,
+                  width: THelperFunctions.screenWidth() * 0.6,
+                )
+              else
+                Image(
+                  image: AssetImage(image),
+                  width: THelperFunctions.screenWidth() * 0.6,
+                ),
               const SizedBox(height: TSizes.spaceBtwSections),
 
               /// Title and SubTitle

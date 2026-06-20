@@ -35,35 +35,22 @@ class StoreScreen extends StatelessWidget {
           ),
           actions: [TCartCounterIcon()],
         ),
-        body: NestedScrollView(
+        body: RefreshIndicator(
+          onRefresh: () async {
+            await Future.wait([
+              brandController.getFeaturedBrands(),
+              controller.fetchCategories(),
+            ]);
+          },
+          child: NestedScrollView(
           headerSliverBuilder: (_, innerBoxIsScrolled) {
             return [
-              SliverAppBar(
-                pinned: true,
-                floating: true,
-                automaticallyImplyLeading: false,
-                // <-- Removes back icon
-                backgroundColor: THelperFunctions.isDarkMode(context)
-                    ? TColors.black
-                    : TColors.white,
-                expandedHeight: 440,
-                flexibleSpace: Padding(
+              SliverToBoxAdapter(
+                child: Padding(
                   padding: EdgeInsets.all(TSizes.defaultSpace),
-                  child: ListView(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
+                  child: Column(
                     children: [
                       SizedBox(height: TSizes.spaceBtwItems),
-
-                      // /// Search bar
-                      // TSearchContainer(
-                      //   text: 'Search in Store',
-                      //   showBorder: true,
-                      //   showBackground: false,
-                      //   padding: EdgeInsets.zero,
-                      // ),
-                      // SizedBox(height: TSizes.spaceBtwSections),
-
                       /// Featured Brands
                       TSectionHeading(
                         title: 'featuredBrands'.tr,
@@ -105,6 +92,15 @@ class StoreScreen extends StatelessWidget {
                     ],
                   ),
                 ),
+              ),
+              SliverAppBar(
+                pinned: true,
+                floating: true,
+                automaticallyImplyLeading: false,
+                toolbarHeight: 0,
+                backgroundColor: THelperFunctions.isDarkMode(context)
+                    ? TColors.black
+                    : TColors.white,
                 bottom: TTabBar(
                   tabs: controller.featuredCategories
                       .map((category) => Tab(child: Text(category.name)))
@@ -117,6 +113,7 @@ class StoreScreen extends StatelessWidget {
             children: controller.featuredCategories
                 .map((category) => TCategoryTab(categoryModel: category))
                 .toList(),
+          ),
           ),
         ),
       ),

@@ -9,6 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app.dart';
 import 'data/repo/auth/auth_repo.dart';
 import 'firebase_options.dart';
+import 'package:ecommerce_store/utils/notifications/notification_service.dart';
 
 Future<void> main() async {
   final WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,9 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   ).then((FirebaseApp value) => Get.put(AuthenticationRepo()));
+
+  /// Initialize Notifications
+  await NotificationService().initialize();
 
   /// Load saved language
   final prefs = await SharedPreferences.getInstance();

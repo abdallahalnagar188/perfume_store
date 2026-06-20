@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_store/data/repo/auth/auth_repo.dart';
 import 'package:ecommerce_store/features/personalization/models/address_model.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
 class AddressRepo extends GetxController {
   static AddressRepo get instance => Get.find();

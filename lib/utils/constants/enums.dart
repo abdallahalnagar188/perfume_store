@@ -1,3 +1,7 @@
+import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
+
+import 'colors.dart';
 
 /* --
       LIST OF Enums
@@ -8,7 +12,38 @@
 /// Switch of Custom Brand-Text-Size Widget
 enum TextSizes { small, medium, large }
 
-enum OrderStatus { processing, shipped, delivered }
+enum OrderStatus { pending, processing, shipped, delivered, cancelled }
 
 enum PaymentMethods { paypal, googlePay, applePay, visa, masterCard, creditCard, paystack, razorPay, paytm }
 
+extension OrderStatusExtension on OrderStatus {
+  Color get activeColor {
+    switch (this) {
+      case OrderStatus.pending:
+        return Colors.blue;
+      case OrderStatus.processing:
+        return TColors.primary;
+      case OrderStatus.shipped:
+        return Colors.orange;
+      case OrderStatus.delivered:
+        return Colors.green;
+      case OrderStatus.cancelled:
+        return Colors.red;
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case OrderStatus.pending:
+        return Iconsax.timer;
+      case OrderStatus.processing:
+        return Iconsax.clock;
+      case OrderStatus.shipped:
+        return Iconsax.ship;
+      case OrderStatus.delivered:
+        return Iconsax.tick_circle;
+      case OrderStatus.cancelled:
+        return Iconsax.close_circle;
+    }
+  }
+}

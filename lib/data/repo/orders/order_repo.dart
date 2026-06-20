@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_store/data/repo/auth/auth_repo.dart';
 import 'package:get/get.dart';
 
+import '../../../utils/logging/logger.dart';
+
 import '../../../features/shop/models/order_model.dart';
 
 class OrderRepo extends GetxController{
@@ -19,11 +21,14 @@ class OrderRepo extends GetxController{
       final userId = AuthenticationRepo.instance.authUser!.uid;
       if (userId.isEmpty) throw 'Unable to find user information. Try again in few minutes.';
 
-      final result = await _db
-          .collection('Users')
-          .doc(userId)
-          .collection('Orders')
-          .get();
+      final result = await TLoggerHelper.wrapFirestoreCall(
+        'Fetch User Orders',
+        _db
+            .collection('Users')
+            .doc(userId)
+            .collection('Orders')
+            .get(),
+      );
 
       return result.docs
           .map((documentSnapshot) => OrderModel.fromSnapshot(documentSnapshot))
@@ -36,11 +41,14 @@ class OrderRepo extends GetxController{
   /// Store new user order
   Future<void> saveOrder(OrderModel order, String userId) async {
     try {
-      await _db
-          .collection('Users')
-          .doc(userId)
-          .collection('Orders')
-          .add(order.toJson());
+      await TLoggerHelper.wrapFirestoreCall(
+        'Save User Order',
+        _db
+            .collection('Users')
+            .doc(userId)
+            .collection('Orders')
+            .add(order.toJson()),
+      );
     } catch (e) {
       throw 'Something went wrong while saving Order Information. Try again later';
     }
@@ -50,7 +58,10 @@ class OrderRepo extends GetxController{
 
 Future<void> saveOrderToFirestore(OrderModel order) async {
     try{
-      await _db.collection('Orders').add(order.toJson());
+      await TLoggerHelper.wrapFirestoreCall(
+        'Save Order To Global Orders Collection',
+        _db.collection('Orders').add(order.toJson()),
+      );
     }catch(e){
       throw 'Something went wrong while saving Order Information. Try again later';
     }

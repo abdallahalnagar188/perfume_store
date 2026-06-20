@@ -39,6 +39,8 @@ class BrandRepo extends GetxController {
 
       List<String> brandIds = brandCategoryQuery.docs.map((doc) => doc['brandId'] as String).toList();
 
+      if (brandIds.isEmpty) return [];
+
       final brandsQuery = await _db.collection('Brands').where(FieldPath.documentId,whereIn: brandIds).limit(2).get();
 
       List<BrandModel> brands = brandsQuery.docs.map((doc) => BrandModel.fromSnapshot(doc)).toList();

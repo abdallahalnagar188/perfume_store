@@ -11,6 +11,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../../utils/helpers/network_manager.dart';
 
@@ -36,8 +37,27 @@ class UserController extends GetxController {
   Future<void> fetchUserRecord() async {
     try {
       profileLoading.value = true;
-      final user = await userRepo.fetchUserDetails();
-      this.user(user);
+      
+      final authUser = AuthenticationRepo.instance.authUser;
+      if (authUser == null) {
+        user(UserModel.empty);
+        return;
+      }
+
+      final fetchedUser = await userRepo.fetchUserDetails();
+      this.user(fetchedUser);
+      
+      // Update FCM token if needed
+      try {
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        if (fcmToken != null && fetchedUser.fcmToken != fcmToken && fetchedUser.id.isNotEmpty) {
+           fetchedUser.fcmToken = fcmToken;
+           await userRepo.updateSingField({'fcmToken': fcmToken});
+        }
+      } catch (e) {
+        print('Could not retrieve FCM token: $e');
+      }
+      
       profileLoading.value = false;
     } catch (e) {
       user(UserModel.empty);
@@ -71,6 +91,13 @@ class UserController extends GetxController {
             phoneNumber: userCredential.user!.phoneNumber ?? "",
             profilePicture: userCredential.user!.photoURL ?? "",
           );
+
+          try {
+            final fcmToken = await FirebaseMessaging.instance.getToken();
+            user.fcmToken = fcmToken ?? "";
+          } catch (e) {
+            print('Could not retrieve FCM token: $e');
+          }
 
           // save user data
           await userRepo.saveUserRecord(user);

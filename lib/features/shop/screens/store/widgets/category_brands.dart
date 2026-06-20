@@ -33,6 +33,7 @@ class CategoryBrands extends StatelessWidget {
         final widget = TCloudHelperFunctions.checkMultiRecordState(
           snapshot: snapshot,
           loader: loader,
+          nothingFound: const SizedBox.shrink(),
         );
 
         if (widget != null) return widget;
@@ -51,6 +52,7 @@ class CategoryBrands extends StatelessWidget {
                 final widget = TCloudHelperFunctions.checkMultiRecordState(
                   snapshot: snapshot,
                   loader: loader,
+                  nothingFound: const SizedBox.shrink(),
                 );
 
                 if (widget != null) return widget;

@@ -9,6 +9,7 @@ class UserModel {
   final String email;
   String phoneNumber;
   String profilePicture;
+  String? fcmToken;
 
   UserModel({
     required this.id,
@@ -18,6 +19,7 @@ class UserModel {
     required this.email,
     required this.phoneNumber,
     required this.profilePicture,
+    this.fcmToken,
   });
 
   /// Helper Function to get the full name
@@ -48,6 +50,7 @@ class UserModel {
     email: '',
     phoneNumber: '',
     profilePicture: '',
+    fcmToken: '',
   );
 
   /// convert model fo JSON structure for storing data in firebase
@@ -59,6 +62,7 @@ class UserModel {
       'Email': email,
       'PhoneNumber': phoneNumber,
       'ProfilePicture': profilePicture,
+      'fcmToken': fcmToken,
     };
   }
 
@@ -73,6 +77,7 @@ class UserModel {
       email: data['Email'] ?? '',
       phoneNumber: data['PhoneNumber'] ?? '',
       profilePicture: data['ProfilePicture'] ?? '',
+      fcmToken: data['fcmToken'] ?? '',
     );
   }
 }

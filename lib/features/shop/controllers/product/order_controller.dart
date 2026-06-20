@@ -9,6 +9,10 @@ import 'package:ecommerce_store/features/shop/models/order_model.dart';
 import 'package:ecommerce_store/features/shop/models/payment_method_model.dart';
 import 'package:ecommerce_store/navigation_menu.dart';
 import 'package:ecommerce_store/utils/local_storage/storage_utility.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_store/features/personalization/models/notification_model.dart';
+import 'package:ecommerce_store/utils/notifications/send_notification_service.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -56,6 +60,34 @@ class OrderController extends GetxController {
       final userId = AuthenticationRepo.instance.authUser!.uid;
       if (userId.isEmpty) return;
 
+      // Check Stock before processing
+      for (var cartItem in cartController.cartItems) {
+        final productDoc = await FirebaseFirestore.instance.collection('Products').doc(cartItem.productId).get();
+        if (productDoc.exists) {
+          final product = ProductModel.fromSnapshot(productDoc);
+          int currentStock = 0;
+          if (cartItem.variationId.isNotEmpty) {
+             for (var v in product.productVariations ?? []) {
+                 if (v.id == cartItem.variationId) {
+                     currentStock = v.stock;
+                     break;
+                 }
+             }
+          } else {
+             currentStock = product.stock;
+          }
+
+          if (currentStock < 1) {
+            TFullScreenLoader.stopLoading();
+            TLoaders.warningSnackBar(
+              title: 'Out of Stock', 
+              message: '${cartItem.title} is out of stock and cannot be ordered.',
+            );
+            return;
+          }
+        }
+      }
+
       // Add Details
       final order = OrderModel(
         // Generate a unique ID for the order
@@ -74,6 +106,36 @@ class OrderController extends GetxController {
       // Save the order to Firestore
       await orderRepo.saveOrder(order, userId);
       await orderRepo.saveOrderToFirestore(order);
+
+      // Create and save Notification to Firestore
+      final notificationRef = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('Notifications')
+          .doc();
+          
+      final notification = NotificationModel(
+        id: notificationRef.id,
+        title: 'Order Successful!'.tr,
+        body: 'Your order #${order.id} was created just now. Status: Processing'.tr,
+        orderId: order.id,
+        createdAt: DateTime.now(),
+      );
+      
+      await notificationRef.set(notification.toJson());
+
+      // Trigger FCM Push Notification
+      try {
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        if (fcmToken != null) {
+          await SendNotificationService.sendOrderPlacedNotification(
+            token: fcmToken,
+            orderId: order.id,
+          );
+        }
+      } catch (e) {
+        debugPrint('Failed to send push notification: $e');
+      }
 
       cartController.clearCart();
 
