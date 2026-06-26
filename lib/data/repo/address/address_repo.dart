@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce_store/data/repo/auth/auth_repo.dart';
 import 'package:ecommerce_store/features/personalization/models/address_model.dart';
+import 'package:ecommerce_store/utils/logging/logger.dart';
 import 'package:get/get.dart';
 
 class AddressRepo extends GetxController {
@@ -56,6 +57,35 @@ class AddressRepo extends GetxController {
     } catch (e) {
       throw 'Something went wrong while saving address information, try again';
     }
+  }
 
+  Future<void> deleteAddress(String addressId) async {
+    try {
+      final userId = AuthenticationRepo.instance.authUser!.uid;
+      final request = _db
+          .collection('Users')
+          .doc(userId)
+          .collection('Addresses')
+          .doc(addressId)
+          .delete();
+      await TLoggerHelper.wrapFirestoreCall('Delete Address', request);
+    } catch (e) {
+      throw 'Something went wrong while deleting your address, try again';
+    }
+  }
+
+  Future<void> updateAddress(AddressModel address) async {
+    try {
+      final userId = AuthenticationRepo.instance.authUser!.uid;
+      final request = _db
+          .collection('Users')
+          .doc(userId)
+          .collection('Addresses')
+          .doc(address.id)
+          .update(address.toJson());
+      await TLoggerHelper.wrapFirestoreCall('Update Address', request, payload: address.toJson().toString());
+    } catch (e) {
+      throw 'Something went wrong while updating your address, try again';
+    }
   }
 }

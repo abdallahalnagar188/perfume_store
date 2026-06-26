@@ -13,6 +13,8 @@ class AddressModel {
   final String country;
   final DateTime? dateTime;
   bool selectedAddress;
+  double? latitude;
+  double? longitude;
 
   AddressModel({
     required this.id,
@@ -25,6 +27,8 @@ class AddressModel {
     required this.country,
     this.dateTime,
     this.selectedAddress = true,
+    this.latitude,
+    this.longitude,
   });
 
   String get formattedPhoneNo => TFormatter.formatPhoneNumber(phoneNumber);
@@ -52,6 +56,8 @@ class AddressModel {
       'Country': country,
       'DateTime': dateTime?.toIso8601String(),
       'SelectedAddress': selectedAddress,
+      'Latitude': latitude,
+      'Longitude': longitude,
     };
   }
 
@@ -67,6 +73,8 @@ class AddressModel {
       country: data['Country'] as String,
       dateTime: (data['DateTime'] as Timestamp?)?.toDate(),
       selectedAddress: data['SelectedAddress'] as bool,
+      latitude: data['Latitude'] as double?,
+      longitude: data['Longitude'] as double?,
     );
   }
 
@@ -85,6 +93,8 @@ class AddressModel {
       country: data['Country'] ?? '',
       dateTime: (data['DateTime'] as Timestamp?)?.toDate(),
       selectedAddress: data['SelectedAddress'] as bool,
+      latitude: data['Latitude'] as double?,
+      longitude: data['Longitude'] as double?,
     );
   }
 

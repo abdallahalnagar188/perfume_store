@@ -67,6 +67,8 @@ dependencies:
   badges: ^3.2.0
   googleapis_auth: ^2.0.0
   supabase_flutter: ^2.15.0
+  google_maps_flutter: ^2.14.2
+  geolocator: ^14.0.2
 
 
 dev_dependencies:

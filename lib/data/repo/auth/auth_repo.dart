@@ -15,6 +15,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ecommerce_store/utils/logging/logger.dart';
 
 class AuthenticationRepo extends GetxController {
   static AuthenticationRepo get instance => Get.find();
@@ -139,33 +140,43 @@ class AuthenticationRepo extends GetxController {
   /// Google Sign in
   Future<UserCredential?> signInWithGoogle() async {
     try {
+      TLoggerHelper.logRequest(service: 'FirebaseAuth', operation: 'signInWithGoogle');
+
       // Trigger the Google Sign-In flow
       final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
 
-      final GoogleSignInAuthentication? googleAuth =
-          await userAccount?.authentication;
+      if (userAccount == null) {
+        throw 'sign_in_canceled';
+      }
+
+      final GoogleSignInAuthentication googleAuth =
+          await userAccount.authentication;
+
+      if (googleAuth.accessToken == null && googleAuth.idToken == null) {
+        throw 'No Authentication tokens found.';
+      }
 
       // Create the credential
       final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
       );
 
-      return await _auth.signInWithCredential(credential);
-    } on TFirebaseAuthException catch (e) {
+      final userCredential = await _auth.signInWithCredential(credential);
+      TLoggerHelper.logResponse(service: 'FirebaseAuth', operation: 'signInWithGoogle', duration: const Duration(milliseconds: 0), data: userCredential.user?.uid);
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      await GoogleSignIn().signOut();
+      TLoggerHelper.logError(service: 'FirebaseAuth', operation: 'signInWithGoogle', error: 'FirebaseAuthException: ${e.code} - ${e.message}');
       throw TFirebaseAuthException(e.code).message;
-    } on FirebaseException catch (e) {
-      throw TFirebaseException(e.code).message;
-    } on FormatException catch (_) {
-      throw TFormatException();
     } on PlatformException catch (e) {
+      await GoogleSignIn().signOut();
+      TLoggerHelper.logError(service: 'GoogleSignIn', operation: 'signInWithGoogle', error: 'PlatformException: ${e.code} - ${e.message}');
       throw TPlatformException(e.code).message;
     } catch (e) {
-      if (kDebugMode) {
-        print('Google Sign-In error: $e');
-        print('Error type: ${e.runtimeType}');
-      }
-      return null;
+      await GoogleSignIn().signOut();
+      TLoggerHelper.logError(service: 'GoogleSignIn', operation: 'signInWithGoogle', error: 'Unknown Error: $e');
+      throw 'Something went wrong , Please try again';
     }
   }
 
@@ -176,6 +187,11 @@ class AuthenticationRepo extends GetxController {
     try {
       await GoogleSignIn().signOut();
       await FirebaseAuth.instance.signOut();
+      
+      // Clear Cache (Local Storage)
+      deviceStorage.remove('REMEMBER_ME_EMAIL');
+      deviceStorage.remove('REMEMBER_ME_PASSWORD');
+
       Get.offAll(() => LoginScreen());
     } on TFirebaseAuthException catch (e) {
       throw TFirebaseAuthException(e.code).message;

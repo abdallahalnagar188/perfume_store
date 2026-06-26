@@ -74,6 +74,14 @@ class SignupController extends GetxController {
       final userRepo = Get.put(UserRepo());
       await userRepo.saveUserRecord(newUser);
 
+      // Clear the signup form fields
+      firstName.clear();
+      lastName.clear();
+      username.clear();
+      email.clear();
+      phoneNumber.clear();
+      password.clear();
+
       // Show success message
       TLoaders.successSnackBar(
         title: 'Congratulations',

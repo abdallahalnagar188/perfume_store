@@ -8,8 +8,8 @@ import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class AddNewAddressScreen extends StatelessWidget {
-  const AddNewAddressScreen({super.key});
+class EditAddressScreen extends StatelessWidget {
+  const EditAddressScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class AddNewAddressScreen extends StatelessWidget {
       appBar: TAppbar(
         showBackArrow: true,
         title: Text(
-          'addNewAddress'.tr,
+          'Edit Address',
           style: Theme.of(context).textTheme.headlineMedium,
         ),
       ),
@@ -194,7 +194,7 @@ class AddNewAddressScreen extends StatelessWidget {
                       ),
                       elevation: TSizes.buttonElevation,
                     ),
-                    onPressed: () => controller.addNewAddress(),
+                    onPressed: () => controller.submitEditedAddress(),
                     child: Text(
                       'save'.tr,
                       style: Theme.of(context).textTheme.titleLarge!.copyWith(color: TColors.white, fontWeight: FontWeight.bold),

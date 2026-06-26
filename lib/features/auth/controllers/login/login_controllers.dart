@@ -62,6 +62,12 @@ class LoginControllers extends GetxController {
         password.text.trim(),
       );
 
+      // Clear form fields
+      if (!rememberMe.value) {
+        email.clear();
+        password.clear();
+      }
+
       // Remove Loading
       TFullScreenLoader.stopLoading();
 
@@ -98,8 +104,14 @@ class LoginControllers extends GetxController {
 
       // stop loading
       TFullScreenLoader.stopLoading();
+
+      // Redirect
+      AuthenticationRepo.instance.screenRedirect();
     } catch (e) {
       TFullScreenLoader.stopLoading();
+      if (e == 'sign_in_canceled') {
+        return; // User canceled the sign-in flow silently
+      }
       TLoaders.errorSnackBar(title: 'Oh Snap', message: e.toString());
     }
   }

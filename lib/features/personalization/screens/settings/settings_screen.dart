@@ -1,12 +1,8 @@
 import 'package:ecommerce_store/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce_store/common/widgets/custom_shapes/containers/primary_header_container.dart';
-import 'package:ecommerce_store/common/widgets/image/t_circular_image.dart';
 import 'package:ecommerce_store/common/widgets/list_tiles/settings_menu_tile.dart';
 import 'package:ecommerce_store/common/widgets/texts/section_heading.dart';
-import 'package:ecommerce_store/data/dummy_data/t_dummy_data.dart';
-import 'package:ecommerce_store/data/repo/banner/banner_repo.dart';
 import 'package:ecommerce_store/data/repo/brands/brand_repo.dart';
-import 'package:ecommerce_store/data/repo/products/products_repo.dart';
 import 'package:ecommerce_store/features/personalization/screens/address/address_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/cart/cart_screen.dart';
 import 'package:ecommerce_store/features/shop/screens/orders/order_screen.dart';
@@ -14,14 +10,12 @@ import 'package:ecommerce_store/utils/constants/colors.dart';
 import 'package:ecommerce_store/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../common/widgets/list_tiles/user_profile_tile.dart';
 import '../../../../data/repo/auth/auth_repo.dart';
 import '../../../../utils/exceptions/TFirebaseStorageService.dart';
 import '../profile/profile_screen.dart';
+import 'widgets/language_bottom_sheet.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -98,55 +92,7 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.language_circle,
                     title: 'language'.tr, // localized
                     subTitle: 'choose_language'.tr, // localized
-                    onTap: () {
-                      Get.bottomSheet(
-                        Container(
-                          padding: const EdgeInsets.all(16),
-                          decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                          ),
-                          child: Wrap(
-                            children: [
-                              Center(
-                                child: Text(
-                                  'choose_language'.tr,
-                                  style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              ListTile(
-                                leading: const Icon(Icons.language),
-                                title: Text('english'.tr),
-                                onTap: () async {
-                                  var locale = const Locale('en', 'US');
-                                  Get.updateLocale(locale);
-                                  final prefs = await SharedPreferences.getInstance();
-                                  await prefs.setString('langCode', 'en');
-                                  await prefs.setString('countryCode', 'US');
-                                  Get.back(); // close bottom sheet
-                                },
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.language),
-                                title: Text('arabic'.tr),
-                                onTap: () async {
-                                  var locale = const Locale('ar', 'EG');
-                                  Get.updateLocale(locale);
-                                  final prefs = await SharedPreferences.getInstance();
-                                  await prefs.setString('langCode', 'ar');
-                                  await prefs.setString('countryCode', 'EG');
-                                  Get.back(); // close bottom sheet
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
+                    onTap: () => Get.bottomSheet(const LanguageBottomSheet()),
                   ),
 
                   /// Logout Button

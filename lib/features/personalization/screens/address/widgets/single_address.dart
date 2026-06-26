@@ -21,66 +21,146 @@ class TSingleAddress extends StatelessWidget {
 
     return Obx(() {
       final selectedAddressId = controller.selectedAddress.value.id;
-      final selectedAddress = selectedAddressId == address.id;
+      final isSelected = selectedAddressId == address.id;
+
       return InkWell(
         onTap: onTap,
+        borderRadius: BorderRadius.circular(TSizes.cardRadiusLg),
         child: TRoundedContainer(
-          padding: EdgeInsets.all(TSizes.md),
+          padding: const EdgeInsets.all(TSizes.md),
           width: double.infinity,
           showBorder: true,
-          backgroundColor: selectedAddress
-              ? TColors.primary.withOpacity(0.5)
+          // Softer, more premium active state tint
+          backgroundColor: isSelected
+              ? TColors.primary.withOpacity(0.08)
               : Colors.transparent,
-          borderColor: selectedAddress
-              ? Colors.transparent
-              : dark
-              ? TColors.darkerGrey
-              : TColors.grey,
-          margin: EdgeInsets.only(bottom: TSizes.spaceBtwItems),
-          child: Stack(
+          borderColor: isSelected
+              ? TColors.primary
+              : (dark ? TColors.darkerGrey : TColors.grey.withOpacity(0.5)),
+          margin: const EdgeInsets.only(bottom: TSizes.spaceBtwItems),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Positioned(
-                top: 0,
-                left: 5,
-                child: Icon(
-                  selectedAddress ? Iconsax.tick_circle5 : null,
-                  color: selectedAddress
-                      ? dark
-                            ? TColors.light
-                            : TColors.dark
-                      : null,
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              // 1. Header: Selection Indicator, Title & Action Buttons
+              Row(
                 children: [
-                  Text(
-                    address.name,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleLarge,
+                  // Active State Checkmark
+                  if (isSelected) ...[
+                    const Icon(Iconsax.tick_circle5, color: TColors.primary, size: 22),
+                    const SizedBox(width: TSizes.sm),
+                  ],
+                  // Address Title
+                  Expanded(
+                    child: Text(
+                      address.name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.w600,
+                            color: isSelected ? TColors.primary : null,
+                          ),
+                    ),
                   ),
-                  const SizedBox(height: TSizes.sm / 2),
-
-                  Text(
-                   address.phoneNumber,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  const SizedBox(height: TSizes.sm / 2),
-                  Text(
-                   address.toString(),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const SizedBox(height: TSizes.sm / 2),
+                  // Edit & Delete Actions aligned cleanly
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () => controller.editAddressInit(address),
+                        icon: const Icon(Iconsax.edit, size: 20),
+                        color: TColors.darkGrey,
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.compact,
+                        tooltip: 'Edit Address',
+                      ),
+                      IconButton(
+                        onPressed: () => controller.deleteAddressPopup(address),
+                        icon: const Icon(Iconsax.trash, size: 20),
+                        color: TColors.error.withOpacity(0.8),
+                        padding: EdgeInsets.zero,
+                        visualDensity: VisualDensity.compact,
+                        tooltip: 'Delete Address',
+                      ),
+                    ],
+                  )
                 ],
               ),
+              
+              const SizedBox(height: TSizes.sm),
+              const Divider(height: 1, thickness: 0.5),
+              const SizedBox(height: TSizes.sm),
+
+              // 2. Address Details
+              _AddressDetailRow(
+                icon: Iconsax.mobile,
+                text: address.phoneNumber,
+                context: context,
+              ),
+              const SizedBox(height: TSizes.sm / 2),
+              
+              _AddressDetailRow(
+                icon: Iconsax.location,
+                text: address.toString(),
+                context: context,
+                maxLines: 2,
+              ),
+
+              // 3. Optional GPS Coordinates
+              if (address.latitude != null && address.longitude != null) ...[
+                const SizedBox(height: TSizes.sm / 2),
+                _AddressDetailRow(
+                  icon: Iconsax.map_1,
+                  text: 'Lat: ${address.latitude!.toStringAsFixed(4)}, Lng: ${address.longitude!.toStringAsFixed(4)}',
+                  context: context,
+                  isCaption: true,
+                ),
+              ],
             ],
           ),
         ),
       );
     });
+  }
+}
+
+/// Helper widget to keep the main layout clean and prevent repetitive Row code
+class _AddressDetailRow extends StatelessWidget {
+  const _AddressDetailRow({
+    required this.icon,
+    required this.text,
+    required this.context,
+    this.maxLines = 1,
+    this.isCaption = false,
+  });
+
+  final IconData icon;
+  final String text;
+  final BuildContext context;
+  final int maxLines;
+  final bool isCaption;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: maxLines > 1 ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: [
+        Icon(
+          icon,
+          size: 18,
+          color: isCaption ? TColors.darkGrey.withOpacity(0.7) : TColors.darkerGrey,
+        ),
+        const SizedBox(width: TSizes.md),
+        Expanded(
+          child: Text(
+            text,
+            maxLines: maxLines,
+            overflow: TextOverflow.ellipsis,
+            style: isCaption
+                ? Theme.of(context).textTheme.labelMedium?.copyWith(color: TColors.darkGrey)
+                : Theme.of(context).textTheme.bodyMedium,
+          ),
+        ),
+      ],
+    );
   }
 }

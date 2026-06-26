@@ -2,18 +2,19 @@ import 'package:ecommerce_store/data/repo/address/address_repo.dart';
 import 'package:ecommerce_store/features/personalization/models/address_model.dart';
 import 'package:ecommerce_store/features/personalization/screens/address/add_new_address.dart';
 import 'package:ecommerce_store/utils/constants/image_strings.dart';
+import 'package:ecommerce_store/utils/helpers/cloud_helper_functions.dart';
 import 'package:ecommerce_store/utils/popups/full_screen_loader.dart';
 import 'package:ecommerce_store/utils/popups/loaders.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
-
 import '../../../common/widgets/texts/section_heading.dart';
 import '../../../utils/constants/sizes.dart';
-import '../../../utils/helpers/cloud_helper_functions.dart';
 import '../../../utils/helpers/network_manager.dart';
 import '../screens/address/widgets/single_address.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:ecommerce_store/features/personalization/screens/address/edit_address.dart';
 
 class AddressController extends GetxController {
   static AddressController get instance => Get.find();
@@ -30,6 +31,13 @@ class AddressController extends GetxController {
   RxBool refreshDate = true.obs;
   final Rx<AddressModel> selectedAddress = AddressModel.empty().obs;
   final addressRepo = Get.put(AddressRepo());
+
+  // Map variables
+  Rx<LatLng?> selectedLocation = Rx<LatLng?>(null);
+  GoogleMapController? mapController;
+  
+  // Edit mode variable
+  String editingAddressId = '';
 
   /// Fetch all user address
   Future<List<AddressModel>> getAllUserAddress() async {
@@ -62,6 +70,50 @@ class AddressController extends GetxController {
     }
   }
 
+  /// Pick current location using Geolocator
+  Future<void> pickCurrentLocation() async {
+    try {
+      bool serviceEnabled;
+      LocationPermission permission;
+
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
+      if (!serviceEnabled) {
+        TLoaders.warningSnackBar(title: 'Location Services Disabled', message: 'Please enable location services.');
+        return;
+      }
+
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.denied) {
+          TLoaders.warningSnackBar(title: 'Permission Denied', message: 'Location permissions are denied.');
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        TLoaders.warningSnackBar(title: 'Permission Denied', message: 'Location permissions are permanently denied, we cannot request permissions.');
+        return;
+      }
+
+      Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      final latLng = LatLng(position.latitude, position.longitude);
+      selectedLocation.value = latLng;
+      
+      if (mapController != null) {
+        mapController!.animateCamera(CameraUpdate.newLatLngZoom(latLng, 15));
+      }
+    } catch (e) {
+      TLoaders.errorSnackBar(title: 'Location Error', message: e.toString());
+    }
+  }
+
+  /// Initialize Add New Address Flow
+  void addNewAddressInit() {
+    resetFormFields();
+    Get.to(() => const AddNewAddressScreen());
+  }
+
   /// add new address
   Future addNewAddress() async {
     try {
@@ -91,6 +143,8 @@ class AddressController extends GetxController {
         postalCode: postalCode.text.trim(),
         country: country.text.trim(),
         selectedAddress: true,
+        latitude: selectedLocation.value?.latitude,
+        longitude: selectedLocation.value?.longitude,
       );
 
       final id = await addressRepo.addAddress(address);
@@ -116,16 +170,136 @@ class AddressController extends GetxController {
     }
   }
 
+  /// Initialize Edit Address Flow
+  void editAddressInit(AddressModel address) {
+    editingAddressId = address.id;
+    name.text = address.name;
+    phoneNumber.text = address.phoneNumber;
+    street.text = address.street;
+    postalCode.text = address.postalCode;
+    city.text = address.city;
+    state.text = address.state;
+    country.text = address.country;
+    if (address.latitude != null && address.longitude != null) {
+      selectedLocation.value = LatLng(address.latitude!, address.longitude!);
+    } else {
+      selectedLocation.value = null;
+    }
+    Get.to(() => const EditAddressScreen());
+  }
+
+  /// Submit Edited Address
+  Future submitEditedAddress() async {
+    try {
+      TFullScreenLoader.openLoadingDialog(
+        'Updating Address...',
+        TImages.docerAnimation,
+      );
+
+      final isConnected = await NetworkManager.instance.isConnected();
+      if (!isConnected) {
+        TFullScreenLoader.stopLoading();
+        return;
+      }
+
+      if (!addressFormKey.currentState!.validate()) {
+        TFullScreenLoader.stopLoading();
+        return;
+      }
+
+      final address = AddressModel(
+        id: editingAddressId,
+        name: name.text.trim(),
+        phoneNumber: phoneNumber.text.trim(),
+        street: street.text.trim(),
+        city: city.text.trim(),
+        state: state.text.trim(),
+        postalCode: postalCode.text.trim(),
+        country: country.text.trim(),
+        selectedAddress: selectedAddress.value.id == editingAddressId,
+        latitude: selectedLocation.value?.latitude,
+        longitude: selectedLocation.value?.longitude,
+      );
+
+      await addressRepo.updateAddress(address);
+
+      if (selectedAddress.value.id == editingAddressId) {
+        selectedAddress.value = address;
+      }
+
+      TFullScreenLoader.stopLoading();
+      TLoaders.successSnackBar(
+        title: 'Success',
+        message: 'Your address has been updated successfully.',
+      );
+      refreshDate.toggle();
+      resetFormFields();
+      Navigator.of(Get.context!).pop();
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(title: 'Error updating address', message: e.toString());
+    }
+  }
+
+  /// Delete Address Popup Confirmation
+  void deleteAddressPopup(AddressModel address) {
+    Get.defaultDialog(
+      contentPadding: const EdgeInsets.all(TSizes.md),
+      title: 'Delete Address',
+      middleText: 'Are you sure you want to delete this address?',
+      confirm: ElevatedButton(
+        onPressed: () async {
+          Navigator.of(Get.overlayContext!).pop();
+          await deleteAddress(address);
+        },
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.red, side: const BorderSide(color: Colors.red)),
+        child: const Padding(padding: EdgeInsets.symmetric(horizontal: TSizes.lg), child: Text('Delete')),
+      ),
+      cancel: OutlinedButton(
+        onPressed: () => Navigator.of(Get.overlayContext!).pop(),
+        child: const Text('Cancel'),
+      ),
+    );
+  }
+
+  /// Delete Address Flow
+  Future<void> deleteAddress(AddressModel address) async {
+    try {
+      TFullScreenLoader.openLoadingDialog('Deleting Address...', TImages.docerAnimation);
+      await addressRepo.deleteAddress(address.id);
+      
+      // Handle fallback if deleted address was selected
+      if (selectedAddress.value.id == address.id) {
+        final addresses = await addressRepo.fetchUserAddress();
+        if (addresses.isNotEmpty) {
+          await selectAddress(addresses.first);
+        } else {
+          selectedAddress.value = AddressModel.empty();
+        }
+      }
+      
+      TFullScreenLoader.stopLoading();
+      TLoaders.successSnackBar(title: 'Success', message: 'Address successfully deleted.');
+      refreshDate.toggle();
+    } catch (e) {
+      TFullScreenLoader.stopLoading();
+      TLoaders.errorSnackBar(title: 'Error deleting address', message: e.toString());
+    }
+  }
+
   /// Show Addresses ModalBottomSheet at Checkout
   Future<dynamic> selectNewAddressPopup(BuildContext context) {
     return showModalBottomSheet(
       context: context,
-      builder: (_) => Container(
-        padding: const EdgeInsets.all(TSizes.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TSectionHeading(
+      isScrollControlled: true,
+      builder: (_) => SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(TSizes.lg),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const TSectionHeading(
               title: 'Select Address',
               showActionButton: false,
             ),
@@ -156,15 +330,19 @@ class AddressController extends GetxController {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () => Get.to(() => AddNewAddressScreen()),
+                onPressed: () {
+                  Get.back();
+                  addNewAddressInit();
+                },
                 child: Text('Add new address', style: Theme.of(context).textTheme.bodyMedium,),
               ),
             ),
           ],
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   void resetFormFields() {
     name.clear();
@@ -174,6 +352,8 @@ class AddressController extends GetxController {
     city.clear();
     state.clear();
     country.clear();
-    addressFormKey.currentState!.reset();
+    selectedLocation.value = null;
+    editingAddressId = '';
+    addressFormKey.currentState?.reset();
   }
 }

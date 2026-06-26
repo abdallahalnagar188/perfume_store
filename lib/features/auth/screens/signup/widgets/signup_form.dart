@@ -133,35 +133,37 @@ class TSignUpForm extends StatelessWidget {
                 ),
               ),
               const SizedBox(width: TSizes.spaceBtwItems),
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: '${'iAgreeTo'.tr} ',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    TextSpan(
-                      text: '${'privacyPolicy'.tr} ',
-                      style: Theme.of(context).textTheme.bodyMedium!.apply(
-                        color: dark ? TColors.white : TColors.primary,
-                        decoration: TextDecoration.underline,
-                        decorationColor: dark ? TColors.white : TColors.primary,
+              Expanded(
+                child: Text.rich(
+                  TextSpan(
+                    children: [
+                      TextSpan(
+                        text: '${'iAgreeTo'.tr} ',
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
-                    ),
-                    TextSpan(
-                      text: '${'and'.tr} ',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    TextSpan(
-                      text: '${'termsOfUse'.tr} ',
-                      style: Theme.of(context).textTheme.bodyMedium!.apply(
-                        overflow: TextOverflow.ellipsis,
-                        color: dark ? TColors.white : TColors.primary,
-                        decoration: TextDecoration.underline,
-                        decorationColor: dark ? TColors.white : TColors.primary,
+                      TextSpan(
+                        text: '${'privacyPolicy'.tr} ',
+                        style: Theme.of(context).textTheme.bodyMedium!.apply(
+                          color: dark ? TColors.white : TColors.primary,
+                          decoration: TextDecoration.underline,
+                          decorationColor: dark ? TColors.white : TColors.primary,
+                        ),
                       ),
-                    ),
-                  ],
+                      TextSpan(
+                        text: '${'and'.tr} ',
+                        style: Theme.of(context).textTheme.bodySmall,
+                      ),
+                      TextSpan(
+                        text: '${'termsOfUse'.tr} ',
+                        style: Theme.of(context).textTheme.bodyMedium!.apply(
+                          overflow: TextOverflow.ellipsis,
+                          color: dark ? TColors.white : TColors.primary,
+                          decoration: TextDecoration.underline,
+                          decorationColor: dark ? TColors.white : TColors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],
