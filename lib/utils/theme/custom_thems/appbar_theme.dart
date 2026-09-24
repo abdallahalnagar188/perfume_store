@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../constants/colors.dart';
 import '../../constants/sizes.dart';
@@ -13,6 +14,11 @@ class MyAppbarTheme{
     scrolledUnderElevation: 0,
     backgroundColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark, // Android: dark icons
+      statusBarBrightness: Brightness.light, // iOS: dark icons on light bg
+    ),
     iconTheme: IconThemeData(color: TColors.black, size: TSizes.iconMd),
     actionsIconTheme: IconThemeData(color: TColors.black, size: TSizes.iconMd),
     titleTextStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: TColors.black),
@@ -23,7 +29,12 @@ class MyAppbarTheme{
     scrolledUnderElevation: 0,
     backgroundColor: Colors.transparent,
     surfaceTintColor: Colors.transparent,
-    iconTheme: IconThemeData(color: TColors.black, size: TSizes.iconMd),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light, // Android: light icons
+      statusBarBrightness: Brightness.dark, // iOS: light icons on dark bg
+    ),
+    iconTheme: IconThemeData(color: TColors.white, size: TSizes.iconMd),
     actionsIconTheme: IconThemeData(color: TColors.white, size: TSizes.iconMd),
     titleTextStyle: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w600, color: TColors.white),
   );

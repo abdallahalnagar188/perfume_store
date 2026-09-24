@@ -95,7 +95,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/service.json
+    # Add assets/service.json locally (Firebase service account) — gitignored; do not commit.
+    # Then uncomment the line below to enable server-side FCM sends from the app.
     - assets/logos/
 #    - assets/icons/brands/
     - assets/images/content/

@@ -23,6 +23,15 @@ class AuthenticationRepo extends GetxController {
   final deviceStorage = GetStorage();
   final _auth = FirebaseAuth.instance;
 
+  /// iOS needs the iOS client ID; serverClientId (Web) is required for a Firebase idToken.
+  final GoogleSignIn _googleSignIn = GoogleSignIn(
+    clientId: defaultTargetPlatform == TargetPlatform.iOS
+        ? '499026946457-ahsk9nr49d7oea0q36cv4s08hl7v1isl.apps.googleusercontent.com'
+        : null,
+    serverClientId:
+        '499026946457-fg040retpqmq4eodph5qtk0r2hpacb40.apps.googleusercontent.com',
+  );
+
   /// Get Auth User data
   User? get authUser => _auth.currentUser;
 
@@ -143,7 +152,7 @@ class AuthenticationRepo extends GetxController {
       TLoggerHelper.logRequest(service: 'FirebaseAuth', operation: 'signInWithGoogle');
 
       // Trigger the Google Sign-In flow
-      final GoogleSignInAccount? userAccount = await GoogleSignIn().signIn();
+      final GoogleSignInAccount? userAccount = await _googleSignIn.signIn();
 
       if (userAccount == null) {
         throw 'sign_in_canceled';
@@ -166,15 +175,15 @@ class AuthenticationRepo extends GetxController {
       TLoggerHelper.logResponse(service: 'FirebaseAuth', operation: 'signInWithGoogle', duration: const Duration(milliseconds: 0), data: userCredential.user?.uid);
       return userCredential;
     } on FirebaseAuthException catch (e) {
-      await GoogleSignIn().signOut();
+      await _googleSignIn.signOut();
       TLoggerHelper.logError(service: 'FirebaseAuth', operation: 'signInWithGoogle', error: 'FirebaseAuthException: ${e.code} - ${e.message}');
       throw TFirebaseAuthException(e.code).message;
     } on PlatformException catch (e) {
-      await GoogleSignIn().signOut();
+      await _googleSignIn.signOut();
       TLoggerHelper.logError(service: 'GoogleSignIn', operation: 'signInWithGoogle', error: 'PlatformException: ${e.code} - ${e.message}');
       throw TPlatformException(e.code).message;
     } catch (e) {
-      await GoogleSignIn().signOut();
+      await _googleSignIn.signOut();
       TLoggerHelper.logError(service: 'GoogleSignIn', operation: 'signInWithGoogle', error: 'Unknown Error: $e');
       throw 'Something went wrong , Please try again';
     }
@@ -185,7 +194,7 @@ class AuthenticationRepo extends GetxController {
   /// Logout
   Future<void> logout() async {
     try {
-      await GoogleSignIn().signOut();
+      await _googleSignIn.signOut();
       await FirebaseAuth.instance.signOut();
       
       // Clear Cache (Local Storage)
