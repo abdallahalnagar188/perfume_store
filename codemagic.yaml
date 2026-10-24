@@ -1,0 +1,62 @@
+workflows:
+  ios-workflow:
+    name: iOS App Store & TestFlight
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: codemagic_api_key
+    environment:
+      flutter: 3.27.4     # Pinned stable Flutter version compatible with CocoaPods
+      xcode: latest
+      cocoapods: default
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.alnagar.perfumestore
+    scripts:
+      - name: Disable SPM & clean all caches
+        script: |
+          # Write the flutter config file directly
+          mkdir -p "$HOME/.config/flutter"
+          echo '{"enable-swift-package-manager": false}' > "$HOME/.config/flutter/settings.json"
+
+          # Also apply via CLI
+          flutter config --no-enable-swift-package-manager
+
+          # Confirm status
+          flutter config | grep swift || true
+
+          # Clean build artifacts
+          rm -rf ios/Flutter/ephemeral
+          rm -rf ios/Pods ios/Podfile.lock
+          rm -rf build
+
+      - name: Fetch signing files
+        script: |
+          app-store-connect fetch-signing-files "com.alnagar.perfumestore" --type IOS_APP_STORE --create
+          xcode-project use-profiles
+
+      - name: Get dependencies
+        script: |
+          flutter packages pub get
+
+      - name: Install CocoaPods
+        script: |
+          cd ios && pod install --repo-update && cd ..
+
+      - name: Build IPA Release
+        script: |
+          flutter build ipa --release --no-pub \
+            --export-options-plist=/Users/builder/export_options.plist
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+    publishing:
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
+      email:
+        recipients:
+          - bdallhmsd807@gmail.com
+        notify:
+          success: true
+          failure: true

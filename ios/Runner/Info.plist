@@ -56,6 +56,22 @@
 		<string>This app needs access to location to pick your address accurately.</string>
 		<key>NSLocationAlwaysUsageDescription</key>
 		<string>This app needs access to location when in the background.</string>
+		<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+		<string>This app needs access to location to pick and save your delivery address accurately.</string>
+		<key>NSCameraUsageDescription</key>
+		<string>This app requires access to the camera to take profile photos and product review pictures.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>This app requires access to your photo gallery to select profile photos and product review pictures.</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>This app needs permission to save images to your photo gallery.</string>
+		<key>LSApplicationQueriesSchemes</key>
+		<array>
+			<string>https</string>
+			<string>http</string>
+			<string>tel</string>
+			<string>mailto</string>
+			<string>sms</string>
+		</array>
 		<!-- Google Sign-In -->
 		<key>GIDClientID</key>
 		<string>499026946457-ahsk9nr49d7oea0q36cv4s08hl7v1isl.apps.googleusercontent.com</string>

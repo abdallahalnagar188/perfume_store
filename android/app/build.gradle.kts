@@ -9,7 +9,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.ecommerce_store"
+    namespace = "com.alnagar.perfumestore"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = "27.0.12077973" // ✅ use the highest NDK version required
 
@@ -24,7 +24,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.ecommerce_store"
+        applicationId = "com.alnagar.perfumestore"
         minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
