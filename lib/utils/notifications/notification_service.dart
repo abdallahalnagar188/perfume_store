@@ -41,7 +41,7 @@ class NotificationService {
     );
 
     await _localNotificationsPlugin.initialize(
-      settings: initSettings,
+      initSettings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
         _handleNotificationTap();
       },
@@ -133,10 +133,10 @@ class NotificationService {
 
     if (notification != null && android != null) {
       _localNotificationsPlugin.show(
-        id: notification.hashCode,
-        title: notification.title,
-        body: notification.body,
-        notificationDetails: NotificationDetails(
+        notification.hashCode,
+        notification.title,
+        notification.body,
+        NotificationDetails(
           android: AndroidNotificationDetails(
             channel.id,
             channel.name,

@@ -51,7 +51,9 @@
             android:value="high_importance_channel" />
         
         <!-- Google Maps API Key -->
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDqHIVmDFiVPbCMhSYHD7Qzz7grreCCDlM"/>
+        <meta-data 
+        android:name="com.google.android.geo.API_KEY" 
+        android:value="AIzaSyDqHIVmDFiVPbCMhSYHD7Qzz7grreCCDlM"/>
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and
