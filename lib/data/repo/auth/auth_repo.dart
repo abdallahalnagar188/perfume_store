@@ -9,6 +9,7 @@ import 'package:ecommerce_store/utils/exceptions/format_exceptions.dart';
 import 'package:ecommerce_store/utils/exceptions/platform_exceptions.dart';
 import 'package:ecommerce_store/utils/local_storage/storage_utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
