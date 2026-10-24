@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:ecommerce_store/data/repo/auth/auth_repo.dart';
 import 'package:ecommerce_store/data/repo/user/user_repo.dart';
 import 'package:ecommerce_store/features/auth/screens/signup/verfiy_email.dart';
