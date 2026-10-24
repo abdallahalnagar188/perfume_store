@@ -69,6 +69,8 @@ dependencies:
   supabase_flutter: ^2.15.0
   google_maps_flutter: ^2.14.0
   geolocator: ^14.0.2
+  glassmorphism: ^3.0.0
+  adaptive_theme: ^3.6.0
 
 
 dev_dependencies:
